@@ -11,6 +11,9 @@
 
     <title>Vokasi Studios</title>
 
+    <!-- Icon -->
+    <link rel="shortcut icon" href="<?php echo base_url('assets/img/icon.png')?>">
+
     <!-- Style goes here -->
     <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/AdminLTE.min.css'); ?>">
@@ -20,6 +23,9 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/css/font-awesome.min.css'); ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/ionicons.min.css'); ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/sweetalert2.min.css'); ?>">
+
+    <!-- Self made CSS -->
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css')?>">
 
     <!-- Plugin CSS -->
     <link rel="stylesheet" href="<?php echo base_url('plugins/iCheck/flat/_all.css') ;?>">

@@ -12,4 +12,5 @@ $white : #fff ;
 $black : #000 ;
 
 /*=============== STYLES ==============*/
-@import "_mixins" //mixins and some function usually needed
+@import "_mixins"; //mixins and some function usually needed
+@import "_reset";
