@@ -19,11 +19,16 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		// $this->load->view('welcome_message');
+		redirect('index.php/welcome/login') ;
 	}
 
 	public function login(){
 		$this->load->view('auth/login') ;
+	}
+
+	public function coba(){
+		$this->load->view('home') ;
 	}
 }
 
