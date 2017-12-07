@@ -22,7 +22,8 @@
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/vokasistudio/index.php/';
+
+$config['base_url'] = 'http://localhost/vokasistudio/';
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,7 @@ $config['index_page'] = '';
 |--------------------------------------------------------------------------
 |
 | This item determines which server global should be used to retrieve the
+
 | URI string.  The default setting of 'AUTO' works for most servers.
 | If your links do not seem to work, try one of the other delicious flavors:
 |
@@ -232,6 +234,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
+
 $config['encryption_key'] = 'vokasistudioencrypt';
 
 /*

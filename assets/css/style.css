@@ -306,4 +306,11 @@
 .pd-right-50 {
   padding-right: 50px; }
 
+html, body {
+  background: #f0f0f0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  top: 0; }
+
 /*# sourceMappingURL=style.css.map */
