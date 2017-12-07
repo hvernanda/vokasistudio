@@ -6,7 +6,10 @@
   23 November 2017
 */
 
-/*=============== COLORS ==============*/
+//=============== COLORS ==============//
 $mainBlue: #026AA7;
 $white : #fff ;
 $black : #000 ;
+
+/*=============== STYLES ==============*/
+@import "_mixins" //mixins and some function usually needed
