@@ -54,7 +54,7 @@ class user_authentication extends CI_Controller {
         $this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
         
         if ($this->form_validation->run() == FALSE) {
-            if(isset($this->session->userdata['logged_in'])){
+            if(isset($this->session->userdata['logged_in'])){   
                 //$this->load->view('dashboarde');
                 //return "DASHBOARD VIEW";
                 echo 'Test_dash';
