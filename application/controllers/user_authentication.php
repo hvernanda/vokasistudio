@@ -33,7 +33,7 @@ class user_authentication extends CI_Controller {
             var_dump('Manajer Vokasi');
             //redirect('homeClient');
         }else{
-        $this->load->view('login/v_login');
+        $this->load->view('auth/login');
         }
     }
         
@@ -72,6 +72,7 @@ class user_authentication extends CI_Controller {
             if ($result == TRUE) {
                 $email = $this->input->post('email');
                 $result = $this->user_login_model->read_user_information($email);
+                echo var_dump($result);
                 if ($result != false) {
                     $session_data = array(
                     'id_user' => $result[0]->id_user,
