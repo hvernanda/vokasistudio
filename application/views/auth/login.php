@@ -39,7 +39,7 @@
           <p class="login-box-msg">
             Masukkan email dan password
           </p>
-          <form action="" method="post">
+          <form action="<?php echo base_url() ?>user_authentication/user_login_process" method="post">
             <div class="form-group has-feedback">
               <input type="email" name="email" class="form-control" placeholder="Email" />
               <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

@@ -22,7 +22,10 @@
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/vokasistudio/';
+
+//$config['base_url'] = 'http://localhost/vokasistudio/';
+$config['base_url'] = 'http://'.$_SERVER['HTTP_HOST'].str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +45,7 @@ $config['index_page'] = '';
 |--------------------------------------------------------------------------
 |
 | This item determines which server global should be used to retrieve the
+
 | URI string.  The default setting of 'AUTO' works for most servers.
 | If your links do not seem to work, try one of the other delicious flavors:
 |
@@ -52,7 +56,7 @@ $config['index_page'] = '';
 | 'ORIG_PATH_INFO'	Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']	= 'AUTO';
+$config['uri_protocol']	= 'REQUEST_URI';
 
 /*
 |--------------------------------------------------------------------------
@@ -188,7 +192,7 @@ $config['directory_trigger']	= 'd'; // experimental not currently in use
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 4;
 
 /*
 |--------------------------------------------------------------------------
@@ -232,7 +236,8 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = 'HAVILGANTENG123';
+
+$config['encryption_key'] = 'vokasistudioencrypt';
 
 /*
 |--------------------------------------------------------------------------
