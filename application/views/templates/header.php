@@ -69,7 +69,7 @@
                 </li>
                 <li class="user-footer">
                   <div class="pull-left"><a href="#" class="btn btn-default btn-flat">Profile</a></div>
-                  <div class="pull-right"><a href="#" class="btn btn-default btn-flat">Log Out</a></div>
+                  <div class="pull-right"><a href="<?php echo base_url('/user_authentication/logout');?>" class="btn btn-default btn-flat">Log Out</a></div>
                 </li>
               </ul>
             </li>
@@ -88,7 +88,7 @@
         </div>
         <div class="pull-left info">
           <p>John Doe</p>
-          <a href="#">Staff</a>
+          <a href="#"><?php echo $this->session->userdata('logged_in')['user_role'] ;?></a>
         </div>
       </div>
 
@@ -115,9 +115,4 @@
 
   <!-- Main content -->
   <div class="content-wrapper">
-    <section class="content-header">
-      <h1>
-        Vokasi Studio Dashboard
-      </h1>
-    </section>
     <section class="content">

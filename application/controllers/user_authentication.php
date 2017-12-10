@@ -24,15 +24,15 @@ class user_authentication extends CI_Controller {
           //redirect('homeManajerVokasi');
           // ob_start();
           // $result = ob_get_contents();
-          redirect('dashboard/manajer') ;
+          redirect('manajer') ;
         } if ($user_data['id_user_role']=='2') {
-          redirect('dashboard/keuangan') ;
+          redirect('keuangan') ;
           //redirect('homeStaff');
         }elseif ($user_data['id_user_role']=='3') {
-          redirect('dashboard/staff') ;
+          redirect('staff') ;
           //redirect('homeStaffKeuangan');
         }elseif ($user_data['id_user_role']=='4') {
-          redirect('dashboard/client') ;
+          redirect('client') ;
           //redirect('homeClient');
         }else{
           $this->load->view('auth/login');
@@ -81,7 +81,8 @@ class user_authentication extends CI_Controller {
                     $session_data = array(
                     'id_user' => $result[0]->id_user,
                     'email' => $result[0]->email,
-                    'id_user_role' => $result[0]->id_user_role
+                    'id_user_role' => $result[0]->id_user_role,
+                    'user_role' => $result[0]->user_role
                     );
                     // Add user data in session
                     $this->session->set_userdata('logged_in', $session_data);

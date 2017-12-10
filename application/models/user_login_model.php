@@ -23,7 +23,7 @@ class user_login_model extends CI_Model {
     }
 
     public function read_user_information($email) {
-        $sql = "SELECT u.email,u.id_user,u.id_user_role FROM user u WHERE u.email=" . $this->db->escape($email);
+        $sql = "SELECT u.email,u.id_user,u.id_user_role,r.user_role FROM user u INNER JOIN user_role r ON u.id_user_role = r.id_user_role WHERE u.email=" . $this->db->escape($email);
         $query = $this->db->query($sql);
 
         if ($query->num_rows() == 1) {
