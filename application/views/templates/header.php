@@ -91,7 +91,7 @@
           <a href="#">Staff</a>
         </div>
       </div>
-      
+
       <form action="" method="post" class="sidebar-form">
         <div class="input-group">
           <input type="text" name="q" id="search" class="form-control" placeholder="Search..."/>
@@ -105,7 +105,7 @@
 
       <ul class="sidebar-menu tree" data-widget="tree">
         <li class="header">NAVIGATION</li>
-        <?php 
+        <?php
           $this->load->view('templates/sidebar-component') ;
         ?>
       </ul>
@@ -115,6 +115,9 @@
 
   <!-- Main content -->
   <div class="content-wrapper">
-    <main></main>
-  </div>
-  <!-- /Main Content -->
+    <section class="content-header">
+      <h1>
+        Vokasi Studio Dashboard
+      </h1>
+    </section>
+    <section class="content">

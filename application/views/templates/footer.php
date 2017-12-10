@@ -1,3 +1,10 @@
+    </section>
+  </div>
+  <!-- /Main Content -->
+
+  <footer class="main-footer">
+    <strong>Copyright © 2017 - Vokasi Studio.</strong> Template by AdminLTE.
+  </footer>
   </div>
   <!-- Script goes here -->
   <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.min.js') ;?>"></script>
