@@ -113,8 +113,8 @@ class user_authentication extends CI_Controller {
         $this->session->unset_userdata('logged_in', $sess_array);
         $data['message_display'] = 'Successfully Logout';
         //$this->load->view('login_form', $data);
-        // $this->load->view('auth/login',$data);
-        redirect('/') ;
+        $this->load->view('auth/login',$data);
+        redirect('/');
     }
 }
 
