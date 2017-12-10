@@ -64,7 +64,7 @@
                   <img src="<?php echo base_url('assets/img/icon.png') ;?>" alt="User Image" class="img-circle" />
                   <p>
                     John Doe
-                    <small>Staff Vokasi Studios</small>
+                    <small><?php echo $this->session->userdata('logged_in')['user_role'] ;?></small>
                   </p>
                 </li>
                 <li class="user-footer">
