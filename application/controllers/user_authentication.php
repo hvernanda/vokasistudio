@@ -19,19 +19,17 @@ class user_authentication extends CI_Controller {
     public function index() {
         $user_data = $this->session->userdata('logged_in');
         if ($user_data['id_user_role']=='1') {
-            //redirect('homeManajerVokasi');
-            ob_start();
-            var_dump('Manajer Vokasi');
-            $result = ob_get_contents();
+            //var_dump('Manajer Vokasi');
+            redirect('manager_vokasi/home');
         } if ($user_data['id_user_role']=='2') {
-            var_dump('Manajer Vokasi');
-            //redirect('homeStaff');
+            //var_dump('Manajer Vokasi');
+            redirect('staff/home');
         }elseif ($user_data['id_user_role']=='3') {
-            var_dump('Manajer Vokasi');
-            //redirect('homeStaffKeuangan');
+            //var_dump('Manajer Vokasi');
+            redirect('staff_keuangan/home');
         }elseif ($user_data['id_user_role']=='4') {
-            var_dump('Manajer Vokasi');
-            //redirect('homeClient');
+            //var_dump('Manajer Vokasi');
+            redirect('client/home');
         }else{
         $this->load->view('auth/login');
         }
@@ -54,15 +52,7 @@ class user_authentication extends CI_Controller {
         $this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
         
         if ($this->form_validation->run() == FALSE) {
-            if(isset($this->session->userdata['logged_in'])){   
-                //$this->load->view('dashboarde');
-                //return "DASHBOARD VIEW";
-                echo 'Test_dash';
-            } else {
-                //$this->load->view('view logine');
-                echo 'login_view';
-                //$this->load->view('login/v_login');
-            }
+            $this->load->view('auth/login');
         } else {
             $data = array(
                 'email' => $this->input->post('email'),
@@ -82,7 +72,16 @@ class user_authentication extends CI_Controller {
                     // Add user data in session
                     $this->session->set_userdata('logged_in', $session_data);
                     //$this->load->view('admin_page');
-                    echo 'Test';
+                    //echo 'Test';
+                    if ($result[0]->id_user_role==1){
+                        redirect('manager_vokasi/home');
+                    } else if($result[0]->id_user_role==2){
+                        redirect('staff_keuangan/home');
+                    } else if($result[0]->id_user_role==3){
+                        redirect('staff/home');
+                    } else if($result[0]->id_user_role==4){
+                        redirect('client/home');
+                    }
                 } else {
                     echo 'Test1';
                 }
@@ -107,7 +106,8 @@ class user_authentication extends CI_Controller {
         $this->session->unset_userdata('logged_in', $sess_array);
         $data['message_display'] = 'Successfully Logout';
         //$this->load->view('login_form', $data);
-        $this->load->view('login/v_login',$data);
+        $this->load->view('auth/login',$data);
+        redirect('/');
     }
 }
 
