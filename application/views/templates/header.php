@@ -69,7 +69,7 @@
                 </li>
                 <li class="user-footer">
                   <div class="pull-left"><a href="#" class="btn btn-default btn-flat">Profile</a></div>
-                  <div class="pull-right"><a href="#" class="btn btn-default btn-flat">Log Out</a></div>
+                  <div class="pull-right"><a href="<?php echo base_url('/user_authentication/logout');?>" class="btn btn-default btn-flat">Log Out</a></div>
                 </li>
               </ul>
             </li>
@@ -88,10 +88,10 @@
         </div>
         <div class="pull-left info">
           <p>John Doe</p>
-          <a href="#">Staff</a>
+          <a href="#"><?php echo $this->session->userdata('logged_in')['user_role'] ;?></a>
         </div>
       </div>
-      
+
       <form action="" method="post" class="sidebar-form">
         <div class="input-group">
           <input type="text" name="q" id="search" class="form-control" placeholder="Search..."/>
@@ -105,7 +105,7 @@
 
       <ul class="sidebar-menu tree" data-widget="tree">
         <li class="header">NAVIGATION</li>
-        <?php 
+        <?php
           $this->load->view('templates/sidebar-component') ;
         ?>
       </ul>
@@ -115,6 +115,4 @@
 
   <!-- Main content -->
   <div class="content-wrapper">
-    <main></main>
-  </div>
-  <!-- /Main Content -->
+    <section class="content">
