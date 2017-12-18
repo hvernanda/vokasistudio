@@ -34,3 +34,4 @@
   </div>
 </div>
 <h1>Dashboard Manajer Vokasi</h1>
+<?php echo var_dump($result) ;?>
