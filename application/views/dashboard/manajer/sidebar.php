@@ -13,12 +13,12 @@
   </a>
   <ul class="treeview-menu">
     <li>
-      <a href="#">
+      <a href="<?php echo base_url('manajer/all_proyek')?>">
         <i class="fa fa-circle"></i> Semua Proyek
       </a>
     </li>
     <li>
-      <a href="#">
+      <a href="<?php echo base_url('manajer/add_proyek') ;?>">
         <i class="fa fa-circle"></i> Tambah Proyek
       </a>
     </li>
@@ -39,8 +39,13 @@
   </a>
   <ul class="treeview-menu">
     <li>
-      <a href="#">
+      <a href="<?php echo base_url('manajer/all_staff') ?>">
         <i class="fa fa-circle"></i> Semua Staff
+      </a>
+    </li>
+    <li>
+      <a href="<?php echo base_url('manajer/add_staff') ;?>">
+        <i class="fa fa-circle"></i> Tambah Staff
       </a>
     </li>
     <li>
@@ -59,14 +64,30 @@
     </span>
   </a>
   <ul class="treeview-menu">
+
     <li>
-      <a href="#">
+      <a href="<?php echo base_url('manajer/all_company') ?>">
+      <!-- semua client adalah semua data company -->
         <i class="fa fa-circle"></i> Semua Client
       </a>
     </li>
     <li>
-      <a href="#">
+      <a href="<?php echo base_url('manajer/add_client_company') ?>">
+        <!-- Tambah Client adalah menambah data company -->
+        <i class="fa fa-circle"></i> Tambah Client
+      </a>
+    </li>
+    
+    <li>
+      <a href="<?php echo base_url('manajer/all_company_contact') ?>">
+        <!-- Semua data contact (user from company to login ) -->
         <i class="fa fa-circle"></i> Semua Kontak
+      </a>
+    </li>
+    <li>
+      <!-- Tambah  Kontak adalah menambah data contact or tambah user from company to login -->
+      <a href="<?php echo base_url('manajer/add_client') ;?>">
+        <i class="fa fa-circle"></i> Tambah Kontak
       </a>
     </li>
   </ul>
