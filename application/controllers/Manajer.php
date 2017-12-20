@@ -16,20 +16,10 @@ class Manajer extends CI_Controller {
   public function index(){
     $data = array(
       'page' => 'dashboard/manajer/index',
-
-      //'staff' => $this->m_kru->ambil_semua_user_staff(),
-      //'data' => $this->m_kru->ambil_done($email)
     ) ;
     $this->load->view('home', $data) ;
   }
 
-  /*
-  * Manage staff functions controller
-  * Create, Read, Update and Delete
-  * By Naqiya Zorahima
-  * 17 Dec 2017
-  */
-  // READ : read all staff data
   public function all_staff(){ 
     $data =  array(
       'page' => 'dashboard/manajer/all_staff',
@@ -91,13 +81,6 @@ class Manajer extends CI_Controller {
 
     $this->client_model->insert_client_company($nama, $email, $address, $phone);
   }
-
-  /*
-  * Manage client functions controller
-  * Create, Read, Update and Delete
-  * By Naqiya Zorahima
-  * 17 Dec 2017
-  */
   // READ : get all data of contact (user with id_user_role = 4)
   public function all_company_contact(){ 
     $data =  array(
@@ -125,12 +108,6 @@ class Manajer extends CI_Controller {
     $this->client_model->insert_client($nama, $email, $password);
   }
 
-  /*
-  * Manage proyek functions controller
-  * Create, Read, Update and Delete
-  * By Naqiya Zorahima
-  * 17 Dec 2017
-  */
   // READ : get all proyek data
   public function all_proyek(){ 
     $data =  array(
