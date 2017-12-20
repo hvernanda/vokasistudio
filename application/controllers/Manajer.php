@@ -11,8 +11,6 @@ class Manajer extends CI_Controller {
 
     if(!$this->user_login_model->checkLogged() || $this->session->userdata('logged_in')['id_user_role'] != '1')
       redirect('/') ;
->>>>>>> master
-
   }
 
   public function index(){
@@ -152,6 +150,4 @@ class Manajer extends CI_Controller {
 
     $this->load->view('home', $data) ;
   }
-
->>>>>>> master
 }
