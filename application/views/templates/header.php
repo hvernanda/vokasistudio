@@ -63,7 +63,7 @@
                 <li class="user-header">
                   <img src="<?php echo base_url('assets/img/icon.png') ;?>" alt="User Image" class="img-circle" />
                   <p>
-                    John Doe
+                    <?php echo $this->session->userdata('logged_in')['name'] ;?>
                     <small><?php echo $this->session->userdata('logged_in')['user_role'] ;?></small>
                   </p>
                 </li>
@@ -87,7 +87,7 @@
           <img id="sidebar-avatar" src="<?php echo base_url('assets/img/icon.png') ;?>" alt="User Image" class="img-circle" />
         </div>
         <div class="pull-left info">
-          <p>John Doe</p>
+          <p><?php echo $this->session->userdata('logged_in')['name']?></p>
           <a href="#"><?php echo $this->session->userdata('logged_in')['user_role'] ;?></a>
         </div>
       </div>
