@@ -24,7 +24,7 @@
             'status' => $status,
             'DP' => $downpayment,
             'id_contact' => $id_contact);
-        $input = $this->db-> insert('project', $data);
+        $input = $this->db->insert('project', $data);
     }
 }
 
