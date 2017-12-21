@@ -127,4 +127,18 @@ class Manajer extends CI_Controller {
 
     $this->load->view('home', $data) ;
   }
+
+  public function add_project_process(){
+    $nama = $this->input->post('nama');
+    $dealtime  = $this->input->post('dealtime');
+    $price = $this->input->post('price');
+    $deadline = $this->input->post('deadline');
+    $revisiondate = $this->input->post('revisiondate');
+    $status = $this->input->post('status'); 
+    $downpayment= $this->input->post('downpayment');
+    $id_contact= $this->input->post('id_contact');
+   
+    $this->project_model->insert_project($nama, $dealtime, $price, $deadline, $revisiondate, $status, $downpayment, $id_contact);
+   }
+
 }

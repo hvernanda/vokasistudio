@@ -2,6 +2,7 @@
 
  class project_model extends CI_Model
  {
+
     public function ambil_project()
     {
 		$this->db->select('project.*,company.name as name_company,contact.name as name_contact');
@@ -14,10 +15,7 @@
 		return $result;
     }
 
-public function insert_project($nama, $dealtime, $price, $deadline, $revisiondate, $status, $downpayment, $id_contact)
-    {
-       
-
+    public function insert_project($nama, $dealtime, $price, $deadline, $revisiondate, $status, $downpayment, $id_contact){
         $data = array(
             'name' => $nama,
             'dealtime' => $dealtime,
@@ -29,12 +27,7 @@ public function insert_project($nama, $dealtime, $price, $deadline, $revisiondat
             'id_contact' => $id_contact);
            
         $input = $this->db-> insert('project', $data);
-
     }
-
-
-
-
 }
 
 ?>
