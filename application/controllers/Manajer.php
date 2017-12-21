@@ -151,7 +151,7 @@ class Manajer extends CI_Controller {
             'id_contact' => $id_contact
           );
     
-    $this->project_model->insert_project($data);
+    $this->project_model->insert_project($nama, $dealtime, $price, $deadline, $revisionDeadline, $status, $downpayment,$id_contact);
     }
 
 }
