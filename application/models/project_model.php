@@ -14,20 +14,9 @@
 		return $result;
     }
 
-public function insert_project($nama, $dealtime, $price, $deadline, $revisiondate, $status, $downpayment, $id_contact)
+public function insert_project($data)
     {
-       
-
-        $data = array(
-            'name' => $nama,
-            'dealtime' => $dealtime,
-            'price' => $price,
-            'deadline' => $deadline,
-            'revisionDeadline' => $revisiondate,
-            'status' => $status,
-            'DP' => $downpayment,
-            'id_contact' => $id_contact);
-           
+                  
         $input = $this->db-> insert('project', $data);
 
     }
