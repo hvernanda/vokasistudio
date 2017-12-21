@@ -129,6 +129,7 @@ class Manajer extends CI_Controller {
 
     $this->load->view('home', $data) ;
   }
+
     public function add_proyek_process(){
     $nama = $this->input->post('nama');
     $dealtime = $this->input-> post('deadltime');
@@ -152,4 +153,5 @@ class Manajer extends CI_Controller {
     
     $this->project_model ->insert_project($data);
     }
+
 }
