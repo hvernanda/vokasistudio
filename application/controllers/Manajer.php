@@ -119,26 +119,39 @@ class Manajer extends CI_Controller {
   }
   // CREATE : add new proyek data
   public function add_proyek(){
+    $a = $this->db->query("SELECT id_contact,name from contact")->result();
     $data = array(
       'page' => 'dashboard/manajer/add_proyek',
       'error' => '',
-      'success' => ''
+      'success' => '',
+      'daftar' => $a
     ) ;
 
     $this->load->view('home', $data) ;
   }
 
-  public function add_project_process(){
+    public function add_proyek_process(){
     $nama = $this->input->post('nama');
-    $dealtime  = $this->input->post('dealtime');
+    $dealtime = $this->input-> post('deadltime');
     $price = $this->input->post('price');
-    $deadline = $this->input->post('deadline');
-    $revisiondate = $this->input->post('revisiondate');
-    $status = $this->input->post('status'); 
-    $downpayment= $this->input->post('downpayment');
-    $id_contact= $this->input->post('id_contact');
-   
-    $this->project_model->insert_project($nama, $dealtime, $price, $deadline, $revisiondate, $status, $downpayment, $id_contact);
-   }
+    $deadline  = $this->input->post('deadline');
+    $revisionDeadline  =$this->input->post('revisiondate');
+    $status = $this->input->post('status');
+    $downpayment  = $this->input->post('downpayment');
+    $id_contact = $this->input ->post('id_contact');
+           
+    $data = array(
+            'name' => $nama,
+            'dealtime' => $dealtime,
+            'price' => $price,
+            'deadline' => $deadline,
+            'revisionDeadline' => $revisionDeadline,
+            'status' => $status,
+            'DP' => $downpayment,
+            'id_contact' => $id_contact
+          );
+    
+    $this->project_model ->insert_project($data);
+    }
 
 }
