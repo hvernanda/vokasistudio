@@ -1,6 +1,6 @@
 
-<? var_dump($data)?>
 <h1>Add proyek page</h1>
+
 
 <?php echo form_open_multipart (base_url()."manajer/add_proyek_process") ?>
 
@@ -66,4 +66,8 @@
 
     <input type="submit" class="btn btn-primary" name="submit" id="submit" value="Simpan" onClick="return confirm('Apakah anda yakin data yang anda isikan sudah benar dan sesuai?\nData yang disimpan sudah tidak dapat diubah lagi.')">
     <?php echo form_close()?>
+
 </form>
+
+
+
