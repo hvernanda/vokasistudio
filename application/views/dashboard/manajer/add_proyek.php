@@ -36,7 +36,7 @@
      <div class="form-group">
         <label> Status</label>
         <select class="form-control" name="status" id="status"  required">
-            <option value="on_prosess"> ON PROSESS</option>
+            <option value="on_process"> ON PROSESS</option>
             <option value="done"> DONE </option>
             <option value="canceled"> CANCELED</option>
         </select>
