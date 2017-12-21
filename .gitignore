@@ -16,3 +16,4 @@ application/logs/*
 
 /node_modules/
 
+.vscode/
