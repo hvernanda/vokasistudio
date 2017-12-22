@@ -1,7 +1,3 @@
-<?php
-    print_r($result);
-    
-?>
 <h1> SEMUA DATA STAFF </h1>
 
 <div class="col-lg-12">
