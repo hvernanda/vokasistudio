@@ -85,7 +85,7 @@ class Manajer extends CI_Controller {
   // READ : get all data of contact (user with id_user_role = 4)
   public function all_company_contact(){ 
     $data =  array(
-      'page' => 'dashboard/manajer/all_company',
+      'page' => 'dashboard/manajer/all_company_contact',
       'result' => $this->client_model->ambil_user(),
     );
     $this->load->view('home',$data);

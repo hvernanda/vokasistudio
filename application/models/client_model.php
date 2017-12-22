@@ -25,9 +25,12 @@
     }
     public function ambil_user()
     {
-        $this->db->select('*');
-        $this->db->from('user');
-         $this->db->where('id_user_role', '4');
+        $this->db->select('user.email AS email, contact.name AS nama, contact.phone, company.name AS company, project.name AS nampro, project.status');
+        $this->db->from('company');
+        $this->db->join('contact','contact.id_company = company.id_company');
+        $this->db->join('user','contact.id_user= user.id_user');
+        $this->db->join('project','project.id_contact= contact.id_contact');
+         //$this->db->where('id_user_role', '4');
         $query = $this->db->get();
         $result = $query->result();
         return $result;
