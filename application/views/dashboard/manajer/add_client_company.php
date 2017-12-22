@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label> Address </label>
-                <input class="form-control" name="Address" id="Address" value="<?php echo set_value('Address');?>" required>
+                <input class="form-control" name="address" id="address" value="<?php echo set_value('Address');?>" required>
             </div>
 
             <input type="submit" class="btn btn-primary" name="submit" id="submit" value="Simpan" onClick="return confirm('Apakah anda yakin data yang anda isikan sudah benar dan sesuai?\nData yang disimpan sudah tidak dapat diubah lagi.')">
