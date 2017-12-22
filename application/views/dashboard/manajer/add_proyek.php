@@ -63,7 +63,6 @@
         </select>
     </div>
 
-
     <input type="submit" class="btn btn-primary" name="submit" id="submit" value="Simpan" onClick="return confirm('Apakah anda yakin data yang anda isikan sudah benar dan sesuai?\nData yang disimpan sudah tidak dapat diubah lagi.')">
     <?php echo form_close()?>
 </form>
