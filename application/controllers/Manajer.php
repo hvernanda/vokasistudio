@@ -151,7 +151,17 @@ class Manajer extends CI_Controller {
             'id_contact' => $id_contact
           );
     
-    $this->project_model ->insert_project($data);
+    $this->project_model->insert_project($nama, $dealtime, $price, $deadline, $revisionDeadline, $status, $downpayment,$id_contact);
     }
+    // READ : get all proyek data
+  public function all_proyek_penawaran(){ 
+    $data =  array(
+      'page' => 'dashboard/manajer/all_proyek_penawaran',
+      'result' => $this->project_model->ambil_project_penawaran(),
+    );
+
+    $this->load->view('home',$data);
+  }
+
 
 }

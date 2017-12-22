@@ -1,8 +1,7 @@
-<h1> SEMUA DATA STAFF </h1>
-
 <div class="col-lg-12">
 <div class="panel panel-default">
 <div class="panel-heading">
+<b> DATA  PENAWARAN PROYEK VOKASI STUDIO </b>
 </div>
 <!-- /.panel-heading -->
 <div class="panel-body">
@@ -11,27 +10,27 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama</th>
-                    <th> Alamat </th>
-                    <th>No.HP </th>
+                    <th>Nama Proyek</th>
+                    <th> Kontak Perusahan </th>
+                    <th> Nama Perusahaan </th>
                     <th> Status </th>
                 </tr>
             </thead>
             <tbody>
             	  <?php
                         $i=0;
-                        foreach($result as $staff){
-                            if($staff->id_staff){  
+                        foreach($result as $proyek){
+                            if($proyek->id_project){  
                                 $i++;         
                                 ?>
             	
 	
                 <tr>
                     <td><?php echo $i ?> </td>
-                    <td><?php echo $staff->name ?> </td>
-                    <td><?php echo $staff->address ?> </td>
-                    <td><?php echo $staff->phone ?> </td>
-                    <td><?php echo $staff->status_account ?> </td>
+                    <td><?php echo $proyek->name ?> </td>
+                    <td><?php echo $proyek->name_contact ?> </td>
+                    <td><?php echo $proyek->name_company ?> </td>
+                    <td><?php echo $proyek->status ?> </td>
                 </tr>
                
                    <?php 
