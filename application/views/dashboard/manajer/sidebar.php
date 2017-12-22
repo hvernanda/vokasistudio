@@ -23,7 +23,7 @@
       </a>
     </li>
     <li>
-      <a href="#">
+      <a href="<?php echo base_url('manajer/all_proyek_penawaran') ;?>">
         <i class="fa fa-circle"></i> Penawaran Proyek
       </a>
     </li>
