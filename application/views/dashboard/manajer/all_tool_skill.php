@@ -1,4 +1,5 @@
-<h1> SEMUA DATA COMPANY </h1>
+<h1> SEMUA DATA STAFF </h1>
+
 <div class="col-lg-12">
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -10,27 +11,24 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama</th>
-                    <th> Phone </th>
-                    <th> Email </th>
-                    <th> Alamat </th>
+                    <th> Skill </th>
+                    <th> Tools </th>
                 </tr>
             </thead>
             <tbody>
             	  <?php
                         $i=0;
-                        foreach($result as $company){
-                            if($company->id_company){  
+                        foreach($result as $ts){
+                            if($ts->id_toolskill){  
                                 $i++;         
                                 ?>
             	
 	
                 <tr>
                     <td><?php echo $i ?> </td>
-                    <td><?php echo $company->name ?> </td>
-                    <td><?php echo $company->phone ?> </td>
-                    <td><?php echo $company->email ?> </td>
-                    <td><?php echo $company->address ?> </td>
+                    <td><?php echo $ts->skill_name ?> </td>
+                    <td><?php echo $ts->tool_name ?> </td>
+                    
                 </tr>
                
                    <?php 

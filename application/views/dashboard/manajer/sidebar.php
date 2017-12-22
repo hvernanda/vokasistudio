@@ -49,7 +49,7 @@
       </a>
     </li>
     <li>
-      <a href="#">
+      <a href="<?php echo base_url('manajer/all_tool_skill') ;?>">
         <i class="fa fa-circle"></i> Skill & Tools
       </a>
     </li>

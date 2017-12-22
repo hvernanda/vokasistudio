@@ -25,6 +25,18 @@
         $input = $this->db-> insert('user', $data);
 
     }
+    public function ambil_tool_skill()
+    {
+      $this->db->select('*');
+      $this->db->from('toolskill');
+      $this->db->join('tool','tool.id_tool = toolskill.id_tool');
+      $this->db->join('skill','skill.id_skill = toolskill.id_skill');
+		// $this->db->where('id_staff');
+		$query = $this->db->get();
+		$result = $query->result();
+		return $result;
+
+    }
 
 
 }
