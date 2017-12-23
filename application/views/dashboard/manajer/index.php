@@ -6,7 +6,7 @@
       </span>
       <div class="info-box-content">
         <span class="info-box-text">Proyek Dikerjakan</span>
-        <span class="info-box-number">90</span>
+        <span class="info-box-number"><?php echo sizeof($project) ;?></span>
       </div>
     </div>
   </div>
@@ -17,7 +17,7 @@
       </span>
       <div class="info-box-content">
         <span class="info-box-text">Jumlah Klien</span>
-        <span class="info-box-number">90</span>
+        <span class="info-box-number"><?php echo sizeof($client) ;?></span>
       </div>
     </div>
   </div>
@@ -28,10 +28,8 @@
       </span>
       <div class="info-box-content">
         <span class="info-box-text">Jumlah Staff</span>
-        <span class="info-box-number">90</span>
+        <span class="info-box-number"><?php echo sizeof($staff) ;?></span>
       </div>
     </div>
   </div>
 </div>
-<h1>Dashboard Manajer Vokasi</h1>
-<?php echo var_dump($result) ;?>

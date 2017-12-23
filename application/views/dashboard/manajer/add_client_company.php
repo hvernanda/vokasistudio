@@ -1,8 +1,8 @@
-<h1>Add Client Company</h1>
+<h1 class="text-center">Add Client Company</h1>
 
 <div id="notifications"><?php echo $this->session->flashdata('msg'); ?></div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4 col-md-offset-4">
         <form role="form" method="post" name="submit" action="<?php echo base_url ('manajer/add_client_company_process')?>">
             <div class="form-group">
                 <label> Nama </label>

@@ -8,6 +8,7 @@ class Manajer extends CI_Controller {
     $this->load->model('staff_model');
     $this->load->model('client_model');
     $this->load->model('project_model');
+    $this->load->model('general_model');
 
     if(!$this->user_login_model->checkLogged() || $this->session->userdata('logged_in')['id_user_role'] != '1')
       redirect('/') ;
@@ -16,6 +17,9 @@ class Manajer extends CI_Controller {
   public function index(){
     $data = array(
       'page' => 'dashboard/manajer/index',
+      'client' => $this->client_model->ambil_company(),
+      'staff' => $this->staff_model->ambil_user(),
+      'project' => $this->project_model->ambil_project()
     ) ;
     $this->load->view('home', $data) ;
   }
@@ -114,6 +118,7 @@ class Manajer extends CI_Controller {
     $data =  array(
       'page' => 'dashboard/manajer/all_proyek',
       'result' => $this->project_model->ambil_project(),
+      'general' => $this->general_model
     );
 
     $this->load->view('home',$data);
