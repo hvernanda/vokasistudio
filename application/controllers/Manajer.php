@@ -75,16 +75,17 @@ class Manajer extends CI_Controller {
   // Add new company data form handler
   public function add_client_company_process(){
     $nama = $this->input->post('nama');
+    $phone= $this->input->post('phone');
     $email = $this->input->post('email');
     $address= $this->input->post('address');
-    $phone= $this->input->post('phone');
+    
 
-    $this->client_model->insert_client_company($nama, $email, $address, $phone);
+    $this->client_model->insert_client_company($nama, $phone, $email, $address);
   }
   // READ : get all data of contact (user with id_user_role = 4)
   public function all_company_contact(){ 
     $data =  array(
-      'page' => 'dashboard/manajer/all_company',
+      'page' => 'dashboard/manajer/all_company_contact',
       'result' => $this->client_model->ambil_user(),
     );
     $this->load->view('home',$data);
