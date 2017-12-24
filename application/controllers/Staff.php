@@ -5,6 +5,7 @@ class Staff extends CI_Controller {
   public function __construct(){
     parent::__construct();
     $this->load->model('user_login_model') ;
+    $this->load->model('staff_model');
 
     if(!$this->user_login_model->checkLogged() || $this->session->userdata('logged_in')['id_user_role'] != '3')
       redirect('/') ;
@@ -12,9 +13,9 @@ class Staff extends CI_Controller {
 
   public function index(){
     $session_data = $this->session->userdata('logged_in');  
-    $session_data['id_staff'] = $this->staff_model->getStaffId($session_data['id_user']);  
+    $id_user=$session_data['id_user'];
+    $session_data['id_staff'] = $this->staff_model->getStaffId($id_user);  
     
-
     $this->session->set_userdata('logged_in', $session_data);
 
     $data = array(

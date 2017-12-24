@@ -24,6 +24,7 @@ class keuangan_proyek_model extends CI_Model {
 	public function viewAllStaff(){
 		$this->db->select('*');
 		$this->db->from('staff');
+		$query = $this->db->get();
 
 		if ($query->num_rows() == 1) {
             return $query->result;

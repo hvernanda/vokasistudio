@@ -3,6 +3,8 @@
 class Manajer_proyek extends CI_Controller {
   public function __construct(){
     parent::__construct() ;
+
+    $this->load->model('manajer_proyek_model');
   }
 
   public function index(){
