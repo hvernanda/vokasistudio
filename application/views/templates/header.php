@@ -56,7 +56,7 @@
             <li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="<?php echo base_url('assets/img/icon.png') ;?>" alt="User Image" class="user-image" />
-                <span class="hidden-xs">John Doe</span>
+                <span class="hidden-xs"><?php echo $this->session->userdata('logged_in')['name'] ;?></span>
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
