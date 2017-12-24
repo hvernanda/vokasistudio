@@ -56,11 +56,50 @@
               <th>Manajer Proyek</th>
               <th>Progress</th>
               <th>Status</th>
+              <?php 
+                $id_role = $this->session->userdata('logged_in')['id_user_role'] ;
+                if($id_role == '1'){
+              ?>
               <th>Aksi</th>
+              <?php } ?>
             </tr>
           </thead>
           <tbody>
-
+          <?php
+            $i = 0 ;
+            foreach($projects as $project){
+              $i++
+          ?>
+            <tr>
+              <td><?php echo $i ;?></td>
+              <td><?php echo $project->name ;?></td>
+              <td><?php echo "NULL" ;?></td>
+              <td>
+                <div class="clearfix"><span class="small pull-right">90%</span></div>
+                <div class="progress xs">
+                    <div class="progress-bar progress-bar-green" style="width:90%"></div>
+                </div>
+              </td>
+              <td>
+                <?php 
+                  if($project->status == 'on_process')
+                    echo '<span class="label label-warning">On Process</span>' ;
+                  elseif($project->status == 'done')
+                    echo '<span class="label label-success">Finished</span>' ;
+                  else
+                    echo '<span class="label label-danger">Canceled</span>' ;
+                ?>
+              </td>
+              <td>
+              <?php if($id_role == '1'){?>
+                <a href="#" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> Detail</a>
+                <a href="#" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i> Edit</a>
+              <?php } ?>
+              </td>
+            </tr>
+          <?php
+            }
+          ?>
           </tbody>
         </table>
       </div>
