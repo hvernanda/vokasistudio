@@ -38,7 +38,7 @@ class user_login_model extends CI_Model {
         $query = $this->db->query($sql) ;
 
         if($query->num_rows() == 1) 
-            return true ;
+            return $query->result() ;
         else 
             return false ;
     }

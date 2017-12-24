@@ -1,3 +1,3 @@
 <section class="content-header">
-  <h1>User Profile</h1>
+  <h1>Company Profile</h1>
 </section>

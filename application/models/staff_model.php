@@ -5,7 +5,7 @@
 
     public function ambil_user()
     {
-      $this->db->select('user.name, user.email, user_role.user_role, staff.address, staff.phone, staff.status_account, staff.photo');
+      $this->db->select('user.id_user, user.name, user.email, user_role.user_role, staff.address, staff.phone, staff.status_account, staff.photo');
       $this->db->from('user');
       $this->db->join('user_role ', 'user.id_user_role = user_role.id_user_role');
       $this->db->join('staff', 'user.id_user = staff.id_user') ;
@@ -15,7 +15,7 @@
     }
 
     public function ambil_user_id($id){
-      $this->db->select('user.name, user.email, user_role.user_role, staff.address, staff.phone, staff.status_account, staff.photo');
+      $this->db->select('user.id_user, user.name, user.email, user_role.user_role, staff.address, staff.phone, staff.status_account, staff.photo');
       $this->db->from('user');
       $this->db->join('user_role ', 'user.id_user_role = user_role.id_user_role');
       $this->db->join('staff', 'user.id_user = staff.id_user') ;

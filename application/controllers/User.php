@@ -5,6 +5,8 @@
     public function __construct(){
       parent::__construct();
       $this->load->model('user_login_model') ;
+      $this->load->model('staff_model') ;
+      $this->load->model('client_model') ;
     }
 
     public function index(){
@@ -16,13 +18,14 @@
 
     public function profile($id){
       // redirect if there is no session or no user data
-      if(!$this->user_login_model->checkLogged()) redirect('/') ;
-      elseif(!$this->user_login_model->isUser($id)) 
+      $isUser = $this->user_login_model->isUser($id) ;
+      if($this->user_login_model->checkLogged() == false) redirect('/') ;
+      elseif($isUser == false) 
         redirect('/user/profile/'.$this->session->userdata('logged_in')['id_user']) ;
 
       $data = array(
-        'page' => 'dashboard/general/profile',
-        'result' => ''
+        'page' => intval($isUser[0]->id_user_role) == 4 ? 'dashboard/client/profile_contact' : 'dashboard/staff/profile',
+        'result' => intval($isUser[0]->id_user_role) == 4 ? $this->client_model->ambil_user_id($id) : $this->staff_model->ambil_user_id($id),
       ) ;
 
       $this->load->view('home', $data) ;

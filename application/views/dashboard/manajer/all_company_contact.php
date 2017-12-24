@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="user-card-footer text-center">
-                    <a href="#" class="btn btn-info btn-sm">View Detail</a>
+                    <a href="<?php echo base_url('/user/profile/'.$contact->id_user) ;?>" class="btn btn-info btn-sm">View Detail</a>
                 </div>
             </div>
         </div>

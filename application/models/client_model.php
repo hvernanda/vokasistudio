@@ -25,7 +25,7 @@
     }
     public function ambil_user()
     {
-        $this->db->select('user.email AS email, contact.name AS nama, contact.phone, company.name AS company');
+        $this->db->select('user.id_user, user.email AS email, user.name AS nama, contact.phone, company.name AS company');
         $this->db->from('company');
         $this->db->join('contact','contact.id_company = company.id_company');
         $this->db->join('user','contact.id_user= user.id_user');
@@ -37,11 +37,11 @@
 
     public function ambil_user_id($id)
     {
-        $this->db->select('user.email AS email, contact.name AS nama, contact.phone, company.name AS company');
+        $this->db->select('user.id_user, user.email AS email, user.name AS nama, contact.phone, company.name AS company');
         $this->db->from('company');
         $this->db->join('contact','contact.id_company = company.id_company');
         $this->db->join('user','contact.id_user= user.id_user');
-        // $this->db->join('project','project.id_contact= contact.id_contact');
+        $this->db->join('project','project.id_contact= contact.id_contact');
         $this->db->where('user.id_user', $id) ;
         $query = $this->db->get();
         $result = $query->result();
