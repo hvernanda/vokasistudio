@@ -11,14 +11,11 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Proyek</th>
-                                <th> Tanggal terima </th>
-                                <th>Harga </th>
-                                <th> Batas Waktu </th>
-                                <th> Tanggal Revisi</th>
-                                <th> Status </th>
-                                <th> Uang Muka </th>
-                                <th> Kontak Perusahan </th>
-                                <th> Nama Perusahaan </th>
+                                <th>Manajer Proyek</th>
+                                <th>Nama Perusahaan</th>
+                                <th>Kontak</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,14 +30,21 @@
                             <tr>
                                 <td><?php echo $i ?> </td>
                                 <td><?php echo $proyek->name ?> </td>
-                                <td><?php echo $general->convertDate($proyek->dealTime); ?> </td>
-                                <td><?php echo 'Rp'.number_format($proyek->price, 2, ',', '.') ?> </td>
-                                <td><?php echo $general->convertDate($proyek->deadline) ?> </td>
-                                <td><?php echo $general->convertDate($proyek->revisionDeadline) ?> </td>
-                                <td><?php echo $proyek->status ?> </td>
-                                <td><?php echo 'Rp'.number_format($proyek->DP, 2, ',', '.') ?> </td>
-                                <td><?php echo $proyek->name_contact ?> </td>
+                                <td><?php echo "NULL" ?> </td>
                                 <td><?php echo $proyek->name_company ?> </td>
+                                <td><?php echo $proyek->name_contact ?> </td>
+                                <td><?php 
+                                    if($proyek->status == 'on_process')
+                                        echo '<span class="label label-warning">On Process</span>' ;
+                                    elseif($proyek->status == 'done')
+                                        echo '<span class="label label-success">Finished</span>' ;
+                                    else
+                                        echo '<span class="label label-danger">Canceled</span>' ;
+                                ?></td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-info"><i class="fa fa-eye"></i> View</a>
+                                    <a href="#" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</a>
+                                </td>
                             </tr>
                         
                             <?php 
