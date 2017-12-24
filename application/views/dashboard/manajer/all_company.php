@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="user-card-footer text-center">
-                    <a href="#" class="btn btn-info">View Company</a>
+                    <a href="<?php echo base_url('/company/detail/'.$company->id_company) ;?>" class="btn btn-info">View Company</a>
                 </div>
             </div>
         </div>

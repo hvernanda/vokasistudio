@@ -2,18 +2,6 @@
 
  class client_model extends CI_Model
  {
- /*	public function cek_login($data) 
- 	{
-		$query = $this->db->get_where('staff', $data);
-		return $query;
- 	}
-
-	public function cek_email($kode)
-    {
-        $this->db->where('email',$kode);
-        $query=$this->db->get('staff');
-        return $query;
-    }*/
     public function ambil_company()
     {
 		$this->db->select('*');
@@ -23,6 +11,29 @@
 		$result = $query->result();
 		return $result;
     }
+    
+    public function ambil_company_id($id)
+    {
+		$this->db->select('*');
+		$this->db->from('company');
+        // $this->db->where('id_staff');
+        $this->db->where('id_company', $id) ;
+		$query = $this->db->get();
+		$result = $query->result();
+		return $result;
+    }
+
+    public function isCompany($id){
+        $sql = "SELECT * FROM company WHERE `id_company` = ".$id ;
+        $query = $this->db->query($sql) ;
+
+        if($query->num_rows() == 1){
+            return $query->result() ;
+        }else{
+            return false ;
+        }
+    }
+    
     public function ambil_user()
     {
         $this->db->select('user.id_user, user.email AS email, user.name AS nama, contact.phone, company.name AS company');
@@ -61,8 +72,6 @@
 
     public function insert_client_company($nama,$phone, $email, $address)
     {
-       
-
         $data = array(
             'name' => $nama,
             'phone' => $phone,
@@ -70,7 +79,6 @@
             'address' => $address
              );
         $input = $this->db-> insert('company', $data);
-
     }
 }
 

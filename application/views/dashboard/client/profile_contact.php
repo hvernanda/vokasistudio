@@ -38,6 +38,7 @@
 
   <div class="col-md-9">
     <h4>Projects Involved</h4>
+    <p>All projects the contact involved in</p>
     <div class="box box-primary">
       <div class="row">
         <div class="col-md-12">

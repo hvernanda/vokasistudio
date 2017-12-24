@@ -62,6 +62,7 @@
   </div>
   <div class="col-md-9">
     <h4>Projects Involved</h4>
+    <p>All projects the staff involved inside</p>
     <div class="box box-primary">
       <h1>Detail user profile here</h1>
     </div>
