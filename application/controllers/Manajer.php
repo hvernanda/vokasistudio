@@ -113,10 +113,19 @@ class Manajer extends CI_Controller {
     $this->client_model->insert_client($nama, $email, $password);
   }
 
-  // READ : get all proyek data
+  // READ : get all proyek data 
   public function all_proyek(){ 
     $data =  array(
       'page' => 'dashboard/manajer/all_proyek',
+      'result' => $this->project_model->ambil_project(),
+      'general' => $this->general_model
+    );
+
+    $this->load->view('home',$data);
+  }
+  public function all_proyek_detail(){ 
+    $data =  array(
+      'page' => 'dashboard/manajer/all_proyek_detail',
       'result' => $this->project_model->ambil_project(),
       'general' => $this->general_model
     );

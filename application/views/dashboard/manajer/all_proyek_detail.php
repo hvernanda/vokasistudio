@@ -10,13 +10,15 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>id_project </th>
                                 <th>Nama Proyek</th>
-                                <th> Manajer Proyek </th>
+                                <th> Tanggal terima </th>
+                                <th>Harga </th>
+                                <th> Batas Waktu </th>
+                                <th> Tanggal Revisi</th>
                                 <th> Status </th>
+                                <th> Uang Muka </th>
                                 <th> Kontak Perusahan </th>
                                 <th> Nama Perusahaan </th>
-                                <th> Action </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,13 +32,15 @@
                 
                             <tr>
                                 <td><?php echo $i ?> </td>
-                                <td><?php echo $proyek->id_project ?> </td>
                                 <td><?php echo $proyek->name ?> </td>
-                                <td>  </td>
+                                <td><?php echo $general->convertDate($proyek->dealTime); ?> </td>
+                                <td><?php echo 'Rp'.number_format($proyek->price, 2, ',', '.') ?> </td>
+                                <td><?php echo $general->convertDate($proyek->deadline) ?> </td>
+                                <td><?php echo $general->convertDate($proyek->revisionDeadline) ?> </td>
                                 <td><?php echo $proyek->status ?> </td>
+                                <td><?php echo 'Rp'.number_format($proyek->DP, 2, ',', '.') ?> </td>
                                 <td><?php echo $proyek->name_contact ?> </td>
                                 <td><?php echo $proyek->name_company ?> </td>
-                                <td> </td>
                             </tr>
                         
                             <?php 
