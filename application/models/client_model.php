@@ -90,6 +90,12 @@
              );
         $input = $this->db-> insert('company', $data);
     }
+
+    public function update_company($data){
+        $this->db->where('id_company = '.$data['id_company']) ;
+        $query = $this->db->update('company', $data) ;
+        return $query ;
+    }
 }
 
 ?>

@@ -110,37 +110,45 @@
         <h3 class="box-title">Company Setting</h3>
       </div>
       <div class="box-body">
+        <?php if(validation_errors()){?>
+        <div class="alert alert-danger alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+
+          <h4><i class="fa fa-ban"></i> Caution</h4>
+          <?php echo validation_errors() ;?>
+        </div>
+        <?php } ?>
         <div class="row">
           <div class="col-md-10">
-          <form action="" method="post" class="form-horizontal">
-
+          <form action="<?php echo base_url('/company/edit/') ;?>" method="post" class="form-horizontal">
             <div class="form-group">
               <label for="name" class="col-sm-2 control-label">Name</label>
               <div class="col-md-9">
-                <input type="text" id="name" class="form-control" placeholder="Company Name" value="<?php echo $result[0]->name ;?>" />
+                <input type="text" id="name" name="name" class="form-control" placeholder="Company Name" value="<?php echo $result[0]->name ;?>" />
               </div>
             </div>
             <div class="form-group">
               <label for="email" class="col-sm-2 control-label">Email</label>
               <div class="col-md-9">
-                <input type="email" id="email" class="form-control" placeholder="Email Address" value="<?php echo $result[0]->email ;?>" />
+                <input type="email" id="email" name="email" class="form-control" placeholder="Email Address" value="<?php echo $result[0]->email ;?>" />
               </div>
             </div>
             <div class="form-group">
               <label for="phone" class="col-sm-2 control-label">Phone</label>
               <div class="col-md-9">
-                <input type="text" id="phone" class="form-control" placeholder="Phone Number" value="<?php echo $result[0]->phone ;?>" />
+                <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone Number" value="<?php echo $result[0]->phone ;?>" />
               </div>
             </div>
             <div class="form-group">
               <label for="address" class="col-sm-2 control-label">Address</label>
               <div class="col-md-9">
-                <textarea id="address" class="form-control" rows="5" placeholder="Address"><?php echo $result[0]->address ; ?></textarea>
+                <textarea id="address" name="address" class="form-control" rows="5" placeholder="Address"><?php echo $result[0]->address ; ?></textarea>
               </div>
             </div>
             <div class="form-group">
               <div class="col-md-9 col-md-offset-2">
-                <input type="submit" value="Edit Data" class="btn btn-success btn-sm" />
+                <input type="hidden" name="id_company" value="<?php echo $result[0]->id_company?>" />
+                <input type="submit" name="submit" value="Edit Data" class="btn btn-success btn-sm" />
               </div>
             </div>
 
