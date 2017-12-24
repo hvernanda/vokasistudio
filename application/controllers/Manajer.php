@@ -136,7 +136,7 @@ class Manajer extends CI_Controller {
     $this->load->view('home', $data) ;
   }
 
-    public function add_proyek_process(){
+  public function add_proyek_process(){
     $nama = $this->input->post('nama');
     $dealtime = $this->input-> post('deadltime');
     $price = $this->input->post('price');
