@@ -33,7 +33,7 @@
             return false ;
         }
     }
-    
+
     public function ambil_user()
     {
         $this->db->select('user.id_user, user.email AS email, user.name AS nama, contact.phone, company.name AS company');
@@ -57,6 +57,16 @@
         $query = $this->db->get();
         $result = $query->result();
         return $result;
+    }
+
+    public function ambil_user_company($id_company){
+        $this->db->select('user.id_user, user.email as email, user.name as name, contact.phone') ;
+        $this->db->from('contact') ;
+        $this->db->join('user', 'contact.id_user = user.id_user') ;
+        $this->db->where('contact.id_company', $id_company) ;
+
+        $query = $this->db->get() ;
+        return $query->result() ;
     }
 
     public function insert_client($nama, $email, $password)

@@ -21,7 +21,8 @@
 
       $data = array(
         'page' => 'dashboard/client/profile_company',
-        'result' => $this->client_model->ambil_company_id($id)
+        'result' => $this->client_model->ambil_company_id($id),
+        'contacts' => $this->client_model->ambil_user_company($id)
       ) ;
 
       $this->load->view('home', $data) ;
