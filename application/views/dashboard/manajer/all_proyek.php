@@ -31,7 +31,7 @@
                             <tr>
                                 <td><?php echo $i ?> </td>
                                 <td><?php echo $proyek->name ?> </td>
-                                <td><?php echo "NULL" ?> </td>
+                                <td><?php echo $proyek->pm_name ? $proyek->pm_name : "NULL" ?> </td>
                                 <td><?php echo $proyek->name_company ?> </td>
                                 <td><?php echo $proyek->name_contact ?> </td>
                                 <td>

@@ -73,7 +73,7 @@
             <tr>
               <td><?php echo $i ;?></td>
               <td><?php echo $project->name ;?></td>
-              <td><?php echo "NULL" ;?></td>
+              <td><?php echo $project->pm_name ? $project->pm_name : "NULL" ;?></td>
               <td>
                 <div class="clearfix"><span class="small pull-right">90%</span></div>
                 <div class="progress xs">
