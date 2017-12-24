@@ -75,7 +75,8 @@ class user_authentication extends CI_Controller {
                     'id_user' => $result[0]->id_user,
                     'email' => $result[0]->email,
                     'id_user_role' => $result[0]->id_user_role,
-                    'user_role' => $result[0]->user_role
+                    'user_role' => $result[0]->user_role,
+                    'name' => $result[0]->name //please edit this one with dynamic data
                     );
                     // Add user data in session
                     $this->session->set_userdata('logged_in', $session_data);
