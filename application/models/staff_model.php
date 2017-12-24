@@ -14,6 +14,17 @@
       return $result;
     }
 
+    public function ambil_user_id($id){
+      $this->db->select('user.name, user.email, user_role.user_role, staff.address, staff.phone, staff.status_account, staff.photo');
+      $this->db->from('user');
+      $this->db->join('user_role ', 'user.id_user_role = user_role.id_user_role');
+      $this->db->join('staff', 'user.id_user = staff.id_user') ;
+      $this->db->where('user.id_user', $id) ;
+      $query = $this->db->get();
+      $result = $query->result();
+      return $result;
+    }
+
     public function insert_staff($nama,$email,$password, $id_user_role)
     {
         $data = array(
