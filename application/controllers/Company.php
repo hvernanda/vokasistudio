@@ -14,6 +14,16 @@
       redirect('/') ;
     }
 
+    public function all(){
+      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+      
+      $data =  array(
+        'page' => 'dashboard/manajer/all_company',
+        'result' => $this->client_model->ambil_company(),
+      );
+      $this->load->view('home',$data);
+    }
+
     public function detail($id){
       $isCompany = $this->client_model->isCompany($id) ;
       if($this->user_login_model->checkLogged() == false) redirect('/') ;

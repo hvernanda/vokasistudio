@@ -69,14 +69,30 @@
         return $query->result() ;
     }
 
-    public function insert_client($nama, $email, $password)
+    public function insert_client($nama, $email, $phone, $password, $id_company)
     {
         $data = array(
             'name' => $nama,
             'email' => $email,
             'password' => $password,
             'id_user_role' => '4' );
-        $input = $this->db-> insert('user', $data);
+        if($this->db-> insert('user', $data)){
+            $insertId = $this->db->insert_id() ;
+            $contact_data = array(
+                'name' => $nama,
+                'phone' => $phone,
+                'id_user' => $insertId,
+                'id_company' => $id_company,
+            ) ;
+
+            if($this->db->insert('contact', $contact_data)){
+                return true ;
+            }else{
+                return false ;
+            }
+        }else{
+            return false ;
+        }
 
     }
 
