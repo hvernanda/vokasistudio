@@ -43,11 +43,11 @@
         <i class="fa fa-circle"></i> Semua Staff
       </a>
     </li>
-    <li>
+    <!-- <li>
       <a href="<?php echo base_url('staff/add') ;?>">
         <i class="fa fa-circle"></i> Tambah Staff
       </a>
-    </li>
+    </li> -->
     <li>
       <a href="<?php echo base_url('manajer/all_tool_skill') ;?>">
         <i class="fa fa-circle"></i> Skill & Tools
@@ -71,12 +71,11 @@
         <i class="fa fa-circle"></i> Semua Client
       </a>
     </li>
-    <li>
+    <!-- <li>
       <a href="<?php echo base_url('manajer/add_client_company') ?>">
-        <!-- Tambah Client adalah menambah data company -->
         <i class="fa fa-circle"></i> Tambah Client
       </a>
-    </li>
+    </li> -->
     
     <li>
       <a href="<?php echo base_url('manajer/all_company_contact') ?>">
@@ -84,11 +83,10 @@
         <i class="fa fa-circle"></i> Semua Kontak
       </a>
     </li>
-    <li>
-      <!-- Tambah  Kontak adalah menambah data contact or tambah user from company to login -->
+    <!-- <li>
       <a href="<?php echo base_url('manajer/add_client') ;?>">
         <i class="fa fa-circle"></i> Tambah Kontak
       </a>
-    </li>
+    </li> -->
   </ul>
 </li>

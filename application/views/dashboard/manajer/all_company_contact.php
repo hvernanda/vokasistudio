@@ -1,4 +1,11 @@
-<!-- <h1> SEMUA DATA KONTAK PERUSAHAAN </h1> -->
+<div class="row">
+    <div class="col-md-6">
+        <h4>All Contacts</h4>
+    </div>
+    <div class="col-md-3 pull-right text-right">
+        <a href="<?php echo base_url('manajer/add_client')?>" class="btn btn-info"><i class="fa fa-plus"></i> Add new contact</a>
+    </div>
+</div>
 <div class="row">
     <div class="col-lg-12">
     <?php 
