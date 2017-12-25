@@ -24,11 +24,27 @@ class project_model extends CI_Model {
 
     public function ambil_project()
     {
-		$this->db->select('project.*,company.name as name_company,contact.name as name_contact');
+		$this->db->select('project.*,company.name as name_company,contact.name as name_contact, user.name as pm_name');
 		$this->db->from('company');
         $this->db->join('contact','company.id_company = contact.id_company');
         $this->db->join('project','contact.id_contact = project.id_contact') ;
+        $this->db->join('crew', 'crew.id_project = project.id_project', 'left') ;
+        $this->db->join('staff', 'staff.id_staff = crew.id_staff', 'left') ;
+        $this->db->join('user', 'user.id_user = staff.id_user', 'left') ;
 		// $this->db->where('id_staff');
+		$query = $this->db->get();
+		$result = $query->result();
+		return $result;
+    }
+    public function ambil_project_company($id_company){
+        $this->db->select('project.*,contact.name as name_contact, user.name as pm_name');
+		$this->db->from('company');
+        $this->db->join('contact','company.id_company = contact.id_company');
+        $this->db->join('project','contact.id_contact = project.id_contact') ;
+        $this->db->join('crew', 'crew.id_project = project.id_project', 'left') ;
+        $this->db->join('staff', 'staff.id_staff = crew.id_staff', 'left') ;
+        $this->db->join('user', 'user.id_user = staff.id_user', 'left') ;
+		$this->db->where('company.id_company = '.$id_company) ;
 		$query = $this->db->get();
 		$result = $query->result();
 		return $result;
@@ -47,7 +63,7 @@ class project_model extends CI_Model {
         $input = $this->db->insert('project', $data);
         
     }
-        public function ambil_project_penawaran()
+    public function ambil_project_penawaran()
     {
 		$this->db->select('project.*,company.name as name_company,contact.name as name_contact');
 		$this->db->from('company');

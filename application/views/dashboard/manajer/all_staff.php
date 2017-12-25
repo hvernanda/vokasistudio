@@ -1,10 +1,18 @@
 <!-- <h1> SEMUA DATA STAFF </h1> -->
 <div class="row">
+    <div class="col-md-6">
+        <h4>All staffs</h4>
+    </div>
+    <div class="col-md-3 pull-right text-right">
+        <a href="<?php echo base_url('staff/add') ;?>" class="btn btn-info"><i class="fa fa-plus"></i> Add new staff</a>
+    </div>
+</div>
+<div class="row">
     <div class="col-md-12">
     <?php 
         foreach($result as $contact){
     ?>
-    <div class="col-md-4" style="padding: 0 5px;">
+    <div class="col-md-4" style="padding: 5px;">
         <div class="user-card">
             <div style="padding: 15px;">
                 <p class="job-role"><em><?php echo $contact->user_role ?></em></p>
@@ -32,7 +40,7 @@
                 </div>
             </div>
             <div class="user-card-footer text-center">
-                <a href="#" class="btn btn-info">View Profile</a>
+                <a href="<?php echo base_url('/user/profile/'.$contact->id_user) ;?>" class="btn btn-info">View Profile</a>
             </div>
         </div>
     </div>
