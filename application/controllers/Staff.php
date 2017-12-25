@@ -24,11 +24,35 @@ class Staff extends CI_Controller {
     $this->load->view('home', $data) ;
   }
 
+  /* MENAMPILKAN SEMUA PROJECT YANG STAFF TERLIBAT DI DALAMNYA */
+
   public function listProject(){
+    if($this->session->userdata('logged_in')){
+      $session_data = $this->session->userdata('logged_in');  
+      $id_user=$session_data['id_user'];
+    }
+
     $data = array(
       'page' => 'dashboard/staff/project/all',
+      'isi' => $this->staff_model->getProjectList($id_user)
     );
     $this->load->view('home',$data);
+  }
+
+  /* MENAMPILKAN SKILL YANG DIMILIKI OLEH STAFF*/
+
+  public function listSkill(){
+    if($this->session->userdata('logged_in')){
+      $session_data = $this->session->userdata('logged_in');  
+      $id_staff=$session_data['id_staff'];
+    }
+
+    $data = array(
+      'page' => 'dashboard/staff/skill',
+      'isi' => $this->staff_model->getSkillStaff($id_staff)
+    );
+    $this->load->view('home',$data);
+
   }
 
   public function viewBiodata(){

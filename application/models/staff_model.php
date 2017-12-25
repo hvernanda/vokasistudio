@@ -50,12 +50,16 @@ class staff_model extends CI_Model {
         if ($query->num_rows() == 1) {
             return $query->result();
         } else {
-            return false;
+            return "No Skill Data";
         }
     }
 
     public function getProjectList($id_user){
-        $query = "SELECT p.* FROM project p INNER JOIN crew c on p.id_project=c.id_project INNER JOIN staff s on c.id_staff=s.id_staff INNER JOIN user u on s.id_user=u.id_user where u.id_user=" . $id_user;
+        $query = "SELECT p.* FROM project p 
+                INNER JOIN crew c on p.id_project=c.id_project 
+                INNER JOIN staff s on c.id_staff=s.id_staff 
+                INNER JOIN user u on s.id_user=u.id_user 
+                where u.id_user=" . $id_user . "AND c.status_permintaan = \'Terima\'";
         
         $query = $this->db->query($sql);
         
@@ -112,7 +116,20 @@ class staff_model extends CI_Model {
       $query = $this->db->get();
       $result = $query->result();
       return $result;
+    }
 
+    public function getSkillStaff($id_staff){
+        $this->db->select('*');
+        $this->db->from('skillmapping');
+        $this->db->join('skill','skillmapping.id_skill=skill.id_skill','inner');
+        $this->db->where('skillmapping.id_staff = '. $id_staff);
+        $query = $this->db->get();
+    
+        if ($query->num_rows() == 1) {
+            return $query->result();
+        } else {
+            return "Skill not found";
+        }
     }
 
 
