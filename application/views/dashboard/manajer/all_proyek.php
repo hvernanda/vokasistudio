@@ -1,4 +1,12 @@
 <div class="row">
+    <div class="col-md-6">
+        <h4>All Projects</h4>
+    </div>
+    <div class="col-md-3 pull-right text-right">
+        <a href="<?php echo base_url('manajer/add_proyek') ;?>" class="btn btn-info"><i class="fa fa-plus"></i> Add new project</a>
+    </div>
+</div>
+<div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -12,11 +20,12 @@
                                 <th>No</th>
                                 <th>id_project </th>
                                 <th>Nama Proyek</th>
-                                <th> Manajer Proyek </th>
-                                <th> Status </th>
-                                <th> Kontak Perusahan </th>
-                                <th> Nama Perusahaan </th>
-                                <th> Action </th>
+                                <th>Manajer Proyek</th>
+                                <th>Nama Perusahaan</th>
+                                <th>Kontak</th>
+                                <th>Progress</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -32,11 +41,27 @@
                                 <td><?php echo $i ?> </td>
                                 <td><?php echo $proyek->id_project ?> </td>
                                 <td><?php echo $proyek->name ?> </td>
-                                <td>  </td>
-                                <td><?php echo $proyek->status ?> </td>
-                                <td><?php echo $proyek->name_contact ?> </td>
+                                <td><?php echo $proyek->pm_name ? $proyek->pm_name : "NULL" ?> </td>
                                 <td><?php echo $proyek->name_company ?> </td>
-                                <td> </td>
+                                <td><?php echo $proyek->name_contact ?> </td>
+                                <td>
+                                    <div class="clearfix"><span class="small pull-right">90%</span></div>
+                                    <div class="progress xs">
+                                        <div class="progress-bar progress-bar-green" style="width:90%"></div>
+                                    </div>
+                                </td>
+                                <td><?php 
+                                    if($proyek->status == 'on_process')
+                                        echo '<span class="label label-warning">On Process</span>' ;
+                                    elseif($proyek->status == 'done')
+                                        echo '<span class="label label-success">Finished</span>' ;
+                                    else
+                                        echo '<span class="label label-danger">Canceled</span>' ;
+                                ?></td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-info"><i class="fa fa-eye"></i> View</a>
+                                    <a href="#" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</a>
+                                </td>
                             </tr>
                         
                             <?php 
