@@ -105,6 +105,8 @@
             'address' => $address
              );
         $input = $this->db-> insert('company', $data);
+
+        return $input ;
     }
 
     public function update_company($data){

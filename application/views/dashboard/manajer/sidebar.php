@@ -66,7 +66,7 @@
   <ul class="treeview-menu">
 
     <li>
-      <a href="<?php echo base_url('manajer/all_company') ?>">
+      <a href="<?php echo base_url('company/all') ?>">
       <!-- semua client adalah semua data company -->
         <i class="fa fa-circle"></i> Semua Client
       </a>
@@ -78,7 +78,7 @@
     </li> -->
     
     <li>
-      <a href="<?php echo base_url('manajer/all_company_contact') ?>">
+      <a href="<?php echo base_url('client/all') ?>">
         <!-- Semua data contact (user from company to login ) -->
         <i class="fa fa-circle"></i> Semua Kontak
       </a>

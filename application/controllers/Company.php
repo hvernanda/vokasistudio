@@ -8,6 +8,8 @@
       $this->load->model('client_model') ;
       $this->load->model('project_model') ;
       $this->load->model('staff_model') ;
+
+      if($this->user_login_model->checkLogged() == false) redirect('/') ;
     }
 
     public function index(){
@@ -22,6 +24,38 @@
         'result' => $this->client_model->ambil_company(),
       );
       $this->load->view('home',$data);
+    }
+
+    public function add(){
+      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+      $data = array(
+        'page' => 'dashboard/manajer/add_client_company'
+      ) ;
+
+      if($this->input->post('submit')){
+        $this->form_validation->set_rules('nama', 'Name', 'required|trim') ;
+        $this->form_validation->set_rules('phone', 'Phone Number', 'required|trim') ;
+        $this->form_validation->set_rules('email', 'Email Address', 'required|trim|valid_email|is_unique[company.email]') ;
+        $this->form_validation->set_rules('address', 'Address', 'required|trim') ;
+
+        if($this->form_validation->run() == FALSE){
+          $this->load->view('home', $data) ;
+        }else{
+          $nama = $this->input->post('nama') ;
+          $phone = $this->input->post('phone') ;
+          $email = $this->input->post('email') ;
+          $address = $this->input->post('address') ;
+
+          if($this->client_model->insert_client_company($nama, $phone, $email, $address)){
+            redirect('/company/all') ;
+          }else{
+            $this->load->view('home', $data) ;
+          }
+        }
+      }else{
+        $this->load->view('home', $data) ;
+      }
     }
 
     public function detail($id){

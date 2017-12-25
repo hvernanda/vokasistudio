@@ -32,62 +32,6 @@ class Manajer extends CI_Controller {
   * By Naqiya Zorahima
   * 17 Dec 2017
   */
-  // READ : get all client(company) data
-  public function all_company(){ 
-    $data =  array(
-      'page' => 'dashboard/manajer/all_company',
-      'result' => $this->client_model->ambil_company(),
-    );
-    $this->load->view('home',$data);
-  }
-  // CREATE : add new company data
-  public function add_client_company(){
-    $data = array(
-      'page' => 'dashboard/manajer/add_client_company',
-      'error' => '',
-      'success' => ''
-    ) ;
-
-    $this->load->view('home', $data) ;
-  }
-  // Add new company data form handler
-  public function add_client_company_process(){
-    $nama = $this->input->post('nama');
-    $phone= $this->input->post('phone');
-    $email = $this->input->post('email');
-    $address= $this->input->post('address');
-    
-
-    $this->client_model->insert_client_company($nama, $phone, $email, $address);
-  }
-  // READ : get all data of contact (user with id_user_role = 4)
-  public function all_company_contact(){ 
-    $data =  array(
-      'page' => 'dashboard/manajer/all_company_contact',
-      'result' => $this->client_model->ambil_user(),
-    );
-    $this->load->view('home',$data);
-  }
-  // CREATE : Add new client/contact data
-  public function add_client(){
-    $data = array(
-      'page' => 'dashboard/manajer/add_client',
-      'error' => '',
-      'success' => ''
-    ) ;
-
-    $this->load->view('home', $data) ;
-  }
-  // Add contact data form handler
-  public function add_client_process(){
-    $nama = $this->input->post('nama');
-    $email = $this->input->post('email');
-    $password = $this->input->post('password');
-
-    $this->client_model->insert_client($nama, $email, $password);
-  }
-
-  // READ : get all proyek data
   public function all_proyek(){ 
     $data =  array(
       'page' => 'dashboard/manajer/all_proyek',
