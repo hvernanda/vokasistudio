@@ -24,33 +24,7 @@ class Manajer extends CI_Controller {
     $this->load->view('home', $data) ;
   }
 
-  public function all_staff(){ 
-    $data =  array(
-      'page' => 'dashboard/manajer/all_staff',
-      'result' => $this->staff_model->ambil_user(),
-    );
-
-    $this->load->view('home',$data);
-  }
-  // CREATE : add new staff -> staff & staff keuangan
-  public function add_staff(){
-    $data = array(
-      'page' => 'dashboard/manajer/add_staff',
-      'error' => '',
-      'success' => ''
-    ) ;
-
-    $this->load->view('home', $data) ;
-  }
-  // Add staff handler
-  public function add_staff_process(){
-    $nama = $this->input->post('nama');
-    $email = $this->input->post('email');
-    $password = $this->input->post('password');
-    $id_user_role = $this->input->post('id_user_role');
-
-    $this->staff_model->insert_staff($nama, $email, $password, $id_user_role);
-  }
+  // All staff function has been moved into controller Staff
 
   /*
   * Manage company functions controller

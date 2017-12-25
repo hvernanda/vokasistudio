@@ -9,11 +9,11 @@
         <ul class="list-group list-group-unbordered">
           <li class="list-group-item">
             <b>Projects</b>
-            <a class="pull-right">0</a>
+            <a class="pull-right"><?php echo sizeof($projects) ;?></a>
           </li>
           <li class="list-group-item">
             <b>Contacts</b>
-            <a class="pull-right">0</a>
+            <a class="pull-right"><?php echo sizeof($contacts) ;?></a>
           </li>
         </ul>
       </div>

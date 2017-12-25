@@ -33,8 +33,24 @@
             'password' => $password,
             'id_user_role' => $id_user_role
              );
-        $input = $this->db-> insert('user', $data);
+        
+        if($this->db->insert('user', $data)){
+          $insertId = $this->db->insert_id() ;
+          $staff_data = array(
+            'id_user' => $insertId,
+            'name' => $nama,
+            'status_account' => 'active'
+          ) ;
 
+          if($this->db->insert('staff', $staff_data)){
+            return true ;
+          }else{
+            return false ;
+          }
+        }else{
+          return false ;
+        }
+        
     }
 
     public function ambil_tool_skill()

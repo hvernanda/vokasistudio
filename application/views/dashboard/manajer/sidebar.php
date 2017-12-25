@@ -39,12 +39,12 @@
   </a>
   <ul class="treeview-menu">
     <li>
-      <a href="<?php echo base_url('manajer/all_staff') ?>">
+      <a href="<?php echo base_url('staff/all') ?>">
         <i class="fa fa-circle"></i> Semua Staff
       </a>
     </li>
     <li>
-      <a href="<?php echo base_url('manajer/add_staff') ;?>">
+      <a href="<?php echo base_url('staff/add') ;?>">
         <i class="fa fa-circle"></i> Tambah Staff
       </a>
     </li>
