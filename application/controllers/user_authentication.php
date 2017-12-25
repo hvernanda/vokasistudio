@@ -82,7 +82,7 @@ class user_authentication extends CI_Controller {
                     $this->session->set_userdata('logged_in', $session_data);
                     //$this->load->view('admin_page');
                     // echo 'Test';
-                    redirect('/') ;
+                    redirect('/');
                 } else {
                     echo 'Test1';
                 }
@@ -90,7 +90,7 @@ class user_authentication extends CI_Controller {
                 $data = array(
                   'error_message' => 'Invalid Username or Password'
                 );
-                echo "LOGIN VIEW";
+                redirect('/') ;
                 //$this->load->view('login/v_login',$data);
                 //$this->load->view('login_form', $data);
             }
