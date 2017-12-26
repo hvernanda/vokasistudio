@@ -11,6 +11,8 @@
   <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.min.js') ;?>"></script>
   <script type="text/javascript" src="<?php echo base_url('assets/js/app.js') ;?>"></script>
 
+  <script type="text/javascript" src="<?php echo base_url('plugins/datatables/jquery.dataTables.min.js') ;?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('plugins/datatables/dataTables.bootstrap.min.js') ;?>"></script>
   <script type="text/javascript" src="<?php echo base_url('plugins/datepicker/bootstrap-datepicker.js') ;?>"></script>
   <script type="text/javascript" src="<?php echo base_url('plugins/colorpicker/bootstrap-colorpicker.min.js') ;?>"></script>
   <script type="text/javascript" src="<?php echo base_url('plugins/datepicker/bootstrap-datepicker.js') ;?>"></script>
@@ -24,6 +26,8 @@
   <script type="text/javascript" src="<?php echo base_url('assets/js/jszip.min.js') ;?>"></script>
   <script type="text/javascript" src="<?php echo base_url('assets/js/FileSaver.js') ;?>"></script>
   <script type="text/javascript" src="<?php echo base_url('assets/js/sweetalert2.min.js') ;?>"></script>
+
+  <script type="text/javascript" src="<?php echo base_url('assets/js/vs.js') ;?>"></script>
 
 </body>
 </html>

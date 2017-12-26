@@ -40,12 +40,17 @@
             Masukkan email dan password
           </p>
           <form action="<?php echo base_url() ?>user_authentication/user_login_process" method="post">
+          <?php if($this->session->userdata('auth')){ ?>
+            <div class="alert alert-danger alert-dismissible">
+              <p><?php echo $this->session->userdata('auth')['error_message'] ;?></p>
+            </div>
+          <?php } ?>
             <div class="form-group has-feedback">
-              <input type="email" name="email" class="form-control" placeholder="Email" />
+              <input type="email" name="email" class="form-control" placeholder="Email" required />
               <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-              <input type="password" name="password" class="form-control" placeholder="Password" />
+              <input type="password" name="password" class="form-control" placeholder="Password" required />
               <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="form-group text-center">

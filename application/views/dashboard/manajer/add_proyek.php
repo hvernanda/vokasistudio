@@ -5,14 +5,22 @@
 <div id="notifications"><?php echo $this->session->flashdata('msg'); ?></div>
 <div class="row">
     <div class="col-md-4 col-md-offset-4">
-        <?php echo form_open_multipart (base_url()."manajer/add_proyek_process") ?>
+    <?php if(validation_errors()){ ?>
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+
+            <h4><i class="fa fa-ban"></i> Warning</h4>
+            <?php echo validation_errors() ;?>
+        </div>
+    <?php } ?>
+        <?php echo form_open_multipart (base_url()."project/add") ?>
             <div class="form-group">
                 <label> Project Name</label>
                 <input class="form-control" name="nama" id="nama" value="<?php echo set_value('nama');?>" required >
             </div>
             <div class="form-group">
                 <label>Dealtime</label>
-                <input type="date" class="form-control" name="deadltime" value="<?php echo set_value('dealtime');?>" placeholder="dd-mm-yyy" required>
+                <input type="date" class="form-control" name="dealtime" value="<?php echo set_value('dealtime');?>" placeholder="dd-mm-yyy" required>
             </div>
             <div class="form-group">
                 <label> Price</label>
@@ -31,14 +39,14 @@
                 <label>Revision Date</label>
                 <input type="date" class="form-control" name="revisiondate" value="<?php echo set_value('revisiondate');?>" placeholder="dd-mm-yyy" required>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label> Status</label>
                 <select class="form-control" name="status" id="status"  required>
                     <option value="on_process"> ON PROSESS</option>
                     <option value="done"> DONE </option>
                     <option value="canceled"> CANCELED</option>
                 </select>
-            </div>
+            </div> -->
             <div class="form-group">
                 <label> Down Payment </label>
             </div>

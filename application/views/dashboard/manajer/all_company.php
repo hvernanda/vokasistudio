@@ -1,4 +1,11 @@
-<!-- <h1> SEMUA DATA COMPANY </h1> -->
+<div class="row">
+    <div class="col-md-6">
+        <h4>All Companies</h4>
+    </div>
+    <div class="col-md-3 pull-right text-right">
+        <a href="<?php echo base_url('company/add') ;?>" class="btn btn-info"><i class="fa fa-plus"></i> Add new company</a>
+    </div>
+</div>
 <div class="row">
     <div class="col-lg-12">
     <?php 
@@ -6,7 +13,7 @@
     ?>
         <div class="col-md-4" style="padding: 5px;">
             <div class="user-card">
-                <div style="padding: 15px;">
+                <div style="padding: 15px; min-height: 225px;">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="user-card-image">
@@ -31,7 +38,7 @@
                     </div>
                 </div>
                 <div class="user-card-footer text-center">
-                    <a href="#" class="btn btn-info">View Company</a>
+                    <a href="<?php echo base_url('/company/detail/'.$company->id_company) ;?>" class="btn btn-info">View Company</a>
                 </div>
             </div>
         </div>

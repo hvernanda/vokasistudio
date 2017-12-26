@@ -1,4 +1,12 @@
 <div class="row">
+    <div class="col-md-6">
+        <h4>All Projects</h4>
+    </div>
+    <div class="col-md-3 pull-right text-right">
+        <a href="<?php echo base_url('project/add') ;?>" class="btn btn-info"><i class="fa fa-plus"></i> Add new project</a>
+    </div>
+</div>
+<div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -6,7 +14,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-data">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -14,6 +22,7 @@
                                 <th>Manajer Proyek</th>
                                 <th>Nama Perusahaan</th>
                                 <th>Kontak</th>
+                                <th>Progress</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -30,9 +39,15 @@
                             <tr>
                                 <td><?php echo $i ?> </td>
                                 <td><?php echo $proyek->name ?> </td>
-                                <td><?php echo "NULL" ?> </td>
+                                <td><?php echo $proyek->pm_name ? $proyek->pm_name : "NULL" ?> </td>
                                 <td><?php echo $proyek->name_company ?> </td>
                                 <td><?php echo $proyek->name_contact ?> </td>
+                                <td>
+                                    <div class="clearfix"><span class="small pull-right">90%</span></div>
+                                    <div class="progress xs">
+                                        <div class="progress-bar progress-bar-green" style="width:90%"></div>
+                                    </div>
+                                </td>
                                 <td><?php 
                                     if($proyek->status == 'on_process')
                                         echo '<span class="label label-warning">On Process</span>' ;
