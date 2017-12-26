@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="<?php echo base_url('plugins/iCheck/flat/_all.css') ;?>">
   <link rel="stylesheet" href="<?php echo base_url('plugins/morris/morris.css') ;?>">
   <link rel="stylesheet" href="<?php echo base_url('plugins/datepicker/datepicker3.css') ;?>">
+  <link rel="stylesheet" href="<?php echo base_url('plugins/datatables/dataTables.bootstrap.css') ;?>">
   <link rel="stylesheet" href="<?php echo base_url('plugins/colorpicker/bootstrap-colorpicker.min.css') ;?>">
   <link rel="stylesheet" href="<?php echo base_url('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') ;?>">
   <link rel="stylesheet" href="<?php echo base_url('plugins/fullcalendar/fullcalendar.min.css') ;?>">

@@ -1,6 +1,13 @@
 <?php 
   if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+  /*
+  * Manage company functions controller
+  * Create, Read, Update and Delete
+  * By Naqiya Zorahima
+  * 17 Dec 2017
+  */
+  
   class Company extends CI_Controller{
     public function __construct(){
       parent::__construct() ;

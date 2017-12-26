@@ -3,7 +3,7 @@
         <h4>All Projects</h4>
     </div>
     <div class="col-md-3 pull-right text-right">
-        <a href="<?php echo base_url('manajer/add_proyek') ;?>" class="btn btn-info"><i class="fa fa-plus"></i> Add new project</a>
+        <a href="<?php echo base_url('project/add') ;?>" class="btn btn-info"><i class="fa fa-plus"></i> Add new project</a>
     </div>
 </div>
 <div class="row">
@@ -14,7 +14,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-data">
                         <thead>
                             <tr>
                                 <th>No</th>
