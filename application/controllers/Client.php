@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/*
+* Manage client/contact functions controller
+* Create, Read, Update and Delete
+* By Naqiya Zorahima
+* 17 Dec 2017
+*/
+
 class Client extends CI_Controller {
   // Just a sample function created by Ashari Muhammad Hisbulloh
   public function __construct(){
@@ -7,11 +14,17 @@ class Client extends CI_Controller {
     $this->load->model('user_login_model') ;
     $this->load->model('client_model') ;
 
-    // if(!$this->user_login_model->checkLogged() || $this->session->userdata('logged_in')['id_user_role'] != '4')
-    //   redirect('/') ;
+    if($this->user_login_model->checkLogged() == false) redirect('/') ;
   }
 
   public function index(){
+    if($this->user_login_model->checkClient() == false){
+      if($this->user_login_model->checkManajer()){
+        redirect('/client/all') ;
+      }else{
+        redirect('/') ;
+      }
+    }
     $data = array(
       'page' => 'dashboard/client/index'
     ) ;
@@ -19,6 +32,8 @@ class Client extends CI_Controller {
   }
   // all client
   public function all(){
+    if($this->user_login_model->checkManajer() == false) redirect('/') ;
+    
     $data =  array(
       'page' => 'dashboard/manajer/all_company_contact',
       'result' => $this->client_model->ambil_user(),

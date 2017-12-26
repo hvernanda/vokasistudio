@@ -6,8 +6,7 @@ class Keuangan extends CI_Controller {
     parent::__construct() ;
     $this->load->model('user_login_model') ;
 
-    if(!$this->user_login_model->checkLogged() || $this->session->userdata('logged_in')['id_user_role'] != '2')
-      redirect('/') ;
+    if($this->user_login_model->checkLogged() == false) redirect('/') ;
   }
 
   public function index(){
