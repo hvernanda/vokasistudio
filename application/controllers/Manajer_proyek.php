@@ -22,7 +22,6 @@ class Manajer_proyek extends CI_Controller {
   }
 
   /* LIHAT SEMUA STAFF YANG MAU DIMASUKKIN KE SUATU PROJECT */
-
   public function tampilSemuaStaff(){
     if($this->session->userdata('logged_in')){
       $session_data = $this->session->userdata('logged_in');  
@@ -35,12 +34,9 @@ class Manajer_proyek extends CI_Controller {
   }
 
   /* KIRIM REQUEST UNTUK IKUT PROYEK KE STAFF */
-  public function tambahCrew($id_staff){
-    if($this->session->userdata('logged_in')){
-      $session_data = $this->session->userdata('logged_in');  
-      $id_project = $session_data['id_project'];
-      $id_role = $this->input->post['role'];
-    }
+  public function tambahCrew($id_project){
+    $id_staff = $this->input->post('id_staff');
+    $id_role = $this->input->post('id_role');
     
     $this->manajer_proyek_model->tambahCrewProject($id_staff,$id_project,$id_role);
   }
@@ -51,14 +47,14 @@ class Manajer_proyek extends CI_Controller {
     if($this->session->userdata('logged_in')){
       $session_data = $this->session->userdata('logged_in');  
       $id_staff = $session_data['id_staff'];
-    }
-  $id_project = $session_data['project'];
-  $data = array(
-    'page' => 'content/Aktivitas',
-    'isi' => $this->manajer_proyek_model->tampilAktPersonal($id,$id_project),
-  );
-  
-  $this->load->view('home',$data);
+      }
+    $id_project = $session_data['project'];
+    $data = array(
+      'page' => 'content/Aktivitas',
+      'isi' => $this->manajer_proyek_model->tampilAktPersonal($id,$id_project),
+    );
+    
+    $this->load->view('home',$data);
   }
 
   public function activitasDetail($id){
@@ -77,7 +73,7 @@ class Manajer_proyek extends CI_Controller {
     $data2 = array(
       'page' => 'content/form_activity',
     );
-    $data['isi']		= $this->aktivitas_model->tambahAkt($data);
+    $data['isi']  = $this->manajer_proyek_model->tambahAkt($data);
 
     $this->load->view('home',$data2);
   }
@@ -88,7 +84,7 @@ class Manajer_proyek extends CI_Controller {
       $id_staff = $session_data['id_staff'];
       $id_project = $session_data['id_project'];
     }
-    $a = $this->aktivitas_model->namaAkt($id_staff, $id_project);
+    $a = $this->manajer_proyek_model->namaAkt($id_staff, $id_project);
     // $b = $this->manajer_proyek_model->viewJob()->result();
     $data = array(
       'page' => 'content/form_activity',
@@ -138,7 +134,7 @@ class Manajer_proyek extends CI_Controller {
         'uploadFile' 	=> $this->upload->file_name,
         );
       
-      $this->aktivitas_model->getupdate($id, $update);
+      $this->manajer_proyek_model->getupdate($id, $update);
       $this->session->set_flashdata('msgtrueproject','<div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert">
                 <span aria-hidden="true">
@@ -442,14 +438,14 @@ class Manajer_proyek extends CI_Controller {
   }
 
   public function getScore(){
-      $a = $this->manajer_proyek_model->getScore($this->input->post('_score'));
-      if($a->num_rows() < 1 ){
-        echo 'fail';
-      }else{
-        
-        echo json_encode($a->result())  ;
-      } 
-    }
+    $a = $this->manajer_proyek_model->getScore($this->input->post('_score'));
+    if($a->num_rows() < 1 ){
+      echo 'fail';
+    }else{
+      
+      echo json_encode($a->result())  ;
+    } 
+  }
 
   /* DAFTAR PENUGASAN - END */
 

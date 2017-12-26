@@ -2,7 +2,6 @@
 if(!defined('BASEPATH')) exit('No direct script allowed') ;
 
 class staff_model extends CI_Model {
-
     public function __construct(){
       parent::__construct() ;
     }
@@ -14,7 +13,7 @@ class staff_model extends CI_Model {
         if ($query->num_rows() == 1) {
             return $query->result();
         } else {
-            return false;
+            return "No data";
         }
     }
 

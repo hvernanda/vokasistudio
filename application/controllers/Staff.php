@@ -24,21 +24,6 @@ class Staff extends CI_Controller {
     $this->load->view('home', $data) ;
   }
 
-  /* MENAMPILKAN SEMUA PROJECT YANG STAFF TERLIBAT DI DALAMNYA */
-
-  public function listProject(){
-    if($this->session->userdata('logged_in')){
-      $session_data = $this->session->userdata('logged_in');  
-      $id_user=$session_data['id_user'];
-    }
-
-    $data = array(
-      'page' => 'dashboard/staff/project/all',
-      'isi' => $this->staff_model->getProjectList($id_user)
-    );
-    $this->load->view('home',$data);
-  }
-
   /* MENAMPILKAN SKILL YANG DIMILIKI OLEH STAFF*/
 
   public function listSkill(){
@@ -55,6 +40,8 @@ class Staff extends CI_Controller {
 
   }
 
+  /* MELIHAT BIODATA STAFF */
+
   public function viewBiodata(){
     $session_data = $this->session->userdata('logged_in');
     $id_user = $session_data['id_user'];
@@ -66,6 +53,8 @@ class Staff extends CI_Controller {
 
     $this->load->view('home',$data);
   }
+
+  /* MENGUBAH BIODATA */
 
   public function editBiodata(){
     $session_data = $this->session->userdata('logged_in');
@@ -85,17 +74,22 @@ class Staff extends CI_Controller {
     $this->load->view('home',$data);
   }
 
-  public function viewProjectList(){
-    $session_data = $this->session->userdata('logged_in');
-    $id_user = $session_data['id_user'];
+  /* MENAMPILKAN SEMUA PROJECT YANG STAFF TERLIBAT DI DALAMNYA */
+
+  public function listProject(){
+    if($this->session->userdata('logged_in')){
+      $session_data = $this->session->userdata('logged_in');  
+      $id_user=$session_data['id_user'];
+    }
 
     $data = array(
       'page' => 'dashboard/staff/project/all',
-      'data' => $this->staff_model->getProjectList($id_user)
+      'isi' => $this->staff_model->getProjectList($id_user)
     );
-
     $this->load->view('home',$data);
   }
+
+  /* MELIHAT RINCIAN PROYEK */
 
   public function viewDetailProject($id){ // staff/viewDet..../id_proyek/opo
     $session_data = $this->session->userdata('logged_in');
