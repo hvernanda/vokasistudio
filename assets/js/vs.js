@@ -4,4 +4,6 @@
 
 $(document).ready(function(){
   $('.table-data').DataTable() ;
+
+  $('.select2').select2() ;
 })

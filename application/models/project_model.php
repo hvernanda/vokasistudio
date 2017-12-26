@@ -49,7 +49,17 @@ class project_model extends CI_Model {
 		$result = $query->result();
 		return $result;
     }
-    public function insert_project($nama, $dealtime, $price, $deadline, $revisiondate, $status, $downpayment, $id_contact)
+
+    public function get_all_type(){
+        $this->db->select('*') ;
+        $this->db->from('type') ;
+        $query = $this->db->get() ;
+
+        $result = $query->result() ;
+        return $result ;
+    }
+
+    public function insert_project($nama, $dealtime, $price, $deadline, $revisiondate, $status, $downpayment, $id_contact, $array_type)
     {
         $data = array(
             'name' => $nama,
@@ -61,8 +71,24 @@ class project_model extends CI_Model {
             'DP' => $downpayment,
             'id_contact' => $id_contact);
         $input = $this->db->insert('project', $data);
-        
+        if($input){
+            $insertId = $this->db->insert_id() ;
+            $types = explode(',', $array_type) ;
+            foreach($types as $type){
+                $data = array(
+                    'id_type' => $type,
+                    'id_project' => $insertId
+                ) ;
+
+                $this->db->insert('projecttype', $data) ;
+            }
+
+            return true ;
+        }else{
+            return false ;
+        }    
     }
+
     public function ambil_project_penawaran()
     {
 		$this->db->select('project.*,company.name as name_company,contact.name as name_contact');
@@ -74,6 +100,14 @@ class project_model extends CI_Model {
 		$query = $this->db->get();
 		$result = $query->result();
 		return $result;
+    }
+
+    public function insert_project_type($name){
+        $data = array(
+            'name'=> $name
+        ) ;
+        $input = $this->db->insert('type', $data) ;
+        return $input ? true : false ;
     }
 }
 
