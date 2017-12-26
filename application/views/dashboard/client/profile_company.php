@@ -48,7 +48,7 @@
         <h3 class="box-title">All Projects</h3>
       </div>
       <div class="box-body">
-        <table class="table">
+        <table class="table table-data">
           <thead>
             <tr>
               <th>#</th>
@@ -110,7 +110,7 @@
         <h3 class="box-title with-border">All Company Contacts</h3>
         <div class="row">
           <div class="col-md-12">
-            <table class="table">
+            <table class="table table-data">
               <thead>
                 <tr>
                   <th>#</th>

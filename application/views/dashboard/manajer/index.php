@@ -40,7 +40,7 @@
         <h3 class="box-title">All Projects</h3>
       </div>
       <div class="box-body">
-        <table class="table">
+        <table class="table table-data">
           <thead>
             <tr>
               <th>#</th>
@@ -71,7 +71,7 @@
                 </div>
               </td>
             </tr>
-          <?php if($i >= 10) break ; } ?>
+          <?php } ?>
           </tbody>
         </table>
       </div>
@@ -83,7 +83,7 @@
         <h3 class="box-title">All Clients</h3>
       </div>
       <div class="box-body">
-        <table class="table">
+        <table class="table table-data">
           <thead>
             <tr>
               <th>#</th>
@@ -100,7 +100,7 @@
               <td><?php echo $contact->email ;?></td>
               <td><?php echo $contact->phone ;?></td>
             </tr>
-          <?php if($i >= 10) break ;} ?>
+          <?php } ?>
           </tbody>
         </table>
       </div>
@@ -114,7 +114,7 @@
         <h3 class="box-title">All Staffs</h3>
       </div>
       <div class="box-body">
-        <table class="table">
+        <table class="table table-data">
           <thead>
             <tr>
               <th>#</th>
@@ -135,7 +135,7 @@
               <td><?php echo $staff->address ;?></td>
               <td><?php echo $staff->user_role ;?></td>
             </tr>
-          <?php if($i >= 10) break; } ?>
+          <?php } ?>
           </tbody>
         </table>
       </div>

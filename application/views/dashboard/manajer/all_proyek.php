@@ -14,7 +14,7 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-data">
                         <thead>
                             <tr>
                                 <th>No</th>
