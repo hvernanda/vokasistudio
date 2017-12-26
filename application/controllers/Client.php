@@ -1,5 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/*
+* Manage client/contact functions controller
+* Create, Read, Update and Delete
+* By Naqiya Zorahima
+* 17 Dec 2017
+*/
+
 class Client extends CI_Controller {
   // Just a sample function created by Ashari Muhammad Hisbulloh
   public function __construct(){

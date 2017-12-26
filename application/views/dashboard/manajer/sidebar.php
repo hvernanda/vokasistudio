@@ -13,12 +13,12 @@
   </a>
   <ul class="treeview-menu">
     <li>
-      <a href="<?php echo base_url('manajer/all_proyek')?>">
+      <a href="<?php echo base_url('project/all')?>">
         <i class="fa fa-circle"></i> Semua Proyek
       </a>
     </li>
     <li>
-      <a href="<?php echo base_url('manajer/add_proyek') ;?>">
+      <a href="<?php echo base_url('project/add') ;?>">
         <i class="fa fa-circle"></i> Tambah Proyek
       </a>
     </li>

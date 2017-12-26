@@ -1,15 +1,23 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/*
+* Manage staff functions controller
+* Create, Read, Update and Delete
+* By Naqiya Zorahima
+* 17 Dec 2017
+*/
+
 class Staff extends CI_Controller {
   // Just a sample function created by Ashari Muhammad Hisbulloh
+  public $staff_data ;
   public function __construct(){
     parent::__construct();
     $this->load->model('user_login_model') ;
     $this->load->model('staff_model');
 
 
-    // if(!$this->user_login_model->checkLogged() || $this->session->userdata('logged_in')['id_user_role'] != '3')
-    //   redirect('/') ;
+    if($this->user_login_model->checkLogged() == false)
+      redirect('/') ;
   }
 
   public function index(){
@@ -32,6 +40,15 @@ class Staff extends CI_Controller {
     $data =  array(
       'page' => 'dashboard/manajer/all_staff',
       'result' => $this->staff_model->ambil_user(),
+    );
+
+    $this->load->view('home',$data);
+  }
+
+  public function all_tool_skill(){
+    $data =  array(
+      'page' => 'dashboard/manajer/all_tool_skill',
+      'result' => $this->staff_model->ambil_tool_skill(),
     );
 
     $this->load->view('home',$data);

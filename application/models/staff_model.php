@@ -47,7 +47,7 @@ class staff_model extends CI_Model {
         $this->db->from('skill');
         $query = $this->db->get();
         
-        if ($query->num_rows() == 1) {
+        if ($query->num_rows() >= 1) {
             return $query->result();
         } else {
             return "No Skill Data";
