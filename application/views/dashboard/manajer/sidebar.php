@@ -23,7 +23,7 @@
       </a>
     </li>
     <li>
-      <a href="<?php echo base_url('manajer/all_proyek_penawaran') ;?>">
+      <a href="<?php echo base_url('project/all_penawaran') ;?>">
         <i class="fa fa-circle"></i> Penawaran Proyek
       </a>
     </li>
@@ -49,7 +49,7 @@
       </a>
     </li> -->
     <li>
-      <a href="<?php echo base_url('manajer/all_tool_skill') ;?>">
+      <a href="<?php echo base_url('staff/all_tool_skill') ;?>">
         <i class="fa fa-circle"></i> Skill & Tools
       </a>
     </li>

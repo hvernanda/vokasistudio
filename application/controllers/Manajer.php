@@ -31,18 +31,4 @@ class Manajer extends CI_Controller {
     $this->load->view('home', $data) ;
   }
 
-public function all_tool_skill(){ 
-    $b = $this->db->query("SELECT id_tool,tool_name from tool")->result();
-    $c = $this->db->query("SELECT id_skill,skill_name from skill")->result();
-    $data =  array(
-      'page' => 'dashboard/manajer/all_tool_skill',
-      'result' => $this->staff_model->ambil_tool_skill(),
-      // 'tool'=> $b,
-      // 'skill' => $c
-
-    );
-
-    $this->load->view('home',$data);
-  }
-
 }
