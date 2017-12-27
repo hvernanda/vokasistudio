@@ -13,7 +13,7 @@
     ?>
         <div class="col-md-4" style="padding: 5px;">
             <div class="user-card">
-                <div style="padding: 15px;">
+                <div style="padding: 15px; min-height: 225px; max-height: 225px; overflow: hidden;">
                     <p><em><?php echo $contact->company ;?></em></p>
                     <div class="row">
                         <div class="col-md-4">

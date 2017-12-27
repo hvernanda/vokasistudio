@@ -109,6 +109,16 @@ class project_model extends CI_Model {
         $input = $this->db->insert('type', $data) ;
         return $input ? true : false ;
     }
+
+    public function update_project_type($id_type, $name){
+        $data = array(
+            'name' => $name
+        ) ;
+        $this->db->where('id_type', $id_type) ;
+        $input = $this->db->update('type', $data) ;
+
+        return $input ? true : false ;
+    }
 }
 
 ?>

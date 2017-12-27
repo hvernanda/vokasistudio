@@ -113,7 +113,7 @@
         $this->form_validation->set_rules('name', 'Name', 'required|trim') ;
 
         if($this->form_validation->run() == FALSE){
-          $this->session->set_flashdata('warning_type', 'Name is required') ;
+          $this->session->set_flashdata('warning_type', 'Project Type is required') ;
           redirect('/project/all_type') ;
         }else{
           $name = $this->input->post('name') ;
@@ -123,6 +123,31 @@
           }else{
             $this->session->set_flashdata('warning_type', 'Error, insert data failed!') ;
             redirect('/project/all_type') ;
+          }
+        }
+      }else{
+        redirect('/project/all_type') ;
+      }
+    }
+
+    public function edit_type(){
+      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+      if($this->input->post('submit')){
+        $this->form_validation->set_rules('name', 'Project Type', 'required|trim') ;
+
+        if($this->form_validation->run() == FALSE){
+          $this->session->set_flashdata('warning_edit_type', 'Project Type is required') ;
+          redirect('/project/all_type') ;
+        }else{
+          $name = $this->input->post('name') ;
+          $id_type = $this->input->post('id_type') ;
+
+          if($this->project_model->update_project_type($id_type, $name)){
+            redirect('/project/all_type') ;
+          }else{
+            $this->session->set_flashdata('warning_edit_type', 'Error, update data failed!') ;
+          redirect('/project/all_type') ;
           }
         }
       }else{
