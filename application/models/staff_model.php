@@ -225,6 +225,14 @@ class staff_model extends CI_Model {
 
         return $query ? $query : false ;
     }
+    public function insert_tool_skill($id_tool, $skill)
+    {
+        $data = array(
+            'id_tool' => $id_tool,
+            'id_skill' => $skill);
+        $input = $this->db->insert('toolskill', $data);
+    }
+
 
 
 }

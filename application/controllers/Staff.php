@@ -262,5 +262,44 @@ class Staff extends CI_Controller {
 
     $this->load->view('home',$data);
   }
+
+    public function add_tool_skill(){
+      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+      
+      $a = $this->db->query("SELECT id_skill,skill_name from skill")->result();
+      $b = $this->db->query("SELECT id_tool,tool_name from tool")->result();
+      $data = array(
+        'page' => 'dashboard/manajer/add_tool_skill',//
+        'daftar' => $a,
+        'list' => $b,
+         'types' => $this->staff_model->get_all_tool(),
+         'skill' => $this->staff_model->get_all_skill()//
+      ) ;
+
+      if($this->input->post('submit')){
+        $this->form_validation->set_rules('id_tool', 'Tools', 'required') ;
+        $this->form_validation->set_rules('skill', 'Skill', 'required') ;
+        
+
+        if($this->form_validation->run() == FALSE){
+          $this->load->view('home', $data) ;
+        }else{
+         
+          $id_tool = $this->input ->post('id_tool');
+          $skill = $this->input ->post('skill');
+          $input_data = $this->staff_model->insert_tool_skill($id_tool, $skill);
+
+          if($input_data){
+            redirect('/staff/all') ;
+          }else{
+            $this->load->view('home', $data) ;
+          }
+        }
+      }else{
+        $this->load->view('home', $data) ;
+      }
+    }
+
   
 }
