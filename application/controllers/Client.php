@@ -13,8 +13,14 @@ class Client extends CI_Controller {
     parent::__construct() ;
     $this->load->model('user_login_model') ;
     $this->load->model('client_model') ;
+    $this->load->model('general_model') ;
 
-    if($this->user_login_model->checkLogged() == false) redirect('/') ;
+/*    if($this->user_login_model->checkLogged() == false) redirect('/') ;
+    if(!$this->user_login_model->checkLogged())
+    redirect('/') ;
+    else{
+    $this->id_kontak = $this->client_model->get_contact_idol($this->session->userdata('logged_in')['id_contact'])[0]->id_kontak;
+    }*/
   }
 
   public function index(){
@@ -73,6 +79,27 @@ class Client extends CI_Controller {
       }
     }else{
       $this->load->view('home', $data) ;
+      }
     }
+  
+  //lihat proyek dari client
+   public function all_proyek(){ 
+    $id = $this->client_model->ambil_user_id($this->session->userdata('logged_in')['id_user']) ;
+    $data =  array(
+      'page' => 'dashboard/client/project_client',
+      'result' => $this->client_model->get_project($id[0]->id_contact),
+      'general' => $this->general_model
+    );
+    $this->load->view('home',$data);
+  }
+
+  //lihat update proyek client
+  public function project_update(){
+    $id = $this->client_model->ambil_user_id($this->session->userdata('logged_in')['id_user']) ;
+    $data = array(
+      'page' => 'dashboard/client/project_update',
+      'result' => $this->client_model->get_project_update($id[0]->id_contact)
+     );
+    $this->load->view('home',$data);
   }
 }
