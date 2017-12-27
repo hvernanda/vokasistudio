@@ -66,7 +66,8 @@
       $data = array(
         'page' => 'dashboard/manajer/add_proyek',
         'daftar' => $a,
-        'types' => $this->project_model->get_all_type()
+        'types' => $this->project_model->get_all_type(),
+        'staffs' => $this->staff_model->ambil_user()
       ) ;
 
       if($this->input->post('submit')){
@@ -78,6 +79,7 @@
         // $this->form_validation->set_rules('status', '', 'required') ;
         $this->form_validation->set_rules('downpayment', 'Down Payment', 'required') ;
         $this->form_validation->set_rules('id_contact', 'Contact', 'required') ;
+        $this->form_validation->set_rules('manpro', 'Manajer Proyek', 'required') ;
         $this->form_validation->set_rules('type[]', 'Type', 'required') ;
 
         if($this->form_validation->run() == FALSE){
@@ -91,9 +93,10 @@
           $status = 'on_process';
           $downpayment  = $this->input->post('downpayment');
           $id_contact = $this->input ->post('id_contact');
+          $manpro = $this->input ->post('manpro');
           $types = implode(',', $this->input->post('type')) ;
 
-          $input_data = $this->project_model->insert_project($nama, $dealtime, $price, $deadline, $revisionDeadline, $status, $downpayment,$id_contact, $types);
+          $input_data = $this->project_model->insert_project($nama, $dealtime, $price, $deadline, $revisionDeadline, $status, $downpayment,$id_contact, $manpro, $types);
 
           if($input_data){
             redirect('/project/all') ;

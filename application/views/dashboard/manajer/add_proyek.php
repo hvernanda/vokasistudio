@@ -76,6 +76,15 @@
                     ?>
                 </select>
             </div>
+            <div class="form-group">
+                <label>Manajer Proyek</label>
+                <select name="manpro" id="manpro" class="form-control">
+                    <option>-- Pilih Manajer Proyek --</option>
+                <?php foreach($staffs as $staff){ ?>
+                    <option value="<?php echo $staff->id_staff?>"><?php echo $staff->name?></option>
+                <?php }?>
+                </select>
+            </div>
 
             <input type="submit" class="btn btn-primary" name="submit" id="submit" value="Simpan" onClick="return confirm('Apakah anda yakin data yang anda isikan sudah benar dan sesuai?\nData yang disimpan sudah tidak dapat diubah lagi.')">
         <?php echo form_close()?>

@@ -59,7 +59,7 @@ class project_model extends CI_Model {
         return $result ;
     }
 
-    public function insert_project($nama, $dealtime, $price, $deadline, $revisiondate, $status, $downpayment, $id_contact, $array_type)
+    public function insert_project($nama, $dealtime, $price, $deadline, $revisiondate, $status, $downpayment, $id_contact, $manpro, $array_type)
     {
         $data = array(
             'name' => $nama,
@@ -83,6 +83,13 @@ class project_model extends CI_Model {
                 $this->db->insert('projecttype', $data) ;
             }
 
+            $offer_data = array(
+                'id_project' => $insertId,
+                'id_staff' => $manpro,
+                'status_offer' => '0'
+            ) ;
+
+            $this->db->insert('projectoffer', $offer_data) ;
             return true ;
         }else{
             return false ;
@@ -91,12 +98,11 @@ class project_model extends CI_Model {
 
     public function ambil_project_penawaran()
     {
-		$this->db->select('project.*,company.name as name_company,contact.name as name_contact');
-		$this->db->from('company');
-        $this->db->join('contact','company.id_company = contact.id_company');
-        $this->db->join('project','contact.id_contact = project.id_contact') ;
-        $this->db->where('status', 'on_process');
-		// $this->db->where('id_staff');
+        $this->db->select('project.name as project, user.name as manpro_name, projectoffer.status_offer as status') ;
+        $this->db->from('projectoffer') ;
+        $this->db->join('project', 'projectoffer.id_project = project.id_project') ;
+        $this->db->join('staff', 'projectoffer.id_staff = staff.id_staff') ;
+        $this->db->join('user', 'staff.id_user = user.id_user') ;
 		$query = $this->db->get();
 		$result = $query->result();
 		return $result;
