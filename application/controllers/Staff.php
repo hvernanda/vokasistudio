@@ -94,6 +94,22 @@ class Staff extends CI_Controller {
       $this->load->view('home', $data) ;
     }
   }
+
+  public function set_status($status, $id_user){
+    if($this->user_login_model->checkManajer() == false) redirect('/') ;
+    
+    if($this->staff_model->isStaff($id_user)){
+      if($this->staff_model->update_status($status, $id_user)){
+        redirect('/staff/all') ;
+      }else{
+        $this->session->set_flashdata('msgfailed', 'Failed to change staff status.') ;
+        redirect('/staff/all') ;
+      }
+    }else{
+      $this->session->set_flashdata('msgfailed', 'No staff found.') ;
+        redirect('/staff/all') ;
+    }
+  }
   
   /* MENAMPILKAN SEMUA PROJECT YANG STAFF TERLIBAT DI DALAMNYA */
 

@@ -9,6 +9,16 @@
 </div>
 <div class="row">
     <div class="col-md-12">
+        <?php if($this->session->flashdata('msgfailed')){ ?>
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <p><?php echo $this->session->flashdata('msgfailed') ;?></p>
+        </div>
+        <?php } ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
     <?php 
         foreach($result as $contact){
     ?>
@@ -36,11 +46,25 @@
                             <i class="fa fa-envelope"></i> Email:<br/>
                             <?php echo $contact->email ?>
                         </p>
+                        <p class="small">
+                            <i class="fa fa-user"></i> Status: <br />
+                            <?php 
+                                if($contact->status_account == 'active')
+                                    echo '<span class="label label-success">Active</span>' ;
+                                    else
+                                    echo '<span class="label label-danger">Not Active</span>' ;
+                            ?>
+                        </p>
                     </div>
                 </div>
             </div>
             <div class="user-card-footer text-center">
-                <a href="<?php echo base_url('/user/profile/'.$contact->id_user) ;?>" class="btn btn-info">View Profile</a>
+                <a href="<?php echo base_url('/user/profile/'.$contact->id_user) ;?>" class="btn btn-info"><i class="fa fa-user"></i> View Profile</a>
+                <?php if($contact->status_account == 'active'){ ?>
+                <a href="<?php echo base_url('staff/set_status/inactive/'.$contact->id_user) ;?>" class="btn btn-danger"><i class="fa fa-ban"></i> Set Inactive</a>
+                <?php }else{ ?>
+                    <a href="<?php echo base_url('staff/set_status/active/'.$contact->id_user) ;?>" class="btn btn-success"><i class="fa fa-check"></i> Set Active</a>
+                <?php } ?>
             </div>
         </div>
     </div>
