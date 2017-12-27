@@ -4,23 +4,23 @@
  {
     public function ambil_company()
     {
-		$this->db->select('*');
-		$this->db->from('company');
-		// $this->db->where('id_staff');
-		$query = $this->db->get();
-		$result = $query->result();
-		return $result;
+        $this->db->select('*');
+        $this->db->from('company');
+        // $this->db->where('id_staff');
+        $query = $this->db->get();
+        $result = $query->result();
+        return $result;
     }
     
     public function ambil_company_id($id)
     {
-		$this->db->select('*');
-		$this->db->from('company');
+        $this->db->select('*');
+        $this->db->from('company');
         // $this->db->where('id_staff');
         $this->db->where('id_company', $id) ;
-		$query = $this->db->get();
-		$result = $query->result();
-		return $result;
+        $query = $this->db->get();
+        $result = $query->result();
+        return $result;
     }
 
     public function isCompany($id){
@@ -36,7 +36,7 @@
 
     public function ambil_user()
     {
-        $this->db->select('user.id_user, user.email AS email, user.name AS nama, contact.phone, company.name AS company');
+        $this->db->select('user.id_user, user.email AS email, user.name AS nama, contact.phone, company.name AS company, ');
         $this->db->from('company');
         $this->db->join('contact','contact.id_company = company.id_company');
         $this->db->join('user','contact.id_user= user.id_user');
@@ -46,9 +46,9 @@
         return $result;
     }
 
-    public function ambil_user_id($id)
+    public function ambil_user_id($id) // ambil data user client berdasarkan id
     {
-        $this->db->select('user.id_user, user.email AS email, user.name AS nama, contact.phone, company.name AS company');
+        $this->db->select('user.id_user, user.email AS email, user.name AS nama, contact.phone, company.name AS company, contact.id_contact');
         $this->db->from('company');
         $this->db->join('contact','contact.id_company = company.id_company');
         $this->db->join('user','contact.id_user= user.id_user');
@@ -93,7 +93,6 @@
         }else{
             return false ;
         }
-
     }
 
     public function insert_client_company($nama,$phone, $email, $address)
@@ -113,6 +112,34 @@
         $this->db->where('id_company = '.$data['id_company']) ;
         $query = $this->db->update('company', $data) ;
         return $query ;
+    }
+
+    public function get_project($id_kontak)
+    {
+        $this->db->select('project.id_project, project.name, project.dealTime, project.deadline');
+        $this->db->from('project');
+        $this->db->join('contact','contact.id_contact = project.id_contact');
+        $this->db->join('user','user.id_user=contact.id_user');
+        $this->db->where('contact.id_contact', $id_kontak);
+        $query = $this->db->get();
+        $result = $query->result();
+        return $result;
+    }
+
+    public function get_project_update($id_kontak)
+    {
+        $this->db->select('staff.name as crew_name, project.name as project, activity.name as crew_task, activity.uploadFile as crew_file, activity.id_activity');
+        $this->db->from('staff');
+        $this->db->join('user','user.id_user=staff.id_user');
+        $this->db->join('crew','crew.id_staff=staff.id_staff');
+        $this->db->join('jobassignment','jobassignment.id_crew=crew.id_crew');
+        $this->db->join('activity','activity.id_jobAssignment=jobassignment.id_jobAssignment');
+        $this->db->join('project','project.id_project=crew.id_project');
+        $this->db->join('contact', 'contact.id_contact=project.id_contact');
+        $this->db->where('contact.id_contact', $id_kontak);
+        $query = $this->db->get();
+        $result = $query->result();
+        return $result;
     }
 }
 
