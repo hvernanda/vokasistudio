@@ -14,7 +14,6 @@
                                 <th>Nama Proyek</th>
                                 <th> Nama Staff </th>
                                 <th> Status </th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,14 +36,6 @@
                                             echo '<span class="label label-success">Diterima</span>' ;
                                         else
                                             echo '<span class="label label-danger">Ditolak</span>' ;
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php 
-                                        if($proyek->status == '-1')
-                                            echo "Pilih manajer baru" ;
-                                        else
-                                            echo "<em>Tidak ada</em>" ;
                                     ?>
                                 </td>
                             </tr>
