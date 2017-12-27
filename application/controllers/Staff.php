@@ -54,6 +54,32 @@ class Staff extends CI_Controller {
     $this->load->view('home',$data);
   }
 
+  public function add_tool_skill()
+  {
+      if($this->user_login_model->checkManajer() == false) redirect('/staff/all_tool_skill') ;
+
+      if($this->input->post('submit')){
+        $this->form_validation->set_rules('name', 'Name', 'required|trim') ;
+
+        if($this->form_validation->run() == FALSE){
+          $this->session->set_flashdata('warning_type', 'Name is required') ;
+          redirect('/staff/add_tool_skill') ;
+        }else{
+          $name = $this->input->post('name') ;
+
+          if($this->staff_model->insert_tool_skill($name)){
+            redirect('/staff/all_tool_skill') ;
+          }else{
+            $this->session->set_flashdata('warning_type', 'Error, insert data failed!') ;
+            redirect('/staff/add_tool_skill') ;
+          }
+        }
+      }else{
+        redirect('/staff/all_tool_skill') ;
+      }
+    }
+  
+
   public function add(){
     if($this->user_login_model->checkManajer() == false) redirect('/') ;
 
@@ -196,4 +222,5 @@ class Staff extends CI_Controller {
 
     $this->load->view('home',$data);
   }
+  
 }

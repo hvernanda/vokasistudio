@@ -60,6 +60,13 @@
     </li>
   </ul>
 </li>
+  <li>
+      <a href="<?php echo base_url('staff/add_tool_skill') ;?>">
+        <i class="fa fa-circle"></i>  ADD Skill & Tools
+      </a>
+    </li>
+  </ul>
+</li>
 <li class="treeview">
   <a href="#">
     <i class="fa fa-user"></i>
