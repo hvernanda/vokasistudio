@@ -32,7 +32,7 @@
                                 foreach($result as $proyek){
                                     if($proyek->id_project){  
                                         $i++;         
-                                        ?>
+                         ?>
                         
             
                         <tr>
