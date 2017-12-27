@@ -58,15 +58,25 @@
         <i class="fa fa-circle"></i> Skill & Tools
       </a>
     </li>
+    <li>
+      <a href="<?php echo base_url('staff/all_tool') ;?>">
+        <i class="fa fa-circle"></i> Add Tools
+      </a>
+    </li>
+    <li>
+      <a href="<?php echo base_url('staff/all_skill') ;?>">
+        <i class="fa fa-circle"></i> Add Skill
+      </a>
+    </li>
   </ul>
 </li>
-  <li>
+ <!--  <li>
       <a href="<?php echo base_url('staff/add_tool_skill') ;?>">
         <i class="fa fa-circle"></i>  ADD Skill & Tools
       </a>
     </li>
   </ul>
-</li>
+</li> -->
 <li class="treeview">
   <a href="#">
     <i class="fa fa-user"></i>

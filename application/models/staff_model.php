@@ -133,6 +133,7 @@ class staff_model extends CI_Model {
         
     }
 
+
     public function ambil_tool_skill()
     {
       $this->db->select('*');
@@ -143,6 +144,20 @@ class staff_model extends CI_Model {
       $query = $this->db->get();
       $result = $query->result();
       return $result;
+    }
+    public function insert_tool($name){
+        $data = array(
+            'tool_name'=> $name
+        ) ;
+        $input = $this->db->insert('tool', $data) ;
+        return $input ? true : false ;
+    }
+        public function insert_skill($name){
+        $data = array(
+            'skill_name'=> $name
+        ) ;
+        $input = $this->db->insert('skill', $data) ;
+        return $input ? true : false ;
     }
 
     public function getSkillStaff($id_staff){
@@ -157,6 +172,23 @@ class staff_model extends CI_Model {
         } else {
             return "Skill not found";
         }
+    }
+
+        public function get_all_tool(){
+        $this->db->select('*') ;
+        $this->db->from('tool') ;
+        $query = $this->db->get() ;
+
+        $result = $query->result() ;
+        return $result ;
+    }
+       public function get_all_skill(){
+        $this->db->select('*') ;
+        $this->db->from('skill') ;
+        $query = $this->db->get() ;
+
+        $result = $query->result() ;
+        return $result ;
     }
 
     public function isStaff($id_user){
