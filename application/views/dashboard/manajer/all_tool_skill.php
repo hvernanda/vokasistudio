@@ -5,6 +5,9 @@
             <div class="panel-heading">
                 <b>TOOLS & SKILLS</b>
             </div>
+                <div class="col-md-3 pull-right text-right">
+        <!-- <a href="<?php echo base_url('staff/add_tool_skill') ;?>" class="btn btn-info"><i class="fa fa-plus"></i> Add new Skill and Tools</a> -->
+    </div>
             <div class="panel-body">
                 <div class="table-responsive">
                     <table class="table">

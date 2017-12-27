@@ -58,6 +58,16 @@
 
       $this->load->view('home', $data) ;
     }
+        public function all_tool(){
+      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+      $data = array(
+        'page' => 'dashboard/manajer/all_tools_skill',
+        'result' => $this->project_model->get_all_tool()
+      ) ;
+
+      $this->load->view('home', $data) ;
+    }
 
     public function add(){
       if($this->user_login_model->checkManajer() == false) redirect('/') ;

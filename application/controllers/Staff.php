@@ -53,6 +53,72 @@ class Staff extends CI_Controller {
 
     $this->load->view('home',$data);
   }
+  public function all_tool(){
+      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+      $data = array(
+        'page' => 'dashboard/manajer/all_tools',
+        'result' => $this->staff_model->get_all_tool()
+      ) ;
+
+      $this->load->view('home', $data) ;
+    }
+    public function all_skill(){
+      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+      $data = array(
+        'page' => 'dashboard/manajer/all_skill',
+        'result' => $this->staff_model->get_all_skill()
+      ) ;
+
+      $this->load->view('home', $data) ;
+    }
+    public function add_tool(){
+      if($this->user_login_model->checkManajer() == false) redirect('/staff/all_tool') ;
+
+      if($this->input->post('submit')){
+        $this->form_validation->set_rules('name', 'Name', 'required|trim') ;
+
+        if($this->form_validation->run() == FALSE){
+          $this->session->set_flashdata('warning_type', 'Project Type is required') ;
+          redirect('/staff/all_tool') ;
+        }else{
+          $name = $this->input->post('name') ;
+
+          if($this->staff_model->insert_tool($name)){
+            redirect('/staff/all_tool') ;
+          }else{
+            $this->session->set_flashdata('warning_type', 'Error, insert data failed!') ;
+            redirect('/staff/all_tool') ;
+          }
+        }
+      }else{
+        redirect('/staff/all_tool') ;
+      }
+    }
+        public function add_skill(){
+      if($this->user_login_model->checkManajer() == false) redirect('/staff/all_skill') ;
+
+      if($this->input->post('submit')){
+        $this->form_validation->set_rules('name', 'Name', 'required|trim') ;
+
+        if($this->form_validation->run() == FALSE){
+          $this->session->set_flashdata('warning_type', 'Project Type is required') ;
+          redirect('/staff/all_skill') ;
+        }else{
+          $name = $this->input->post('name') ;
+
+          if($this->staff_model->insert_skill($name)){
+            redirect('/staff/all_skill') ;
+          }else{
+            $this->session->set_flashdata('warning_type', 'Error, insert data failed!') ;
+            redirect('/staff/all_skill') ;
+          }
+        }
+      }else{
+        redirect('/staff/all_skill') ;
+      }
+    }  
 
   public function add(){
     if($this->user_login_model->checkManajer() == false) redirect('/') ;
@@ -196,4 +262,5 @@ class Staff extends CI_Controller {
 
     $this->load->view('home',$data);
   }
+  
 }

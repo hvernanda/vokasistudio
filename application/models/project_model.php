@@ -59,6 +59,15 @@ class project_model extends CI_Model {
         return $result ;
     }
 
+    public function get_all_tool(){
+        $this->db->select('*') ;
+        $this->db->from('tool') ;
+        $query = $this->db->get() ;
+
+        $result = $query->result() ;
+        return $result ;
+    }
+
     public function insert_project($nama, $dealtime, $price, $deadline, $revisiondate, $status, $downpayment, $id_contact, $manpro, $array_type)
     {
         $data = array(
