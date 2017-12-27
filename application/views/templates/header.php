@@ -28,13 +28,10 @@
   <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css')?>">
 
   <!-- Plugin CSS -->
-  <link rel="stylesheet" href="<?php echo base_url('plugins/iCheck/flat/_all.css') ;?>">
-  <link rel="stylesheet" href="<?php echo base_url('plugins/morris/morris.css') ;?>">
-  <link rel="stylesheet" href="<?php echo base_url('plugins/datepicker/datepicker3.css') ;?>">
+  <link rel="stylesheet" href="<?php echo base_url('plugins/iCheck/flat/_all.css') ;?>">  
   <link rel="stylesheet" href="<?php echo base_url('plugins/datatables/dataTables.bootstrap.css') ;?>">
-  <link rel="stylesheet" href="<?php echo base_url('plugins/colorpicker/bootstrap-colorpicker.min.css') ;?>">
   <link rel="stylesheet" href="<?php echo base_url('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') ;?>">
-  <link rel="stylesheet" href="<?php echo base_url('plugins/fullcalendar/fullcalendar.min.css') ;?>">
+  <link rel="stylesheet" href="<?php echo base_url('plugins/select2/select2.min.css') ;?>">
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

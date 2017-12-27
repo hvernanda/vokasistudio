@@ -17,14 +17,19 @@
         <i class="fa fa-circle"></i> Semua Proyek
       </a>
     </li>
-    <li>
+    <!-- <li>
       <a href="<?php echo base_url('project/add') ;?>">
         <i class="fa fa-circle"></i> Tambah Proyek
       </a>
-    </li>
+    </li> -->
     <li>
       <a href="<?php echo base_url('project/all_penawaran') ;?>">
         <i class="fa fa-circle"></i> Penawaran Proyek
+      </a>
+    </li>
+    <li>
+      <a href="<?php echo base_url('project/all_type') ;?>">
+        <i class="fa fa-circle"></i> Semua Tipe Proyek
       </a>
     </li>
   </ul>

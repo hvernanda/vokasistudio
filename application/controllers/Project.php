@@ -48,13 +48,25 @@
       $this->load->view('home',$data);
     }
 
+    public function all_type(){
+      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+      $data = array(
+        'page' => 'dashboard/manajer/all_proyek_type',
+        'result' => $this->project_model->get_all_type()
+      ) ;
+
+      $this->load->view('home', $data) ;
+    }
+
     public function add(){
       if($this->user_login_model->checkManajer() == false) redirect('/') ;
 
       $a = $this->db->query("SELECT id_contact,name from contact")->result();
       $data = array(
         'page' => 'dashboard/manajer/add_proyek',
-        'daftar' => $a
+        'daftar' => $a,
+        'types' => $this->project_model->get_all_type()
       ) ;
 
       if($this->input->post('submit')){
@@ -66,6 +78,7 @@
         // $this->form_validation->set_rules('status', '', 'required') ;
         $this->form_validation->set_rules('downpayment', 'Down Payment', 'required') ;
         $this->form_validation->set_rules('id_contact', 'Contact', 'required') ;
+        $this->form_validation->set_rules('type[]', 'Type', 'required') ;
 
         if($this->form_validation->run() == FALSE){
           $this->load->view('home', $data) ;
@@ -78,8 +91,9 @@
           $status = 'on_process';
           $downpayment  = $this->input->post('downpayment');
           $id_contact = $this->input ->post('id_contact');
+          $types = implode(',', $this->input->post('type')) ;
 
-          $input_data = $this->project_model->insert_project($nama, $dealtime, $price, $deadline, $revisionDeadline, $status, $downpayment,$id_contact);
+          $input_data = $this->project_model->insert_project($nama, $dealtime, $price, $deadline, $revisionDeadline, $status, $downpayment,$id_contact, $types);
 
           if($input_data){
             redirect('/project/all') ;
@@ -89,6 +103,55 @@
         }
       }else{
         $this->load->view('home', $data) ;
+      }
+    }
+
+    public function add_type(){
+      if($this->user_login_model->checkManajer() == false) redirect('/project/all_type') ;
+
+      if($this->input->post('submit')){
+        $this->form_validation->set_rules('name', 'Name', 'required|trim') ;
+
+        if($this->form_validation->run() == FALSE){
+          $this->session->set_flashdata('warning_type', 'Project Type is required') ;
+          redirect('/project/all_type') ;
+        }else{
+          $name = $this->input->post('name') ;
+
+          if($this->project_model->insert_project_type($name)){
+            redirect('/project/all_type') ;
+          }else{
+            $this->session->set_flashdata('warning_type', 'Error, insert data failed!') ;
+            redirect('/project/all_type') ;
+          }
+        }
+      }else{
+        redirect('/project/all_type') ;
+      }
+    }
+
+    public function edit_type(){
+      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+      if($this->input->post('submit')){
+        $this->form_validation->set_rules('name', 'Project Type', 'required|trim') ;
+
+        if($this->form_validation->run() == FALSE){
+          $this->session->set_flashdata('warning_edit_type', 'Project Type is required') ;
+          redirect('/project/all_type') ;
+        }else{
+          $name = $this->input->post('name') ;
+          $id_type = $this->input->post('id_type') ;
+
+          if($this->project_model->update_project_type($id_type, $name)){
+            redirect('/project/all_type') ;
+          }else{
+            $this->session->set_flashdata('warning_edit_type', 'Error, update data failed!') ;
+          redirect('/project/all_type') ;
+          }
+        }
+      }else{
+        redirect('/project/all_type') ;
       }
     }
   }
