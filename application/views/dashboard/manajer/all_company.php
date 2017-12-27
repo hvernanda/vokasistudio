@@ -13,7 +13,7 @@
     ?>
         <div class="col-md-4" style="padding: 5px;">
             <div class="user-card">
-                <div style="padding: 15px; min-height: 225px;">
+                <div style="padding: 15px; min-height: 250px; max-height: 250px; overflow: hidden;">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="user-card-image">
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="user-card-footer text-center">
-                    <a href="<?php echo base_url('/company/detail/'.$company->id_company) ;?>" class="btn btn-info">View Company</a>
+                    <a href="<?php echo base_url('/company/detail/'.$company->id_company) ;?>" class="btn btn-info btn-sm">View Company</a>
                 </div>
             </div>
         </div>

@@ -159,6 +159,28 @@ class staff_model extends CI_Model {
         }
     }
 
+    public function isStaff($id_user){
+        $this->db->select('*');
+        $this->db->from('staff') ;
+        $this->db->where('id_user', $id_user) ;
+        $query = $this->db->get() ;
+
+        if($query->num_rows() == 1)
+            return true ;
+
+        return false ;
+    }
+
+    public function update_status($status, $id_user){
+        $data = array(
+            'status_account' => $status
+        ) ;
+        $this->db->where("id_user = ".$id_user) ;
+        $query = $this->db->update('staff', $data) ;
+
+        return $query ? $query : false ;
+    }
+
 
 }
 
