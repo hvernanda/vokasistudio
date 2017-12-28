@@ -13,12 +13,12 @@
   </a>
   <ul class="treeview-menu">
     <li>
-      <a href="#">
+      <a href="<?php echo base_url('Client/all_proyek');?>">
         <i class="fa fa-circle"></i> Semua Proyek
       </a>
     </li>
     <li>
-      <a href="#">
+      <a href= "<?php echo base_url('Client/project_update');?>">
         <i class="fa fa-circle"></i> Progress Proyek
       </a>
     </li>
