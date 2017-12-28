@@ -56,6 +56,15 @@
                 <span class="input-group-addon">,00</span>
             </div>
             <div class="form-group">
+                <label>Type Proyek</label>
+                <select name="type[]" id="type" class="form-control select2" multiple="multiple" required>
+                <option disabled="disabled">-- Pilih tipe --</option>
+                <?php foreach($types as $type){ ?>
+                    <option value="<?php echo $type->id_type?>"><?php echo $type->name?></option>
+                <?php } ?>
+                </select>
+            </div>
+            <div class="form-group">
                 <label> Kontak Perusahaan </label>
                 <select class="form-control" name="id_contact" id="id_contact"  required>
                     <?php 
@@ -65,6 +74,15 @@
                     <?php 
                         }
                     ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Manajer Proyek</label>
+                <select name="manpro" id="manpro" class="form-control">
+                    <option>-- Pilih Manajer Proyek --</option>
+                <?php foreach($staffs as $staff){ ?>
+                    <option value="<?php echo $staff->id_staff?>"><?php echo $staff->name?></option>
+                <?php }?>
                 </select>
             </div>
 

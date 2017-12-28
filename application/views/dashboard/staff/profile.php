@@ -55,7 +55,25 @@
 
         <strong><i class="fa fa-pencil"></i> Skills</strong>
         <p class="text-muted">
-          Skills here
+         <?php
+                                $i=0;
+                                foreach($data_skill as $skillMap){
+                                    if($skillMap->skill_name){  
+                                        $i++;         
+                         ?>
+                        <tr>
+                            <td><?php echo $i ?> </td>
+                            <td><?php echo $skillMap->skill_name
+                             ?> </td>
+                                
+                            </td>
+                        </tr>
+                    
+                        <?php 
+                                    }
+                                }
+
+                                ?>
         </p>
       </div>
     </div>

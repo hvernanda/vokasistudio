@@ -13,7 +13,7 @@
   </a>
   <ul class="treeview-menu">
     <li>
-      <a href="#">
+      <a href="<?php echo base_url('keuangan/keuangan_studio')?>">
         <i class="fa fa-circle"></i> Keuangan Studio
       </a>
     </li>

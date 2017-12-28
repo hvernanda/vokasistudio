@@ -26,6 +26,7 @@
       $data = array(
         'page' => intval($isUser[0]->id_user_role) == 4 ? 'dashboard/client/profile_contact' : 'dashboard/staff/profile',
         'result' => intval($isUser[0]->id_user_role) == 4 ? $this->client_model->ambil_user_id($id) : $this->staff_model->ambil_user_id($id),
+        'data_skill' =>$this->staff_model->get_staff_skill($id)
       ) ;
 
       $this->load->view('home', $data) ;

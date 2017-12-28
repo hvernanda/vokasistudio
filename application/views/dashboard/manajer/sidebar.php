@@ -17,14 +17,19 @@
         <i class="fa fa-circle"></i> Semua Proyek
       </a>
     </li>
-    <li>
+    <!-- <li>
       <a href="<?php echo base_url('project/add') ;?>">
         <i class="fa fa-circle"></i> Tambah Proyek
       </a>
-    </li>
+    </li> -->
     <li>
       <a href="<?php echo base_url('project/all_penawaran') ;?>">
         <i class="fa fa-circle"></i> Penawaran Proyek
+      </a>
+    </li>
+    <li>
+      <a href="<?php echo base_url('project/all_type') ;?>">
+        <i class="fa fa-circle"></i> Semua Tipe Proyek
       </a>
     </li>
   </ul>
@@ -53,8 +58,30 @@
         <i class="fa fa-circle"></i> Skill & Tools
       </a>
     </li>
+    <li>
+      <a href="<?php echo base_url('staff/all_tool') ;?>">
+        <i class="fa fa-circle"></i> Semua Tools
+      </a>
+    </li>
+    <li>
+      <a href="<?php echo base_url('staff/all_skill') ;?>">
+        <i class="fa fa-circle"></i> Semua Skills
+      </a>
+    </li>
+    <li>
+      <a href="<?php echo base_url('staff/add_tool_skill') ;?>">
+        <i class="fa fa-circle"></i> Add Skill & Tools
+      </a>
+    </li>
   </ul>
 </li>
+ <!--  <li>
+      <a href="<?php echo base_url('staff/add_tool_skill') ;?>">
+        <i class="fa fa-circle"></i>  ADD Skill & Tools
+      </a>
+    </li>
+  </ul>
+</li> -->
 <li class="treeview">
   <a href="#">
     <i class="fa fa-user"></i>

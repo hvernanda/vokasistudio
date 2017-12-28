@@ -40,9 +40,9 @@
             Masukkan email dan password
           </p>
           <form action="<?php echo base_url() ?>user_authentication/user_login_process" method="post">
-          <?php if($this->session->userdata('auth')){ ?>
+          <?php if($this->session->flashdata('auth')){ ?>
             <div class="alert alert-danger alert-dismissible">
-              <p><?php echo $this->session->userdata('auth')['error_message'] ;?></p>
+              <p><?php echo $this->session->flashdata('auth') ;?></p>
             </div>
           <?php } ?>
             <div class="form-group has-feedback">
