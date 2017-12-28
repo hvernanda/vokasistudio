@@ -226,6 +226,16 @@ class Staff extends CI_Controller {
       redirect('/staff/all_tool') ;
     }
   }
+
+  public function delete_skill($id_skill){
+    if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+    if($this->staff_model->isSkill($id_skill)){
+      if($this->staff_model->delete_skill($id_skill)) return true ;
+      return false ;
+    }
+    return false ;
+  }
   
   /* MENAMPILKAN SEMUA PROJECT YANG STAFF TERLIBAT DI DALAMNYA */
 

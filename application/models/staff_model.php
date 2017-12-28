@@ -217,6 +217,18 @@ class staff_model extends CI_Model {
         return false ;
     }
 
+    public function isSkill($id_skill){
+        $this->db->select('*') ;
+        $this->db->from('skill') ;
+        $this->db->where('id_skill', $id_skill) ;
+
+        $query = $this->db->get() ;
+
+        if($query->num_rows() == 1) return true ;
+
+        return false ;
+    }
+
     public function update_status($status, $id_user){
         $data = array(
             'status_account' => $status
@@ -247,6 +259,14 @@ class staff_model extends CI_Model {
         $query = $this->db->update('tool', $data) ;
 
         return $query ? true : false ;
+    }
+
+    public function delete_skill($id_skill){
+        $this->db->where('id_skill', $id_skill) ;
+
+        if($this->db->delete('skill')) return true ;
+        
+        return false ;
     }
 
 

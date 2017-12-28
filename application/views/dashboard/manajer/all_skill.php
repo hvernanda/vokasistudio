@@ -17,12 +17,48 @@
             </tr>
           </thead>
           <tbody>
-          <?php foreach($result as $type){ ?>
+          <?php $i=0; foreach($result as $type){ $i++; ?>
             <tr>
-              <td><?php echo $type->id_skill ;?></td>
+              <td><?php echo $i ;?></td>
               <td><?php echo $type->skill_name ;?></td>
               <td>
                 <a href="#" class="btn btn-info btn-xs" onclick="showEditSkill('<?php echo $type->id_skill ;?>', '<?php echo $type->skill_name ;?>')"><i class="fa fa-pencil"></i> Edit</a>
+                <a href="#" class="btn btn-danger btn-xs"
+                  onclick="
+                  $().ready(function(e){
+                    swal({
+                      title : 'Are you sure?',
+                      text : 'Apa Anda yakin akan menghapus skill ini?',
+                      type : 'warning',
+                      showCancelButton : true,
+                      confirmButtonColor: '#DD6B55',
+                      confirmButtonText: 'Ya,  hapus!',
+                      cancelButtonText: 'Tidak, batalkan!'
+                    })
+                      .then((result) => {
+                        if(result.value){
+                          $.get('<?php echo base_url('staff/delete_skill/'.$type->id_skill) ;?>')
+                            .then((res) => {
+                              swal({
+                                title : 'Deleted',
+                                text : 'Data skill sudah terhapus',
+                                type : 'success'
+                              }).then(() => (location.reload())) ;
+                            })
+                          .catch((err) => {
+                            swal({
+                              title : 'Error',
+                              text : 'Data skill tidak terhapus',
+                              type : 'error'
+                            }).then(() => (location.reload())) ;
+                          })
+                        }else if(result.dismiss === 'cancel'){
+                          swal('Dibatalkan', 'Data skill tidak jadi dihapus', 'error') ;
+                        }
+                      })
+                  }) ;
+                  "
+                ><i class="fa fa-trash"></i> Delete</a>
               </td>
             </tr>
           <?php } ?>
