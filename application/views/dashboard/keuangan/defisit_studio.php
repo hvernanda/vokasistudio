@@ -1,15 +1,4 @@
   <div id="print">
-  <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Defisit Vokasi Studios
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="<?php echo site_url('home') ?>"><i class="fa fa-dashboard"></i> Halaman Utama</a></li>
-        <li class="active">Defisit Vokasi Studios</li>
-      </ol>
-    </section> 
-
     <div class="btn-normal" id="hidden-button"> 
       <a href="##" target="_blank" onclick="printDiv()">
         <button type="button" class="btn btn-primary">Cetak</button>
@@ -23,7 +12,7 @@
         <div class="col-xs-12">
           <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Table</h3>
+          <h3 class="box-title">Defisit Keuangan Vokasi Studios</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">

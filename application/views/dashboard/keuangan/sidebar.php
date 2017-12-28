@@ -18,7 +18,7 @@
       </a>
     </li>
     <li>
-      <a href="<?php echo base_url('defisit_studio/defisit_studio')?>">
+      <a href="<?php echo base_url('Defisit_studio/defisit_studio')?>">
         <i class="fa fa-circle"></i> Defisit Keuangan Studio
       </a>
     </li>
