@@ -174,7 +174,7 @@ class staff_model extends CI_Model {
         }
     }
 
-        public function get_all_tool(){
+    public function get_all_tool(){
         $this->db->select('*') ;
         $this->db->from('tool') ;
         $query = $this->db->get() ;
@@ -182,7 +182,8 @@ class staff_model extends CI_Model {
         $result = $query->result() ;
         return $result ;
     }
-       public function get_all_skill(){
+
+    public function get_all_skill(){
         $this->db->select('*') ;
         $this->db->from('skill') ;
         $query = $this->db->get() ;
@@ -224,6 +225,17 @@ class staff_model extends CI_Model {
         $query = $this->db->update('staff', $data) ;
 
         return $query ? $query : false ;
+    }
+
+    public function update_skill($id_skill, $name){
+        $data = array(
+            'skill_name' => $name
+        ) ;
+
+        $this->db->where('id_skill', $id_skill) ;
+        $query = $this->db->update('skill', $data) ;
+
+        return $query ? true : false ;
     }
 
 

@@ -96,14 +96,15 @@ class Staff extends CI_Controller {
         redirect('/staff/all_tool') ;
       }
     }
-        public function add_skill(){
+
+    public function add_skill(){
       if($this->user_login_model->checkManajer() == false) redirect('/staff/all_skill') ;
 
       if($this->input->post('submit')){
         $this->form_validation->set_rules('name', 'Name', 'required|trim') ;
 
         if($this->form_validation->run() == FALSE){
-          $this->session->set_flashdata('warning_type', 'Project Type is required') ;
+          $this->session->set_flashdata('warning_skill', 'Project Type is required') ;
           redirect('/staff/all_skill') ;
         }else{
           $name = $this->input->post('name') ;
@@ -111,7 +112,7 @@ class Staff extends CI_Controller {
           if($this->staff_model->insert_skill($name)){
             redirect('/staff/all_skill') ;
           }else{
-            $this->session->set_flashdata('warning_type', 'Error, insert data failed!') ;
+            $this->session->set_flashdata('warning_skill', 'Error, insert data failed!') ;
             redirect('/staff/all_skill') ;
           }
         }
@@ -174,6 +175,31 @@ class Staff extends CI_Controller {
     }else{
       $this->session->set_flashdata('msgfailed', 'No staff found.') ;
         redirect('/staff/all') ;
+    }
+  }
+
+  public function edit_skill(){
+    if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+    if($this->input->post('submit')){
+      $this->form_validation->set_rules('name', 'Skill Name', 'required|trim') ;
+
+      if($this->form_validation->run() == FALSE){
+        $this->session->set_flashdata('warning_edit_skill', 'Skill Name is required!') ;
+        redirect('/staff/all_skill') ;
+      }else{
+        $name = $this->input->post('name') ;
+        $id_skill = $this->input->post('id_skill') ;
+
+        if($this->staff_model->update_skill($id_skill, $name)){
+          redirect('/staff/all_skill') ;
+        }else{
+          $this->session->set_flashdata('warning_edit_skill', 'Error, update data failed!') ;
+          redirect('/staff/all_skill') ;
+        }
+      }
+    }else{
+      redirect('/staff/all_skill') ;
     }
   }
   
