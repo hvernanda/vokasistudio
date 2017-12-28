@@ -2,7 +2,6 @@
 if(!defined('BASEPATH')) exit('No direct script allowed') ;
 
 class staff_model extends CI_Model {
-
     public function __construct(){
       parent::__construct() ;
     }
@@ -11,12 +10,29 @@ class staff_model extends CI_Model {
         $sql = "SELECT st.*,sk.* FROM ((staff st INNER JOIN skillmapping sm ON st.id_staff = sm.id_staff) INNER JOIN skill sk ON sm.id_skill = sk.id_skill) where s.id_user=" . $id_user;
         $query = $this->db->query($sql);
         
-        if ($query->num_rows() == 1) {
+        if ($query->num_rows() >= 1) {
             return $query->result();
         } else {
-            return false;
+            return "No data";
         }
     }
+
+    // public function check_role($id_user,$id_project){
+    //   $sql = "SELECT c.id_crew_role 
+    //           FROM crew c 
+    //           INNER JOIN project p USING(id_project) 
+    //           INNER JOIN staff s USING(id_staff) 
+    //           INNER JOIN user u USING(id_user) 
+    //           WHERE u.id_user = ". $id_user ." AND p.id_project = " . $id_project;
+
+    //    $query = $this->db->query($sql);
+        
+    //     if ($query->num_rows() == 1) {
+    //         return $query->result();
+    //     } else {
+    //         return "No data";
+    //     }
+    // }
 
     public function editBio($id_user,$name,$address,$phone,$photo,$skill){
         $data = array(
@@ -54,20 +70,54 @@ class staff_model extends CI_Model {
         }
     }
 
+    public function getProjectCount($id_user){
+      $sql = "SELECT COUNT(p.id_project) as count
+              FROM project p 
+              INNER JOIN crew c on p.id_project=c.id_project 
+              INNER JOIN staff s on c.id_staff=s.id_staff 
+              INNER JOIN user u on s.id_user=u.id_user 
+              where u.id_user= " . $id_user;
+
+      $query = $this->db->query($sql);
+      
+      if ($query->num_rows() != 0) {
+          return $query->result();
+      } else {
+          return false;
+      }
+    }
+
+    public function getProjectCountRole($id_user){
+      $sql = "SELECT c.id_crew_role,COUNT(p.id_project) as count
+              FROM project p 
+              INNER JOIN crew c on p.id_project=c.id_project 
+              INNER JOIN staff s on c.id_staff=s.id_staff 
+              INNER JOIN user u on s.id_user=u.id_user 
+              where u.id_user= " . $id_user . " GROUP BY c.id_crew_role";
+
+      $query = $this->db->query($sql);
+      
+      if ($query->num_rows() != 0) {
+          return $query->result();
+      } else {
+          return false;
+      }
+    } 
+
     public function getProjectList($id_user){
-        $query = "SELECT p.* FROM project p 
-                INNER JOIN crew c on p.id_project=c.id_project 
-                INNER JOIN staff s on c.id_staff=s.id_staff 
-                INNER JOIN user u on s.id_user=u.id_user 
-                where u.id_user=" . $id_user . "AND c.status_permintaan = \'Terima\'";
-        
-        $query = $this->db->query($sql);
-        
-        if ($query->num_rows() == 1) {
-            return $query->result();
-        } else {
-            return false;
-        }
+      $sql = "SELECT p.*,c.id_crew_role FROM project p 
+              INNER JOIN crew c on p.id_project=c.id_project 
+              INNER JOIN staff s on c.id_staff=s.id_staff 
+              INNER JOIN user u on s.id_user=u.id_user 
+              where u.id_user=" . $id_user;
+
+      $query = $this->db->query($sql);
+      
+      if ($query->num_rows() != 0) {
+          return $query->result();
+      } else {
+          return false;
+      }
     }
 
     public function getStaffId($id_user){

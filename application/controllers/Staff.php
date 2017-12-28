@@ -21,11 +21,41 @@ class Staff extends CI_Controller {
     $session_data['id_staff'] = $this->staff_model->getStaffId($id_user);  
     
     $this->session->set_userdata('logged_in', $session_data);
+    
+    $array_role = $this->staff_model->getProjectCountRole($id_user);
+    $manajer_count = 0;
+    $keuangan_count = 0;
+    $crew_biasa_count = 0;
+
+    foreach ($array_role as $role) {
+      if($role->id_crew_role==1){
+        $manajer_count = $role->count;
+      }
+      if($role->id_crew_role==2){
+        $keuangan_count = $role->count;
+      }
+      if($role->id_crew_role==3){
+        $crew_biasa_count = $role->count;
+      }
+    }
 
     $data = array(
-      'page' => 'dashboard/staff/index'
+      'page' => 'dashboard/staff/index',
+      'isi' => $this->staff_model->getProjectList($id_user),
+      'project_count' => $this->staff_model->getProjectCount($id_user),
+      'manajer_count' => $manajer_count,
+      'keuangan_count' => $keuangan_count,
+      'crew_biasa_count' => $crew_biasa_count
     );
-    $this->load->view('home', $data) ;
+    $this->load->view('home',$data);
+  }
+
+  public function auth_project_role($id_project){
+    $session_data = $this->session->userdata('logged_in');
+    $id_user = session_data['id_user'];
+    $id_role = $this->model->check_role($id_user,$id_project);
+
+
   }
 
   /*
@@ -368,6 +398,8 @@ class Staff extends CI_Controller {
 
   }
 
+  /* MELIHAT BIODATA STAFF */
+
   public function viewBiodata(){
     $session_data = $this->session->userdata('logged_in');
     $id_user = $session_data['id_user'];
@@ -378,6 +410,8 @@ class Staff extends CI_Controller {
 
     $this->load->view('home',$data);
   }
+
+  /* MENGUBAH BIODATA */
 
   public function editBiodata(){
     $session_data = $this->session->userdata('logged_in');
@@ -397,17 +431,7 @@ class Staff extends CI_Controller {
     $this->load->view('home',$data);
   }
 
-  public function viewProjectList(){
-    $session_data = $this->session->userdata('logged_in');
-    $id_user = $session_data['id_user'];
-
-    $data = array(
-      'page' => 'dashboard/staff/project/all',
-      'data' => $this->staff_model->getProjectList($id_user)
-    );
-
-    $this->load->view('home',$data);
-  }
+  /* MELIHAT RINCIAN PROYEK */
 
   public function viewDetailProject($id){ // staff/viewDet..../id_proyek/opo
     $session_data = $this->session->userdata('logged_in');
