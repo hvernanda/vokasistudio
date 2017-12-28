@@ -60,12 +60,12 @@
     </li>
     <li>
       <a href="<?php echo base_url('staff/all_tool') ;?>">
-        <i class="fa fa-circle"></i> Add Tools
+        <i class="fa fa-circle"></i> Semua Tools
       </a>
     </li>
     <li>
       <a href="<?php echo base_url('staff/all_skill') ;?>">
-        <i class="fa fa-circle"></i> Add Skill
+        <i class="fa fa-circle"></i> Semua Skills
       </a>
     </li>
     <li>

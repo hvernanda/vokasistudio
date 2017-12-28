@@ -59,15 +59,6 @@ class project_model extends CI_Model {
         return $result ;
     }
 
-    public function get_all_tool(){
-        $this->db->select('*') ;
-        $this->db->from('tool') ;
-        $query = $this->db->get() ;
-
-        $result = $query->result() ;
-        return $result ;
-    }
-
     public function insert_project($nama, $dealtime, $price, $deadline, $revisiondate, $status, $downpayment, $id_contact, $manpro, $array_type)
     {
         $data = array(
@@ -107,7 +98,7 @@ class project_model extends CI_Model {
 
     public function ambil_project_penawaran()
     {
-        $this->db->select('project.name as project, user.name as manpro_name, projectoffer.status_offer as status') ;
+        $this->db->select('project.id_project, project.name as project, user.name as manpro_name, projectoffer.status_offer as status') ;
         $this->db->from('projectoffer') ;
         $this->db->join('project', 'projectoffer.id_project = project.id_project') ;
         $this->db->join('staff', 'projectoffer.id_staff = staff.id_staff') ;
