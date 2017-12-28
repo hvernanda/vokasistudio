@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6">
-        <h4>All Projects Type</h4>
+        <h4>All Tools</h4>
     </div>
 </div>
 <div class="row">
@@ -53,21 +53,21 @@
     </div>
 
     <div id="ptype" class="panel panel-default">
-      <div class="panel-heading"><b>EDIT PROYEK TYPE</b></div>
+      <div class="panel-heading"><b>EDIT TOOLS</b></div>
       <div class="panel-body">
-          <?php echo form_open('project/edit_type') ;?>
-          <?php if($this->session->flashdata('warning_edit_type')){ ?>
+          <?php echo form_open('staff/edit_tool') ;?>
+          <?php if($this->session->flashdata('warning_edit_tools')){ ?>
             <div class="alert alert-danger">
-              <?php echo $this->session->flashdata('warning_edit_type') ;?>
+              <?php echo $this->session->flashdata('warning_edit_tools') ;?>
             </div>
           <?php } ?>
             <div class="form-group">
-              <label>Project Type</label>
+              <label>TOOL NAME</label>
               <input type="text" name="name" class="form-control" id="name_edit" required/>
             </div>
             <div class="form-group">
-              <input type="hidden" name="id_type" id="id_type_edit"/>
-              <input type="submit" name="submit" class="btn btn-warning" value="Edit type" />
+              <input type="hidden" name="id_tool" id="id_type_edit"/>
+              <input type="submit" name="submit" class="btn btn-warning" value="Edit Tool" />
             </div>
           <?php echo form_close() ;?>
       </div>

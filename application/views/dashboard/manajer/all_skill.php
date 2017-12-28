@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6">
-        <h4>All Projects Type</h4>
+        <h4>All Skills</h4>
     </div>
 </div>
 <div class="row">

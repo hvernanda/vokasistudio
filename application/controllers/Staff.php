@@ -46,6 +46,8 @@ class Staff extends CI_Controller {
   }
 
   public function all_tool_skill(){
+    if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
     $data =  array(
       'page' => 'dashboard/manajer/all_tool_skill',
       'result' => $this->staff_model->ambil_tool_skill(),
@@ -74,7 +76,7 @@ class Staff extends CI_Controller {
       $this->load->view('home', $data) ;
     }
     public function add_tool(){
-      if($this->user_login_model->checkManajer() == false) redirect('/staff/all_tool') ;
+      if($this->user_login_model->checkManajer() == false) redirect('/') ;
 
       if($this->input->post('submit')){
         $this->form_validation->set_rules('name', 'Name', 'required|trim') ;
@@ -98,7 +100,7 @@ class Staff extends CI_Controller {
     }
 
     public function add_skill(){
-      if($this->user_login_model->checkManajer() == false) redirect('/staff/all_skill') ;
+      if($this->user_login_model->checkManajer() == false) redirect('/') ;
 
       if($this->input->post('submit')){
         $this->form_validation->set_rules('name', 'Name', 'required|trim') ;
@@ -200,6 +202,28 @@ class Staff extends CI_Controller {
       }
     }else{
       redirect('/staff/all_skill') ;
+    }
+  }
+
+  public function edit_tool(){
+    if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+    if($this->input->post('submit')){
+      $this->form_validation->set_rules('name', 'Name', 'required|trim') ;
+
+      if($this->form_validation->run() == FALSE){
+        $this->session->set_flashdata('warning_edit_tools', 'Tool Name is required!') ;
+      }else{
+        $name = $this->input->post('name') ;
+        $id_tool = $this->input->post('id_tool') ;
+
+        if($this->staff_model->update_tool($id_tool, $name) == false)
+          $this->session->set_flashdata('warning_edit_tools', 'Error, update data failed!') ;
+      }
+
+      redirect('/staff/all_tool') ;
+    }else{
+      redirect('/staff/all_tool') ;
     }
   }
   

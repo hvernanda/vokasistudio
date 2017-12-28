@@ -238,6 +238,17 @@ class staff_model extends CI_Model {
         return $query ? true : false ;
     }
 
+    public function update_tool($id_tool, $name){
+        $data = array(
+            'tool_name' => $name
+        ) ;
+
+        $this->db->where('id_tool', $id_tool) ;
+        $query = $this->db->update('tool', $data) ;
+
+        return $query ? true : false ;
+    }
+
 
 }
 
