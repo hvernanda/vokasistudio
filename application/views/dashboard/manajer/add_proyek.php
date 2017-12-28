@@ -1,5 +1,7 @@
 
-<h1 class="text-center">Add proyek page</h1>
+<h1 class="text-center">
+    <?php echo isset($edit) ? 'Edit' : 'Add' ;?> proyek page
+</h1>
 
 
 <div id="notifications"><?php echo $this->session->flashdata('msg'); ?></div>
@@ -13,46 +15,48 @@
             <?php echo validation_errors() ;?>
         </div>
     <?php } ?>
-        <?php echo form_open_multipart (base_url()."project/add") ?>
+        <?php echo isset($edit) ? form_open (base_url()."project/edit/".$result->id_project) : form_open (base_url()."project/add") ?>
             <div class="form-group">
                 <label> Project Name</label>
-                <input class="form-control" name="nama" id="nama" value="<?php echo set_value('nama');?>" required >
+                <input class="form-control" name="nama" id="nama" value="<?php echo isset($edit) ? $result->name : set_value('nama');?>" required >
             </div>
             <div class="form-group">
                 <label>Dealtime</label>
-                <input type="date" class="form-control" name="dealtime" value="<?php echo set_value('dealtime');?>" placeholder="dd-mm-yyy" required>
+                <input type="date" class="form-control" name="dealtime" value="<?php echo isset($edit) ? $result->dealTime : set_value('dealtime');?>" placeholder="dd-mm-yyy" required>
             </div>
             <div class="form-group">
                 <label> Price</label>
             </div>
             <div class="form-group input-group">
                 <span class="input-group-addon">Rp</span>
-                <input type="text" class="form-control" name="price" value="<?php echo set_value('price');?>" required>
+                <input type="text" class="form-control" name="price" value="<?php echo isset($edit) ? $result->price : set_value('price');?>" required>
                 <span class="input-group-addon">,00</span>
             </div>
 
             <div class="form-group">
                 <label>Deadline</label>
-                <input type="date" class="form-control" name="deadline" value="<?php echo set_value('deadline');?>" placeholder="dd-mm-yyy" required>
+                <input type="date" class="form-control" name="deadline" value="<?php echo isset($edit) ? $result->deadline : set_value('deadline');?>" placeholder="dd-mm-yyy" required>
             </div>
             <div class="form-group">
                 <label>Revision Date</label>
-                <input type="date" class="form-control" name="revisiondate" value="<?php echo set_value('revisiondate');?>" placeholder="dd-mm-yyy" required>
+                <input type="date" class="form-control" name="revisiondate" value="<?php echo isset($edit) ? $result->revisionDeadline : set_value('revisiondate');?>" placeholder="dd-mm-yyy" required>
             </div>
-            <!-- <div class="form-group">
+            <?php if(isset($edit)){?>
+            <div class="form-group">
                 <label> Status</label>
                 <select class="form-control" name="status" id="status"  required>
-                    <option value="on_process"> ON PROSESS</option>
-                    <option value="done"> DONE </option>
-                    <option value="canceled"> CANCELED</option>
+                    <option value="on_process" <?php echo isset($edit) ? ($result->status == 'on_process' ? 'selected' : '') : '' ?>> ON PROSESS</option>
+                    <option value="done" <?php echo isset($edit) ? ($result->status == 'done' ? 'selected' : '') : '' ?>> DONE </option>
+                    <option value="canceled" <?php echo isset($edit) ? ($result->status == 'canceled' ? 'selected' : '') : '' ?>> CANCELED</option>
                 </select>
-            </div> -->
+            </div>
+            <?php } ?>
             <div class="form-group">
                 <label> Down Payment </label>
             </div>
             <div class="form-group input-group">
                 <span class="input-group-addon">Rp</span>
-                <input type="text" class="form-control" name="downpayment" value="<?php echo set_value('downpayment');?>" required>
+                <input type="text" class="form-control" name="downpayment" value="<?php echo isset($edit) ? $result->DP : set_value('downpayment');?>" required>
                 <span class="input-group-addon">,00</span>
             </div>
             <div class="form-group">
@@ -60,7 +64,7 @@
                 <select name="type[]" id="type" class="form-control select2" multiple="multiple" required>
                 <option disabled="disabled">-- Pilih tipe --</option>
                 <?php foreach($types as $type){ ?>
-                    <option value="<?php echo $type->id_type?>"><?php echo $type->name?></option>
+                    <option value="<?php echo $type->id_type?>" <?php echo isset($edit) ? (in_array($type->id_type, $protypes) ? 'selected' : '') : '' ?>><?php echo $type->name?></option>
                 <?php } ?>
                 </select>
             </div>
@@ -70,7 +74,7 @@
                     <?php 
                         foreach($daftar as $v) {
                     ?>
-                    <option value="<?php echo $v->id_contact ;?>"><?php echo $v->name ;?></option>
+                    <option value="<?php echo $v->id_contact ;?>" <?php echo isset($edit) ? ($result->id_contact == $v->id_contact ? 'selected' : '') : ''?>><?php echo $v->name ;?></option>
                     <?php 
                         }
                     ?>
@@ -81,7 +85,7 @@
                 <select name="manpro" id="manpro" class="form-control">
                     <option>-- Pilih Manajer Proyek --</option>
                 <?php foreach($staffs as $staff){ ?>
-                    <option value="<?php echo $staff->id_staff?>"><?php echo $staff->name?></option>
+                    <option value="<?php echo $staff->id_staff?>" <?php echo isset($edit) ? ($result->id_staff == $staff->id_staff ? 'selected' : '') : ''?>><?php echo $staff->name?></option>
                 <?php }?>
                 </select>
             </div>
