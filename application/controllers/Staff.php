@@ -211,10 +211,9 @@ class Staff extends CI_Controller {
   public function viewBiodata(){
     $session_data = $this->session->userdata('logged_in');
     $id_user = $session_data['id_user'];
-
     $data = array(
       'page' => 'dashboard/staff/bio/view',
-      'data' => $this->staff_model->getStaffBio()
+      'data' => $this->staff_model->getStaffBio(),
     );
 
     $this->load->view('home',$data);
