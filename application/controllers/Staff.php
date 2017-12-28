@@ -1,12 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
-* Manage staff functions controller
-* Create, Read, Update and Delete
-* By Naqiya Zorahima
-* 17 Dec 2017
-*/
-
 class Staff extends CI_Controller {
   // Just a sample function created by Ashari Muhammad Hisbulloh
   public $staff_data ;
@@ -65,6 +58,13 @@ class Staff extends CI_Controller {
 
   }
 
+  /*
+  * Manage staff functions controller
+  * Create, Read, Update and Delete Staff data
+  * These functions below is functions for Manajer Vokasi Studio
+  * By Naqiya Zorahima
+  * 17 Dec 2017
+  */
   public function all(){
     if($this->user_login_model->checkManajer() == false) redirect('/') ;
     $data =  array(
@@ -86,72 +86,112 @@ class Staff extends CI_Controller {
     $this->load->view('home',$data);
   }
   public function all_tool(){
-      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+    if($this->user_login_model->checkManajer() == false) redirect('/') ;
 
-      $data = array(
-        'page' => 'dashboard/manajer/all_tools',
-        'result' => $this->staff_model->get_all_tool()
-      ) ;
+    $data = array(
+      'page' => 'dashboard/manajer/all_tools',
+      'result' => $this->staff_model->get_all_tool()
+    ) ;
 
-      $this->load->view('home', $data) ;
-    }
-    public function all_skill(){
-      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+    $this->load->view('home', $data) ;
+  }
 
-      $data = array(
-        'page' => 'dashboard/manajer/all_skill',
-        'result' => $this->staff_model->get_all_skill()
-      ) ;
+  public function all_skill(){
+    if($this->user_login_model->checkManajer() == false) redirect('/') ;
 
-      $this->load->view('home', $data) ;
-    }
-    public function add_tool(){
-      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+    $data = array(
+      'page' => 'dashboard/manajer/all_skill',
+      'result' => $this->staff_model->get_all_skill()
+    ) ;
 
-      if($this->input->post('submit')){
-        $this->form_validation->set_rules('name', 'Name', 'required|trim') ;
+    $this->load->view('home', $data) ;
+  }
 
-        if($this->form_validation->run() == FALSE){
-          $this->session->set_flashdata('warning_type', 'Project Type is required') ;
+  public function add_tool(){
+    if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+    if($this->input->post('submit')){
+      $this->form_validation->set_rules('name', 'Name', 'required|trim') ;
+
+      if($this->form_validation->run() == FALSE){
+        $this->session->set_flashdata('warning_type', 'Project Type is required') ;
+        redirect('/staff/all_tool') ;
+      }else{
+        $name = $this->input->post('name') ;
+
+        if($this->staff_model->insert_tool($name)){
           redirect('/staff/all_tool') ;
         }else{
-          $name = $this->input->post('name') ;
-
-          if($this->staff_model->insert_tool($name)){
-            redirect('/staff/all_tool') ;
-          }else{
-            $this->session->set_flashdata('warning_type', 'Error, insert data failed!') ;
-            redirect('/staff/all_tool') ;
-          }
+          $this->session->set_flashdata('warning_type', 'Error, insert data failed!') ;
+          redirect('/staff/all_tool') ;
         }
-      }else{
-        redirect('/staff/all_tool') ;
       }
+    }else{
+      redirect('/staff/all_tool') ;
     }
+  }
 
-    public function add_skill(){
-      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+  public function add_skill(){
+    if($this->user_login_model->checkManajer() == false) redirect('/') ;
 
-      if($this->input->post('submit')){
-        $this->form_validation->set_rules('name', 'Name', 'required|trim') ;
+    if($this->input->post('submit')){
+      $this->form_validation->set_rules('name', 'Name', 'required|trim') ;
 
-        if($this->form_validation->run() == FALSE){
-          $this->session->set_flashdata('warning_skill', 'Project Type is required') ;
+      if($this->form_validation->run() == FALSE){
+        $this->session->set_flashdata('warning_skill', 'Project Type is required') ;
+        redirect('/staff/all_skill') ;
+      }else{
+        $name = $this->input->post('name') ;
+
+        if($this->staff_model->insert_skill($name)){
           redirect('/staff/all_skill') ;
         }else{
-          $name = $this->input->post('name') ;
-
-          if($this->staff_model->insert_skill($name)){
-            redirect('/staff/all_skill') ;
-          }else{
-            $this->session->set_flashdata('warning_skill', 'Error, insert data failed!') ;
-            redirect('/staff/all_skill') ;
-          }
+          $this->session->set_flashdata('warning_skill', 'Error, insert data failed!') ;
+          redirect('/staff/all_skill') ;
         }
-      }else{
-        redirect('/staff/all_skill') ;
       }
-    }  
+    }else{
+      redirect('/staff/all_skill') ;
+    }
+  }
+
+  public function add_tool_skill(){
+    if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+    
+    $a = $this->db->query("SELECT id_skill,skill_name from skill")->result();
+    $b = $this->db->query("SELECT id_tool,tool_name from tool")->result();
+    $data = array(
+      'page' => 'dashboard/manajer/add_tool_skill',
+      'daftar' => $a,
+      'list' => $b,
+        'types' => $this->staff_model->get_all_tool(),
+        'skill' => $this->staff_model->get_all_skill()
+    ) ;
+
+    if($this->input->post('submit')){
+      $this->form_validation->set_rules('id_tool', 'Tools', 'required') ;
+      $this->form_validation->set_rules('skill', 'Skill', 'required') ;
+      
+
+      if($this->form_validation->run() == FALSE){
+        $this->load->view('home', $data) ;
+      }else{
+        
+        $id_tool = $this->input ->post('id_tool');
+        $skill = $this->input ->post('skill');
+        $input_data = $this->staff_model->insert_tool_skill($id_tool, $skill);
+
+        if($input_data){
+          redirect('/staff/all') ;
+        }else{
+          $this->load->view('home', $data) ;
+        }
+      }
+    }else{
+      $this->load->view('home', $data) ;
+    }
+  }
 
   public function add(){
     if($this->user_login_model->checkManajer() == false) redirect('/') ;
@@ -257,6 +297,41 @@ class Staff extends CI_Controller {
     }
   }
 
+  public function edit_tool_skill($id_tool_skill){
+    if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+    $a = $this->db->query("SELECT id_skill,skill_name from skill")->result();
+    $b = $this->db->query("SELECT id_tool,tool_name from tool")->result();
+    $data = array(
+      'page' => 'dashboard/manajer/add_tool_skill',
+      'daftar' => $a,
+      'list' => $b,
+      'result' => $this->staff_model->getToolSkill($id_tool_skill), 
+      'edit' => true
+    );
+
+    if($this->input->post('submit')){
+      $this->form_validation->set_rules('id_tool', 'Tool', 'required') ;
+      $this->form_validation->set_rules('skill', 'Skill', 'required') ;
+
+      if($this->form_validation->run() == FALSE){
+        $this->load->view('home', $data) ;
+      }else{
+        $data = array(
+          'id_skill' => $this->input ->post('skill'),
+          'id_tool' => $this->input ->post('id_tool')
+        ) ;
+
+        if($this->staff_model->update_tool_skill($id_tool_skill, $data))
+          redirect('/staff/all_tool_skill') ;
+        else
+          $this->load->view('home', $data) ;
+      }
+    }else{
+      $this->load->view('home', $data) ;
+    }
+  }
+
   public function delete_skill($id_skill){
     if($this->user_login_model->checkManajer() == false) redirect('/') ;
 
@@ -277,6 +352,20 @@ class Staff extends CI_Controller {
     }
     return false ;
   }
+
+  public function delete_tool_skill($id_tool_skill){
+    if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+    if($this->staff_model->isToolSkill($id_tool_skill)){
+      if($this->staff_model->delete_tool_skill($id_tool_skill)) return true ;
+      return false ;
+    }
+    return false ;
+  }
+
+  /*
+  * End of naqiya's functions to manage staff
+  */
   
   /* MENAMPILKAN SEMUA PROJECT YANG STAFF TERLIBAT DI DALAMNYA */
 
@@ -356,44 +445,6 @@ class Staff extends CI_Controller {
 
     $this->load->view('home',$data);
   }
-
-    public function add_tool_skill(){
-      if($this->user_login_model->checkManajer() == false) redirect('/') ;
-
-      
-      $a = $this->db->query("SELECT id_skill,skill_name from skill")->result();
-      $b = $this->db->query("SELECT id_tool,tool_name from tool")->result();
-      $data = array(
-        'page' => 'dashboard/manajer/add_tool_skill',//
-        'daftar' => $a,
-        'list' => $b,
-         'types' => $this->staff_model->get_all_tool(),
-         'skill' => $this->staff_model->get_all_skill()//
-      ) ;
-
-      if($this->input->post('submit')){
-        $this->form_validation->set_rules('id_tool', 'Tools', 'required') ;
-        $this->form_validation->set_rules('skill', 'Skill', 'required') ;
-        
-
-        if($this->form_validation->run() == FALSE){
-          $this->load->view('home', $data) ;
-        }else{
-         
-          $id_tool = $this->input ->post('id_tool');
-          $skill = $this->input ->post('skill');
-          $input_data = $this->staff_model->insert_tool_skill($id_tool, $skill);
-
-          if($input_data){
-            redirect('/staff/all') ;
-          }else{
-            $this->load->view('home', $data) ;
-          }
-        }
-      }else{
-        $this->load->view('home', $data) ;
-      }
-    }
 
   
 }

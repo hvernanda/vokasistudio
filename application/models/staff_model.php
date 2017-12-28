@@ -242,6 +242,17 @@ class staff_model extends CI_Model {
         return $result ;
     }
 
+    public function getToolSkill($id){
+        $this->db->select('*') ;
+        $this->db->from('toolskill') ;
+        $this->db->where('id_toolskill', $id) ;
+        $query = $this->db->get() ;
+
+        $result = $query->result()[0] ;
+        return $result ;
+        
+    }
+
     public function isStaff($id_user){
         $this->db->select('*');
         $this->db->from('staff') ;
@@ -283,6 +294,16 @@ class staff_model extends CI_Model {
         $this->db->select('*') ;
         $this->db->from('tool') ;
         $this->db->where('id_tool', $id_tool) ;
+        $query = $this->db->get() ;
+
+        if($query->num_rows() == 1) return true ;
+        return false ;
+    }
+
+    public function isToolSkill($id){
+        $this->db->select('*') ;
+        $this->db->from('toolskill') ;
+        $this->db->where('id_toolskill', $id) ;
         $query = $this->db->get() ;
 
         if($query->num_rows() == 1) return true ;
@@ -340,6 +361,13 @@ class staff_model extends CI_Model {
         return $query ? true : false ;
     }
 
+    public function update_tool_skill($id, $data){
+        $this->db->where('id_toolskill', $id) ;
+        
+        if($this->db->update('toolskill', $data)) return true ;
+        return false ;
+    }
+
     public function delete_skill($id_skill){
         $this->db->where('id_skill', $id_skill) ;
 
@@ -352,6 +380,13 @@ class staff_model extends CI_Model {
         $this->db->where('id_tool', $id_tool) ;
 
         if($this->db->delete('tool')) return true ;
+        return false ;
+    }
+
+    public function delete_tool_skill($id){
+        $this->db->where('id_toolskill', $id) ;
+
+        if($this->db->delete('toolskill')) return true ;
         return false ;
     }
 
