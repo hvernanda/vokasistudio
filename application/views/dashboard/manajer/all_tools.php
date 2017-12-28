@@ -17,12 +17,48 @@
             </tr>
           </thead>
           <tbody>
-          <?php foreach($result as $type){ ?>
+          <?php $i=0; foreach($result as $type){ $i++; ?>
             <tr>
-              <td><?php echo $type->id_tool ;?></td>
+              <td><?php echo $i ;?></td>
               <td><?php echo $type->tool_name ;?></td>
               <td>
                 <a href="#" class="btn btn-info btn-xs" onclick="showEdit('<?php echo $type->id_tool ;?>', '<?php echo $type->tool_name ;?>')"><i class="fa fa-pencil"></i> Edit</a>
+                <a href="#" class="btn btn-danger btn-xs"
+                  onclick="
+                  $().ready(function(e){
+                    swal({
+                      title : 'Are you sure?',
+                      text : 'Apa Anda yakin akan menghapus tool ini?',
+                      type : 'warning',
+                      showCancelButton : true,
+                      confirmButtonColor: '#DD6B55',
+                      confirmButtonText: 'Ya,  hapus!',
+                      cancelButtonText: 'Tidak, batalkan!'
+                    })
+                      .then((result) => {
+                        if(result.value){
+                          $.get('<?php echo base_url('staff/delete_tool/'.$type->id_tool) ;?>')
+                            .then((res) => {
+                              swal({
+                                title : 'Deleted',
+                                text : 'Data tool sudah terhapus',
+                                type : 'success'
+                              }).then(() => (location.reload())) ;
+                            })
+                          .catch((err) => {
+                            swal({
+                              title : 'Error',
+                              text : 'Data tool tidak terhapus',
+                              type : 'error'
+                            }) ;
+                          })
+                        }else if(result.dismiss === 'cancel'){
+                          swal('Dibatalkan', 'Data skill tidak jadi dihapus', 'error') ;
+                        }
+                      })
+                  }) ;
+                  "
+                ><i class="fa fa-trash"></i> Delete</a>
               </td>
             </tr>
           <?php } ?>

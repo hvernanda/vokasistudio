@@ -236,6 +236,17 @@ class Staff extends CI_Controller {
     }
     return false ;
   }
+
+  public function delete_tool($id_tool){
+    if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+    if($this->staff_model->isTool($id_tool)){
+      if($this->staff_model->delete_tool($id_tool)) return true ;
+
+      return false ;
+    }
+    return false ;
+  }
   
   /* MENAMPILKAN SEMUA PROJECT YANG STAFF TERLIBAT DI DALAMNYA */
 

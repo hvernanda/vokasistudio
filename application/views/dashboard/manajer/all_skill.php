@@ -50,7 +50,7 @@
                               title : 'Error',
                               text : 'Data skill tidak terhapus',
                               type : 'error'
-                            }).then(() => (location.reload())) ;
+                            }) ;
                           })
                         }else if(result.dismiss === 'cancel'){
                           swal('Dibatalkan', 'Data skill tidak jadi dihapus', 'error') ;
