@@ -68,6 +68,11 @@
         <i class="fa fa-circle"></i> Semua Skills
       </a>
     </li>
+    <li>
+      <a href="<?php echo base_url('staff/add_tool_skill') ;?>">
+        <i class="fa fa-circle"></i> Add Skill & Tools
+      </a>
+    </li>
   </ul>
 </li>
  <!--  <li>

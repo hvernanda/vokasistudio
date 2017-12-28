@@ -248,6 +248,25 @@ class staff_model extends CI_Model {
 
         return $query ? $query : false ;
     }
+    public function insert_tool_skill($id_tool, $skill)
+    {
+        $data = array(
+            'id_tool' => $id_tool,
+            'id_skill' => $skill);
+        $input = $this->db->insert('toolskill', $data);
+    }
+    public function get_staff_skill($id_user)
+    {
+      $this->db->select('skill.skill_name');
+      $this->db->from('skill');
+      $this->db->join('skillmapping ', 'skill.id_skill = skillmapping.id_skill');
+      $this->db->join('staff', 'staff.id_staff = skillmapping.id_staff') ;
+      $this ->db-> where('staff.id_user', $id_user);
+      $query = $this->db->get();
+      $result = $query->result();
+      return $result;
+    }
+
 
     public function update_skill($id_skill, $name){
         $data = array(
