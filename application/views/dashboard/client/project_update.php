@@ -1,37 +1,38 @@
-<h1> SEMUA DATA TOOL SKILL STAFF </h1>
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <b>TOOLS & SKILLS</b>
+            <b>PROJECT UPDATE</b>
             </div>
-                <div class="col-md-3 pull-right text-right">
-        <!-- <a href="<?php echo base_url('staff/add_tool_skill') ;?>" class="btn btn-info"><i class="fa fa-plus"></i> Add new Skill and Tools</a> -->
-    </div>
             <div class="panel-body">
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th> Skill </th>
-                                <th> Tools </th>
+                                <th>Nama Kru</th>
+                                <th>Nama Proyek</th>
+                                <th>Tugas</th>
+                                <th>Lampiran</th>
+                                <th>Komentar</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                                     $i=0;
-                                    foreach($result as $ts){
-                                        if($ts->id_toolskill){  
+                                    foreach($result as $proyek_update){
+                                        if($proyek_update->id_activity){  
                                             $i++;         
-                                            ?>
-                            
-                
+                                            ?>                
                             <tr>
                                 <td><?php echo $i ?> </td>
-                                <td><?php echo $ts->skill_name ?> </td>
-                                <td><?php echo $ts->tool_name ?> </td>
-                                
+                                <td><?php echo $proyek_update->crew_name?> </td>
+                                <td><?php echo $proyek_update->project?> </td>
+                                <td><?php echo $proyek_update->crew_task?> </td>
+                                <td><?php echo $proyek_update->crew_file?> </td>
+                                 <td>
+                                    <a href="#" class="btn btn-sm btn-info"></i>Komentar</a>
+                                </td>
                             </tr>
                         
                             <?php 

@@ -47,7 +47,7 @@ class staff_model extends CI_Model {
         $this->db->from('skill');
         $query = $this->db->get();
         
-        if ($query->num_rows() == 1) {
+        if ($query->num_rows() >= 1) {
             return $query->result();
         } else {
             return "No Skill Data";
@@ -85,10 +85,21 @@ class staff_model extends CI_Model {
 
     public function ambil_user()
     {
-      $this->db->select('user.name, user.email, user_role.user_role, staff.address, staff.phone, staff.status_account, staff.photo');
+      $this->db->select('user.id_user, staff.id_staff, user.name, user.email, user_role.user_role, staff.address, staff.phone, staff.status_account, staff.photo');
       $this->db->from('user');
       $this->db->join('user_role ', 'user.id_user_role = user_role.id_user_role');
       $this->db->join('staff', 'user.id_user = staff.id_user') ;
+      $query = $this->db->get();
+      $result = $query->result();
+      return $result;
+    }
+
+    public function ambil_user_id($id){
+      $this->db->select('user.id_user, staff.id_staff, user.name, user.email, user_role.user_role, staff.address, staff.phone, staff.status_account, staff.photo');
+      $this->db->from('user');
+      $this->db->join('user_role ', 'user.id_user_role = user_role.id_user_role');
+      $this->db->join('staff', 'user.id_user = staff.id_user') ;
+      $this->db->where('user.id_user', $id) ;
       $query = $this->db->get();
       $result = $query->result();
       return $result;
@@ -102,9 +113,26 @@ class staff_model extends CI_Model {
             'password' => $password,
             'id_user_role' => $id_user_role
              );
-        $input = $this->db-> insert('user', $data);
+        
+        if($this->db->insert('user', $data)){
+          $insertId = $this->db->insert_id() ;
+          $staff_data = array(
+            'id_user' => $insertId,
+            'name' => $nama,
+            'status_account' => 'active'
+          ) ;
 
+          if($this->db->insert('staff', $staff_data)){
+            return true ;
+          }else{
+            return false ;
+          }
+        }else{
+          return false ;
+        }
+        
     }
+
 
     public function ambil_tool_skill()
     {
@@ -116,6 +144,20 @@ class staff_model extends CI_Model {
       $query = $this->db->get();
       $result = $query->result();
       return $result;
+    }
+    public function insert_tool($name){
+        $data = array(
+            'tool_name'=> $name
+        ) ;
+        $input = $this->db->insert('tool', $data) ;
+        return $input ? true : false ;
+    }
+        public function insert_skill($name){
+        $data = array(
+            'skill_name'=> $name
+        ) ;
+        $input = $this->db->insert('skill', $data) ;
+        return $input ? true : false ;
     }
 
     public function getSkillStaff($id_staff){
@@ -130,6 +172,137 @@ class staff_model extends CI_Model {
         } else {
             return "Skill not found";
         }
+    }
+
+    public function get_all_tool(){
+        $this->db->select('*') ;
+        $this->db->from('tool') ;
+        $query = $this->db->get() ;
+
+        $result = $query->result() ;
+        return $result ;
+    }
+
+    public function get_all_skill(){
+        $this->db->select('*') ;
+        $this->db->from('skill') ;
+        $query = $this->db->get() ;
+
+        $result = $query->result() ;
+        return $result ;
+    }
+
+    public function isStaff($id_user){
+        $this->db->select('*');
+        $this->db->from('staff') ;
+        $this->db->where('id_user', $id_user) ;
+        $query = $this->db->get() ;
+
+        if($query->num_rows() == 1)
+            return true ;
+
+        return false ;
+    }
+
+    public function isActiveStaff($id_user){
+        $this->db->select('*') ;
+        $this->db->from('staff') ;
+        $this->db->where('id_user', $id_user) ;
+        $this->db->where('status_account', 'active') ;
+        $query = $this->db->get() ;
+
+        if($query->num_rows() == 1) 
+            return true ;
+
+        return false ;
+    }
+
+    public function isSkill($id_skill){
+        $this->db->select('*') ;
+        $this->db->from('skill') ;
+        $this->db->where('id_skill', $id_skill) ;
+
+        $query = $this->db->get() ;
+
+        if($query->num_rows() == 1) return true ;
+
+        return false ;
+    }
+
+    public function isTool($id_tool){
+        $this->db->select('*') ;
+        $this->db->from('tool') ;
+        $this->db->where('id_tool', $id_tool) ;
+        $query = $this->db->get() ;
+
+        if($query->num_rows() == 1) return true ;
+        return false ;
+    }
+
+    public function update_status($status, $id_user){
+        $data = array(
+            'status_account' => $status
+        ) ;
+        $this->db->where("id_user = ".$id_user) ;
+        $query = $this->db->update('staff', $data) ;
+
+        return $query ? $query : false ;
+    }
+    public function insert_tool_skill($id_tool, $skill)
+    {
+        $data = array(
+            'id_tool' => $id_tool,
+            'id_skill' => $skill);
+        $input = $this->db->insert('toolskill', $data);
+    }
+    public function get_staff_skill($id_user)
+    {
+      $this->db->select('skill.skill_name');
+      $this->db->from('skill');
+      $this->db->join('skillmapping ', 'skill.id_skill = skillmapping.id_skill');
+      $this->db->join('staff', 'staff.id_staff = skillmapping.id_staff') ;
+      $this ->db-> where('staff.id_user', $id_user);
+      $query = $this->db->get();
+      $result = $query->result();
+      return $result;
+    }
+
+
+    public function update_skill($id_skill, $name){
+        $data = array(
+            'skill_name' => $name
+        ) ;
+
+        $this->db->where('id_skill', $id_skill) ;
+        $query = $this->db->update('skill', $data) ;
+
+        return $query ? true : false ;
+    }
+
+    public function update_tool($id_tool, $name){
+        $data = array(
+            'tool_name' => $name
+        ) ;
+
+        $this->db->where('id_tool', $id_tool) ;
+        $query = $this->db->update('tool', $data) ;
+
+        return $query ? true : false ;
+    }
+
+    public function delete_skill($id_skill){
+        $this->db->where('id_skill', $id_skill) ;
+
+        if($this->db->delete('skill')) return true ;
+        
+        return false ;
+    }
+
+    public function delete_tool($id_tool){
+        $this->db->where('id_tool', $id_tool) ;
+
+        if($this->db->delete('tool')) return true ;
+        return false ;
     }
 
 

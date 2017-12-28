@@ -13,18 +13,23 @@
   </a>
   <ul class="treeview-menu">
     <li>
-      <a href="<?php echo base_url('manajer/all_proyek')?>">
+      <a href="<?php echo base_url('project/all')?>">
         <i class="fa fa-circle"></i> Semua Proyek
       </a>
     </li>
-    <li>
-      <a href="<?php echo base_url('manajer/add_proyek') ;?>">
+    <!-- <li>
+      <a href="<?php echo base_url('project/add') ;?>">
         <i class="fa fa-circle"></i> Tambah Proyek
+      </a>
+    </li> -->
+    <li>
+      <a href="<?php echo base_url('project/all_penawaran') ;?>">
+        <i class="fa fa-circle"></i> Penawaran Proyek
       </a>
     </li>
     <li>
-      <a href="<?php echo base_url('manajer/all_proyek_penawaran') ;?>">
-        <i class="fa fa-circle"></i> Penawaran Proyek
+      <a href="<?php echo base_url('project/all_type') ;?>">
+        <i class="fa fa-circle"></i> Semua Tipe Proyek
       </a>
     </li>
   </ul>
@@ -39,22 +44,44 @@
   </a>
   <ul class="treeview-menu">
     <li>
-      <a href="<?php echo base_url('manajer/all_staff') ?>">
+      <a href="<?php echo base_url('staff/all') ?>">
         <i class="fa fa-circle"></i> Semua Staff
       </a>
     </li>
-    <li>
-      <a href="<?php echo base_url('manajer/add_staff') ;?>">
+    <!-- <li>
+      <a href="<?php echo base_url('staff/add') ;?>">
         <i class="fa fa-circle"></i> Tambah Staff
+      </a>
+    </li> -->
+    <li>
+      <a href="<?php echo base_url('staff/all_tool_skill') ;?>">
+        <i class="fa fa-circle"></i> Skill & Tools
       </a>
     </li>
     <li>
-      <a href="<?php echo base_url('manajer/all_tool_skill') ;?>">
-        <i class="fa fa-circle"></i> Skill & Tools
+      <a href="<?php echo base_url('staff/all_tool') ;?>">
+        <i class="fa fa-circle"></i> Semua Tools
+      </a>
+    </li>
+    <li>
+      <a href="<?php echo base_url('staff/all_skill') ;?>">
+        <i class="fa fa-circle"></i> Semua Skills
+      </a>
+    </li>
+    <li>
+      <a href="<?php echo base_url('staff/add_tool_skill') ;?>">
+        <i class="fa fa-circle"></i> Add Skill & Tools
       </a>
     </li>
   </ul>
 </li>
+ <!--  <li>
+      <a href="<?php echo base_url('staff/add_tool_skill') ;?>">
+        <i class="fa fa-circle"></i>  ADD Skill & Tools
+      </a>
+    </li>
+  </ul>
+</li> -->
 <li class="treeview">
   <a href="#">
     <i class="fa fa-user"></i>
@@ -66,29 +93,27 @@
   <ul class="treeview-menu">
 
     <li>
-      <a href="<?php echo base_url('manajer/all_company') ?>">
+      <a href="<?php echo base_url('company/all') ?>">
       <!-- semua client adalah semua data company -->
         <i class="fa fa-circle"></i> Semua Client
       </a>
     </li>
-    <li>
+    <!-- <li>
       <a href="<?php echo base_url('manajer/add_client_company') ?>">
-        <!-- Tambah Client adalah menambah data company -->
         <i class="fa fa-circle"></i> Tambah Client
       </a>
-    </li>
+    </li> -->
     
     <li>
-      <a href="<?php echo base_url('manajer/all_company_contact') ?>">
+      <a href="<?php echo base_url('client/all') ?>">
         <!-- Semua data contact (user from company to login ) -->
         <i class="fa fa-circle"></i> Semua Kontak
       </a>
     </li>
-    <li>
-      <!-- Tambah  Kontak adalah menambah data contact or tambah user from company to login -->
+    <!-- <li>
       <a href="<?php echo base_url('manajer/add_client') ;?>">
         <i class="fa fa-circle"></i> Tambah Kontak
       </a>
-    </li>
+    </li> -->
   </ul>
 </li>
