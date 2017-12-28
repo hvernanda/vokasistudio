@@ -1,12 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
-* Manage staff functions controller
-* Create, Read, Update and Delete
-* By Naqiya Zorahima
-* 17 Dec 2017
-*/
-
 class Staff extends CI_Controller {
   // Just a sample function created by Ashari Muhammad Hisbulloh
   public $staff_data ;
@@ -35,6 +28,13 @@ class Staff extends CI_Controller {
     $this->load->view('home', $data) ;
   }
 
+  /*
+  * Manage staff functions controller
+  * Create, Read, Update and Delete Staff data
+  * These functions below is functions for Manajer Vokasi Studio
+  * By Naqiya Zorahima
+  * 17 Dec 2017
+  */
   public function all(){
     if($this->user_login_model->checkManajer() == false) redirect('/') ;
     $data =  array(
@@ -247,6 +247,10 @@ class Staff extends CI_Controller {
     }
     return false ;
   }
+
+  /*
+  * End of naqiya's functions to manage staff
+  */
   
   /* MENAMPILKAN SEMUA PROJECT YANG STAFF TERLIBAT DI DALAMNYA */
 
