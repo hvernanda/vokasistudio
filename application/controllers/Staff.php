@@ -323,6 +323,16 @@ class Staff extends CI_Controller {
     return false ;
   }
 
+  public function delete_tool_skill($id_tool_skill){
+    if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+    if($this->staff_model->isToolSkill($id_tool_skill)){
+      if($this->staff_model->delete_tool_skill($id_tool_skill)) return true ;
+      return false ;
+    }
+    return false ;
+  }
+
   /*
   * End of naqiya's functions to manage staff
   */
