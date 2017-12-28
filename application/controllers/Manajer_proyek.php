@@ -5,18 +5,64 @@ class Manajer_proyek extends CI_Controller {
     parent::__construct() ;
 
     $this->load->model('manajer_proyek_model');
+    $this->load->model('staff_model');
   }
 
   public function index(){
     $session_data = $this->session->userdata('logged_in');  
     $session_data['id_staff'] = $this->staff_model->getStaffId($session_data['id_user']); 
     
-    if(!auth($id_user,$id_project)){
-        show_404();
-    }
+    // if(!auth($id_user,$id_project)){
+    //     show_404();
+    // }
     
     $data = array(
       'page' => 'dashboard/manajer_proyek/index'
+    );
+    $this->load->view('home', $data);
+  }
+
+  public function add_crew($id){
+    if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+      $role = $this->query("SELECT * FROM crew_role");
+      $staff = $this->manajer_proyek_model->getAvaibleStaff($id);
+      $data = array(
+        'page' => 'dashboard/staff/manajer/add_crew',
+        'role' => $role,
+        'staff' => $staff
+      );
+
+      if($this->input->post('submit')){
+        $this->form_validation->set_rules('nama', 'Name', 'required|trim') ;
+        $this->form_validation->set_rules('role', 'Role', 'required') ;
+
+        if($this->form_validation->run() == FALSE){
+          $this->load->view('home', $data) ;
+        }else{
+          $nama = $this->input->post('nama');
+          $dealtime = $this->input-> post('role');
+          $input_data = $this->manajer_proyek_model->insert_crew($nama, $role);
+
+          if($input_data){
+            redirect('/project/'. $id) ;
+          }else{
+            $this->load->view('home', $data) ;
+          }
+        }
+      }else{
+        $this->load->view('home', $data) ;
+      }
+  }
+
+  /* SETELAH KLIK MANAGE */
+  public function project($id){
+    if($this->session->userdata('logged_in')){
+      $session_data = $this->session->userdata('logged_in');  
+    }
+    $data = array(
+      'page' => 'dashboard/staff/manajer/project_dashboard',
+      'result' => $this->manajer_proyek_model->viewCrew($id)
     );
     $this->load->view('home', $data);
   }
@@ -40,6 +86,328 @@ class Manajer_proyek extends CI_Controller {
     
     $this->manajer_proyek_model->tambahCrewProject($id_staff,$id_project,$id_role);
   }
+
+
+  /* DAFTAR PENUGASAN - START */
+  public function daftar_penugasan($id){
+    if($this->session->userdata('logged_in')){
+      $session_data = $this->session->userdata('logged_in');  
+      $id_staff = $session_data['id_staff'];
+    }
+
+    // print_r($this->session->userdata('id_project'));exit;
+    $data = array(
+      'page'  => 'dashboard/staff/manajer/daftar_penugasan',
+      'isi'   => $this->manajer_proyek_model->tampilPenugasan($id),
+      'crew'  => $this->manajer_proyek_model->getCrew($id),
+    );
+    // print_r($data['isi']);
+    $this->load->view('home', $data);
+  }
+  
+  public function namaJob(){
+    $data['hasil'] = $this->manajer_proyek_model->namaJob()->result;
+  }
+
+  public function namaKruDaftarPenugasan(){
+    $ambil_id = $this->session->userdata('id_project');
+    $data['hasil2'] = $this->manajer_proyek_model->namaKruDaftarPenugasan($ambil_id)->result;
+  }
+
+  public function penugasan($id){
+    if($this->session->userdata('logged_in')){
+      $session_data = $this->session->userdata('logged_in');  
+      $id_staff = $session_data['id_staff'];
+      $id_project = $session_data['id_project'];
+    }
+    $a = $this->manajer_proyek_model->namaJob()->result();
+    $b = $this->manajer_proyek_model->namaKru($id_project)->result();
+    $data = array(
+      'page' => 'content/form_penugasan',
+      'hasil' => $a,
+      'hasil2' => $b
+    );
+    $this->load->view('home',$data);
+  }
+
+  public function inputData(){
+    if(empty($this->input->post('id_crew')) OR empty($this->input->post('id_job'))
+      OR empty($this->input->post('upah')) OR empty($this->input->post('namaJob'))){
+    
+      $this->session->set_flashdata('msgfalseproject','<div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">
+                  <div class="glyphicon glyphicon-remove">
+                  </div>
+                  </span>
+                  <span class="sr-only">Close</span>
+                </button>
+              <b>Error!</b> Data tidak boleh kosong </br>
+              </div>');
+      redirect('Daftar_penugasan/penugasan');
+    }else{
+      $date = null;
+        if ($this->input->post('diterima')=="") {
+      // echo('asdasd');
+      $date = date("Y-m-d");
+    }
+      else{
+        $date = $this->input->post('diterima');
+      }
+        $st=1;
+        $count = count($this->input->post('id_crew'));
+        $this->db->trans_begin();
+        foreach ($this->input->post('id_crew') as $row) {
+          print_r($row);
+          $data = array(
+            'id_job' => $this->input->post('id_job'),
+            'id_crew' => $row,
+            'acceptanceDate' => $date,
+            'deadline' => $this->input->post('deadline'),
+            'name' => $this->input->post('namaJob'),
+            'fee' => $this->input->post('upah')
+          );
+          $q = $this->manajer_proyek_model->inputDataPenugasan($data);
+          if($q !=1)$st=0;
+        }
+        if ($this->db->trans_status() === FALSE){
+          $this->db->trans_rollback();
+          echo 'gagal';
+        }
+      else{
+        $this->db->trans_commit();
+        $this->session->set_flashdata('msgtrueproject','<div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">
+              <div class="glyphicon glyphicon-remove">
+              </div>
+              </span>
+              <span class="sr-only">Close</span>
+            </button>
+          <b>Success!</b> Data berhasil di input</br>
+          </div>'
+          );
+        redirect('daftar_penugasan');
+      }
+    } 
+
+    $date = null;
+    if ($this->input->post('diterima')=="") {
+      // echo('asdasd');
+      $date = date("Y-m-d");
+    }
+    else{
+      $date = $this->input->post('diterima');
+    }
+    $st=1;
+    $count = count($this->input->post('id_crew'));
+    $this->db->trans_begin();
+    foreach ($this->input->post('id_crew') as $row) {
+      print_r($row);
+      $data = array(
+        'id_job' => $this->input->post('id_job'),
+        'name' => $this->input->post('name'),
+        'id_crew' => $row,
+        'acceptanceDate' => $date,
+        'deadline' => $this->input->post('deadline'),
+        'name' => $this->input->post('namaJob'),
+        'fee' => $this->input->post('upah')
+        );
+      $q = $this->manajer_proyek_model->inputDataPenugasan($data);
+      if($q !=1)$st=0;
+    }
+    if ($this->db->trans_status() === FALSE){
+
+              $this->db->trans_rollback();
+              echo 'gagal';
+    }
+    else{
+            $this->db->trans_commit();
+            redirect('daftar_penugasan');
+    }
+  }
+
+  public function setScore(){
+    $data = array(
+      'rating' => $this->input->post('_val'),
+    );
+
+    $q = $this->manajer_proyek_model->setScore($this->input->post('_id'),$data);
+    if($q==1){
+      echo $this->input->post('_val');
+    }else{
+      echo 'failed';
+    }
+  }
+
+  public function setFee(){
+    $data = array(
+      'fee' => $this->input->post('_val'),
+    );
+
+    $a = $this->manajer_proyek_model->setFee($this->input->post('_id'),$data);
+    if($a==1){
+      echo $this->input->post('_val');
+    }else{
+      echo 'failed';
+    }
+  }
+
+  public function getFee(){
+    # code...
+    // print_r($this->input->post('_name'));
+    // echo 'halo';
+    // echo $this->input->post('_name');
+
+    $a = $this->manajer_proyek_model->getFee($this->input->post('_name'));
+    if($a->num_rows() < 1 ){
+      echo 'fail';
+    }else{
+      
+      echo json_encode($a->result())  ;
+    }
+  }
+
+  public function getScore(){
+    $a = $this->manajer_proyek_model->getScore($this->input->post('_score'));
+    if($a->num_rows() < 1 ){
+      echo 'fail';
+    }else{
+      
+      echo json_encode($a->result())  ;
+    } 
+  }
+
+  /* DAFTAR PENUGASAN - END */
+
+
+  /* PENUGASAN - START */
+
+  // public function daftar_penugasan($id){
+  //   if($this->session->userdata('logged_in')){
+  //     $session_data = $this->session->userdata('logged_in');  
+  //     $id_staff = $session_data['id_staff'];
+  //     $id_project = $id;
+  //   }
+  //   // print_r($this->session->userdata('id_project'));exit;
+  //   $data = array(
+  //     'page' => 'dashboard/staff/manajer/daftar_penugasan',
+  //     'isi' => $this->manajer_proyek_model->tampilKru($id_project),
+  //   );
+  //   $this->load->view('home', $data);
+  // }
+  public function form_tambah_penugasan_kru(){
+    $data = array(
+      'tugas' => $this->input->post('tugas')
+    );
+    $data2 = array(
+      'page' => 'content/form_tambah_penugasan'
+    );
+    $data['isi']    = $this->manajer_proyek_model->tambahKru($data);
+
+    $this->load->view('home',$data2);
+  }
+
+  public function tambahPenugasan(){
+    if($this->session->userdata('user_is_logged_in')){
+      $email = $this->session->userdata('email');
+      $id = $this->session->userdata('id_staff');
+    }
+    $a = $this->manajer_proyek_model->namaKruPenugasan()->result();
+    // $b = $this->manajer_proyek_model->viewJob()->result();
+    $data = array(
+      'page' => 'content/form_tambah_penugasan',
+      'data' => $this->m_login->ambil_user($id),
+      'hasil' => $a,
+      // 'hasil2' => $b
+    );
+    $this->load->view('home',$data);
+  }
+
+  public function namaKruPenugasan(){
+    $data['hasil'] = $this->manajer_proyek_model->namaKru()->result;
+  }
+
+  public function edit($id_j){
+    if($this->session->userdata('user_is_logged_in')){
+      $email = $this->session->userdata('email');
+      $id = $this->session->userdata('id_staff');
+    }
+    $a = $this->manajer_proyek_model->tampilEditPenugasan($id);
+    $data = array(
+        'view' =>$this->manajer_proyek_model->tampilEditPenugasan($id_j),
+        'page' => 'content/form_edit_penugasan',
+        'data' => $this->m_login->ambil_user($id),
+        'hasil' => $a
+      );
+    $this->load->view('home',$data);
+  }
+  public function prosesEditJob(){
+    $name = $_POST['name'];
+    $id_crew = $_POST['id_crew'];
+    $acceptance = $_POST['diterima'];
+    $deadline = $_POST['deadline'];
+    $id = $_POST['id'];
+    $data = array(
+      'name' => $name,
+      'id_crew' => $id_crew,
+      'acceptanceDate' => $acceptance,
+      'deadline' => $deadline
+      );
+    $a = $this->manajer_proyek_model->update('jobassignment', $data, $id);
+    if($a>=1){
+      redirect('Penugasan');
+    }
+  }
+  public function deleteJobA($key){
+    $this->manajer_proyek_model->getdelete($key);
+    redirect('penugasan');
+  }
+
+  public function inputDataJobA(){
+    $name = $this->input->post('name');
+    $id_crew = $this->input->post('id_crew');
+    $acceptance = $this->input->post('diterima');
+    $deadline = $this->input->post('deadline');
+
+    $data = array (
+      'name' => $name,
+      'id_crew' => $id_crew,
+      'acceptanceDate' => $acceptance,
+      'deadline' => $deadline
+      );
+    // print_r($data);
+  if(empty($name) OR empty($id_crew) OR empty($acceptance) OR empty($deadline)){
+      $this->session->set_flashdata('msgfalseproject','<div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">
+                  <div class="glyphicon glyphicon-remove">
+                  </div>
+                  </span>
+                  <span class="sr-only">Close</span>
+                </button>
+              <b>Error!</b> Data tidak boleh kosong </br>
+              </div>');
+      redirect('daftar_penugasan/');
+    
+    }else{
+      $this->db->insert('jobassignment', $data);
+      $this->session->set_flashdata('msgtrueproject','<div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">
+                  <div class="glyphicon glyphicon-remove">
+                  </div>
+                  </span>
+                  <span class="sr-only">Close</span>
+                </button>
+              <b>Success!</b> Data berhasil di input</br>
+              </div>'
+              );
+      redirect('Penugasan/tambahPenugasan');
+    } 
+  }
+
+  /* PENUGASAN - END */
 
   /* AKTIVITAS FUNCTION - START */
 
@@ -257,197 +625,6 @@ class Manajer_proyek extends CI_Controller {
   }
   /* AKTIVITAS FUNCTION - END */
 
-  /* DAFTAR PENUGASAN - START */
-  public function datarPenugasanIndex(){
-    if($this->session->userdata('logged_in')){
-      $session_data = $this->session->userdata('logged_in');  
-      $id_staff = $session_data['id_staff'];
-      $id_project = $session_data['id_project'];
-    }
-    // print_r($this->session->userdata('id_project'));exit;
-    $data = array(
-      'page' 	=> 'content/daftar_penugasan',
-      'isi' 	=> $this->manajer_proyek_model->tampilPenugasan($id_project),
-      'crew' 	=> $this->manajer_proyek_model->getCrew($id_project),
-    );
-    // print_r($data['isi']);
-    $this->load->view('home', $data);
-  }
-  
-  public function namaJob(){
-    $data['hasil'] = $this->manajer_proyek_model->namaJob()->result;
-  }
-
-  public function namaKruDaftarPenugasan(){
-    $ambil_id = $this->session->userdata('id_project');
-    $data['hasil2'] = $this->manajer_proyek_model->namaKruDaftarPenugasan($ambil_id)->result;
-  }
-
-  public function penugasan(){
-    if($this->session->userdata('logged_in')){
-      $session_data = $this->session->userdata('logged_in');  
-      $id_staff = $session_data['id_staff'];
-      $id_project = $session_data['id_project'];
-    }
-    $a = $this->manajer_proyek_model->namaJob()->result();
-    $b = $this->manajer_proyek_model->namaKru($id_project)->result();
-    $data = array(
-      'page' => 'content/form_penugasan',
-      'hasil' => $a,
-      'hasil2' => $b
-    );
-    $this->load->view('home',$data);
-  }
-
-  public function inputData(){
-    if(empty($this->input->post('id_crew')) OR empty($this->input->post('id_job'))
-      OR empty($this->input->post('upah')) OR empty($this->input->post('namaJob'))){
-    
-      $this->session->set_flashdata('msgfalseproject','<div class="alert alert-danger">
-                <button type="button" class="close" data-dismiss="alert">
-                <span aria-hidden="true">
-                  <div class="glyphicon glyphicon-remove">
-                  </div>
-                  </span>
-                  <span class="sr-only">Close</span>
-                </button>
-              <b>Error!</b> Data tidak boleh kosong </br>
-              </div>');
-      redirect('Daftar_penugasan/penugasan');
-    }else{
-      $date = null;
-        if ($this->input->post('diterima')=="") {
-      // echo('asdasd');
-      $date = date("Y-m-d");
-    }
-      else{
-        $date = $this->input->post('diterima');
-      }
-        $st=1;
-        $count = count($this->input->post('id_crew'));
-        $this->db->trans_begin();
-        foreach ($this->input->post('id_crew') as $row) {
-          print_r($row);
-          $data = array(
-            'id_job' => $this->input->post('id_job'),
-            'id_crew' => $row,
-            'acceptanceDate' => $date,
-            'deadline' => $this->input->post('deadline'),
-            'name' => $this->input->post('namaJob'),
-            'fee' => $this->input->post('upah')
-          );
-          $q = $this->manajer_proyek_model->inputDataPenugasan($data);
-          if($q !=1)$st=0;
-        }
-        if ($this->db->trans_status() === FALSE){
-          $this->db->trans_rollback();
-          echo 'gagal';
-        }
-      else{
-        $this->db->trans_commit();
-        $this->session->set_flashdata('msgtrueproject','<div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">
-              <div class="glyphicon glyphicon-remove">
-              </div>
-              </span>
-              <span class="sr-only">Close</span>
-            </button>
-          <b>Success!</b> Data berhasil di input</br>
-          </div>'
-          );
-        redirect('daftar_penugasan');
-      }
-    } 
-
-    $date = null;
-    if ($this->input->post('diterima')=="") {
-      // echo('asdasd');
-      $date = date("Y-m-d");
-    }
-    else{
-      $date = $this->input->post('diterima');
-    }
-    $st=1;
-    $count = count($this->input->post('id_crew'));
-    $this->db->trans_begin();
-    foreach ($this->input->post('id_crew') as $row) {
-      print_r($row);
-      $data = array(
-        'id_job' => $this->input->post('id_job'),
-        'name' => $this->input->post('name'),
-        'id_crew' => $row,
-        'acceptanceDate' => $date,
-        'deadline' => $this->input->post('deadline'),
-        'name' => $this->input->post('namaJob'),
-        'fee' => $this->input->post('upah')
-        );
-      $q = $this->manajer_proyek_model->inputDataPenugasan($data);
-      if($q !=1)$st=0;
-    }
-    if ($this->db->trans_status() === FALSE){
-
-              $this->db->trans_rollback();
-              echo 'gagal';
-    }
-    else{
-            $this->db->trans_commit();
-            redirect('daftar_penugasan');
-    }
-  }
-
-  public function setScore(){
-    $data =	array(
-      'rating' => $this->input->post('_val'),
-    );
-
-    $q = $this->manajer_proyek_model->setScore($this->input->post('_id'),$data);
-    if($q==1){
-      echo $this->input->post('_val');
-    }else{
-      echo 'failed';
-    }
-  }
-
-  public function setFee(){
-    $data = array(
-      'fee' => $this->input->post('_val'),
-    );
-
-    $a = $this->manajer_proyek_model->setFee($this->input->post('_id'),$data);
-    if($a==1){
-      echo $this->input->post('_val');
-    }else{
-      echo 'failed';
-    }
-  }
-
-  public function getFee(){
-    # code...
-    // print_r($this->input->post('_name'));
-    // echo 'halo';
-    // echo $this->input->post('_name');
-
-    $a = $this->manajer_proyek_model->getFee($this->input->post('_name'));
-    if($a->num_rows() < 1 ){
-      echo 'fail';
-    }else{
-      
-      echo json_encode($a->result())  ;
-    }
-  }
-
-  public function getScore(){
-    $a = $this->manajer_proyek_model->getScore($this->input->post('_score'));
-    if($a->num_rows() < 1 ){
-      echo 'fail';
-    }else{
-      
-      echo json_encode($a->result())  ;
-    } 
-  }
-
-  /* DAFTAR PENUGASAN - END */
 
   /* MASTER PENUGASAN - START */
   
@@ -637,133 +814,6 @@ class Manajer_proyek extends CI_Controller {
 
   /* MASTER PENUGASAN - END */
 
-  /* PENUGASAN - START */
-
-  public function penugasanIndex(){
-		if($this->session->userdata('logged_in')){
-      $session_data = $this->session->userdata('logged_in');  
-      $id_staff = $session_data['id_staff'];
-      $id_project = $session_data['id_project'];
-    }
-		// print_r($this->session->userdata('id_project'));exit;
-		$data = array(
-			'page' => 'content/penugasan',
-			'isi' => $this->manajer_proyek_model->tampilKru($id_project),
-		);
-		$this->load->view('home', $data);
-	}
-	public function form_tambah_penugasan_kru(){
-		$data = array(
-			'tugas' => $this->input->post('tugas')
-		);
-		$data2 = array(
-			'page' => 'content/form_tambah_penugasan'
-		);
-		$data['isi']		= $this->manajer_proyek_model->tambahKru($data);
-
-		$this->load->view('home',$data2);
-	}
-
-	public function tambahPenugasan(){
-		if($this->session->userdata('user_is_logged_in')){
-			$email = $this->session->userdata('email');
-			$id = $this->session->userdata('id_staff');
-		}
-		$a = $this->manajer_proyek_model->namaKruPenugasan()->result();
-		// $b = $this->manajer_proyek_model->viewJob()->result();
-		$data = array(
-			'page' => 'content/form_tambah_penugasan',
-			'data' => $this->m_login->ambil_user($id),
-			'hasil' => $a,
-			// 'hasil2' => $b
-		);
-		$this->load->view('home',$data);
-	}
-
-	public function namaKruPenugasan(){
-		$data['hasil'] = $this->manajer_proyek_model->namaKru()->result;
-	}
-
-	public function edit($id_j){
-		if($this->session->userdata('user_is_logged_in')){
-			$email = $this->session->userdata('email');
-			$id = $this->session->userdata('id_staff');
-		}
-		$a = $this->manajer_proyek_model->tampilEditPenugasan($id);
-		$data = array(
-				'view' =>$this->manajer_proyek_model->tampilEditPenugasan($id_j),
-				'page' => 'content/form_edit_penugasan',
-				'data' => $this->m_login->ambil_user($id),
-				'hasil' => $a
-			);
-		$this->load->view('home',$data);
-	}
-	public function prosesEditJob(){
-		$name = $_POST['name'];
-		$id_crew = $_POST['id_crew'];
-		$acceptance = $_POST['diterima'];
-		$deadline = $_POST['deadline'];
-		$id = $_POST['id'];
-		$data = array(
-			'name' => $name,
-			'id_crew' => $id_crew,
-			'acceptanceDate' => $acceptance,
-			'deadline' => $deadline
-			);
-		$a = $this->manajer_proyek_model->update('jobassignment', $data, $id);
-		if($a>=1){
-			redirect('Penugasan');
-		}
-	}
-	public function deleteJobA($key){
-		$this->manajer_proyek_model->getdelete($key);
-		redirect('penugasan');
-	}
-
-	public function inputDataJobA(){
-		$name = $this->input->post('name');
-		$id_crew = $this->input->post('id_crew');
-		$acceptance = $this->input->post('diterima');
-		$deadline = $this->input->post('deadline');
-
-		$data = array (
-			'name' => $name,
-			'id_crew' => $id_crew,
-			'acceptanceDate' => $acceptance,
-			'deadline' => $deadline
-			);
-		// print_r($data);
-	if(empty($name) OR empty($id_crew) OR empty($acceptance) OR empty($deadline)){
-			$this->session->set_flashdata('msgfalseproject','<div class="alert alert-danger">
-	              <button type="button" class="close" data-dismiss="alert">
-	              <span aria-hidden="true">
-	                <div class="glyphicon glyphicon-remove">
-	                </div>
-	                </span>
-	                <span class="sr-only">Close</span>
-	              </button>
-	            <b>Error!</b> Data tidak boleh kosong </br>
-	            </div>');
-			redirect('daftar_penugasan/');
-		
-		}else{
-			$this->db->insert('jobassignment', $data);
-			$this->session->set_flashdata('msgtrueproject','<div class="alert alert-success">
-	              <button type="button" class="close" data-dismiss="alert">
-	              <span aria-hidden="true">
-	                <div class="glyphicon glyphicon-remove">
-	                </div>
-	                </span>
-	                <span class="sr-only">Close</span>
-	              </button>
-	            <b>Success!</b> Data berhasil di input</br>
-	            </div>'
-	            );
-			redirect('Penugasan/tambahPenugasan');
-		} 
-	}
-
-  /* PENUGASAN - END */
 
   /* PROGRESS PROYEK - START */
 
