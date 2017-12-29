@@ -143,6 +143,58 @@
       }
     }
 
+    public function edit($id_proyek){
+      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+      if($this->project_model->isProject($id_proyek) == false) redirect('/project/all') ;
+      $a = $this->db->query("SELECT id_contact,name from contact")->result();
+      $data = array(
+        'page' => 'dashboard/manajer/add_proyek',
+        'daftar' => $a,
+        'types' => $this->project_model->get_all_type(),
+        'protypes' => $this->project_model->get_project_type($id_proyek),
+        'staffs' => $this->staff_model->ambil_user(),
+        'result' => $this->project_model->ambil_project_manajer($id_proyek),
+        'edit' => true
+      ) ;
+      if($this->input->post('submit')){
+        $this->form_validation->set_rules('nama', 'Name', 'required|trim') ;
+        $this->form_validation->set_rules('dealtime', 'Deal time', 'required') ;
+        $this->form_validation->set_rules('price', 'Project Price', 'required|trim') ;
+        $this->form_validation->set_rules('deadline', 'Deadline', 'required') ;
+        $this->form_validation->set_rules('revisiondate', 'Revision Date', 'required') ;
+        $this->form_validation->set_rules('downpayment', 'Down Payment', 'required') ;
+        $this->form_validation->set_rules('id_contact', 'Contact', 'required') ;
+        $this->form_validation->set_rules('manpro', 'Manajer Proyek', 'required') ;
+        $this->form_validation->set_rules('type[]', 'Type', 'required') ;
+
+        if($this->form_validation->run() == FALSE){
+          $this->load->view('home', $data) ;
+        }else{
+          $manpro = $this->input ->post('manpro');
+          $types = implode(',', $this->input->post('type')) ;
+
+          $data = array(
+            'name' => $this->input->post('nama'),
+            'dealTime' => $this->input->post('dealtime'),
+            'price' => $this->input->post('price'),
+            'deadline' => $this->input->post('deadline'),
+            'revisionDeadline' => $this->input->post('revisiondate'),
+            'status' => $this->input->post('status'),
+            'DP' => $this->input->post('downpayment'),
+            'id_contact' => $this->input->post('id_contact')
+          ) ;
+
+          if($this->project_model->update_project($id_proyek, $data, $manpro, $types))
+            redirect('/project/all') ;
+          else
+            redirect('/project/edit/'.$id_proyek) ;
+        }
+      }else{
+        $this->load->view('home', $data) ;
+      }
+    }
+
     public function edit_type(){
       if($this->user_login_model->checkManajer() == false) redirect('/') ;
 
@@ -166,6 +218,17 @@
       }else{
         redirect('/project/all_type') ;
       }
+    }
+
+    public function delete($id){
+      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+      if($this->project_model->isProject($id)){
+        $this->project_model->delete_project($id) ;
+      }
+
+      redirect('/project/all') ;
+
     }
   }
 ?>

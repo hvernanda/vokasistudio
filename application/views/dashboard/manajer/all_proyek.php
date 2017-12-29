@@ -56,11 +56,11 @@
                                     echo '<span class="label label-danger">Canceled</span>' ;
                             ?></td>
                             <td>
-                                <a href="#" class="btn btn-sm btn-info"><i class="fa fa-eye"></i> View</a>
-                                <a href="#" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</a>
+                                <a href="#" class="btn btn-sm btn-info btn-xs"><i class="fa fa-eye"></i> View</a>
+                                <a href="<?php echo base_url('/project/edit/'.$proyek->id_project)?>" class="btn btn-sm btn-success btn-xs"><i class="fa fa-pencil"></i> Edit</a>
+                                <a href="<?php echo base_url('/project/delete/'.$proyek->id_project) ;?>" onclick="return showDeleteProyekAlert(event, '<?php echo $proyek->id_project ?>')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
-                    
                         <?php 
                                     }
                                 }

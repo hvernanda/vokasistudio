@@ -39,7 +39,6 @@ class Defisit_studio extends CI_Controller {
       'returnDate' => $returnDate, 
       'status' => $status
     );
-
     $this->defisit_studio_model->updatePembayaran($update, $id); 
     $this->session->set_flashdata('msgtrue','<div class="alert alert-success">
               <button type="button" class="close" data-dismiss="alert">

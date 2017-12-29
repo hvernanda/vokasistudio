@@ -22,6 +22,17 @@ class project_model extends CI_Model {
         }
     }
 
+    public function isProject($id_project){
+        $this->db->select('*') ;
+        $this->db->from('project') ;
+        $this->db->where('id_project', $id_project) ;
+        $query = $this->db->get() ;
+
+        if($query->num_rows() == 1) return true ;
+
+        return false ;
+    }
+
     public function ambil_project()
     {
 		$this->db->select('project.*,company.name as name_company,contact.name as name_contact, user.name as pm_name');
@@ -31,9 +42,28 @@ class project_model extends CI_Model {
         $this->db->join('crew', 'crew.id_project = project.id_project', 'left') ;
         $this->db->join('staff', 'staff.id_staff = crew.id_staff', 'left') ;
         $this->db->join('user', 'user.id_user = staff.id_user', 'left') ;
+        $this->db->order_by('project.id_project', 'desc') ;
 		// $this->db->where('id_staff');
 		$query = $this->db->get();
 		$result = $query->result();
+		return $result;
+    }
+    public function ambil_project_manajer($id_project)
+    {
+		$this->db->select('project.*,company.name as name_company,contact.name as name_contact, contact.id_contact, user.name as pm_name, crew.id_staff, project.status');
+		$this->db->from('company');
+        $this->db->join('contact','company.id_company = contact.id_company');
+        $this->db->join('project','contact.id_contact = project.id_contact') ;
+        $this->db->join('crew', 'crew.id_project = project.id_project', 'left') ;
+        $this->db->join('staff', 'staff.id_staff = crew.id_staff', 'left') ;
+        $this->db->join('user', 'user.id_user = staff.id_user', 'left') ;
+        $this->db->where('project.id_project', $id_project);
+        $this->db->where('crew.id_status', '1') ;
+        $this->db->order_by('crew.id_crew', 'desc') ;
+        $this->db->limit(1) ;
+
+		$query = $this->db->get();
+		$result = $query->result()[0];
 		return $result;
     }
     public function ambil_project_company($id_company){
@@ -56,6 +86,19 @@ class project_model extends CI_Model {
         $query = $this->db->get() ;
 
         $result = $query->result() ;
+        return $result ;
+    }
+
+    public function get_project_type($id_proyek){
+        $this->db->select('*') ;
+        $this->db->from('projecttype') ;
+        $this->db->where('id_project', $id_proyek) ;
+        $query = $this->db->get() ;
+        $result = array() ;
+        foreach($query->result() as $q){
+            array_push($result, $q->id_type) ;
+        }
+
         return $result ;
     }
 
@@ -124,6 +167,44 @@ class project_model extends CI_Model {
         $input = $this->db->update('type', $data) ;
 
         return $input ? true : false ;
+    }
+
+    public function update_project($id, $data, $manajer, $types){
+        $this->db->where('id_project', $id) ;
+        $query = $this->db->update('project', $data) ;
+
+        if($query){
+            $types = explode(',', $types) ;
+            $manpro_data = array(
+                'id_staff' => $manajer
+            ) ;
+
+            $this->db->where('id_project', $id) ;
+            $this->db->delete('projecttype') ;
+
+            foreach($types as $type){
+                $data_type = array(
+                    'id_project' => $id,
+                    'id_type' => $type
+                ) ;
+                $this->db->insert('projecttype', $data_type) ;
+            }
+
+            $this->db->where('id_project', $id) ;
+            $this->db->where('id_status', '1') ;
+            $this->db->update('crew', $manpro_data) ;
+            
+            return true ;
+        }
+        return false ;
+    }
+
+    public function delete_project($id){
+        $this->db->where('id_project', $id) ;
+
+        if($this->db->delete('project')) return true ;
+
+        return false ;
     }
 }
 
