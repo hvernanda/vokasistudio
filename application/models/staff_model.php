@@ -168,7 +168,6 @@ class staff_model extends CI_Model {
           $insertId = $this->db->insert_id() ;
           $staff_data = array(
             'id_user' => $insertId,
-            'name' => $nama,
             'status_account' => 'active'
           ) ;
 
@@ -325,6 +324,8 @@ class staff_model extends CI_Model {
             'id_tool' => $id_tool,
             'id_skill' => $skill);
         $input = $this->db->insert('toolskill', $data);
+
+        return $input ? true : false ;
     }
     public function get_staff_skill($id_user)
     {

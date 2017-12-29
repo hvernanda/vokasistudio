@@ -34,7 +34,7 @@ class user_authentication extends CI_Controller {
         } else {
             $data = array(
                 'email' => $this->input->post('email'),
-                'password' => $this->input->post('password')
+                'password' => md5($this->input->post('password'))
             );
             $result = $this->user_login_model->login($data);
             if ($result == TRUE) {
