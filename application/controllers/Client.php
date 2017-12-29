@@ -68,7 +68,7 @@ class Client extends CI_Controller {
         $nama = $this->input->post('nama') ;
         $email = $this->input->post('email') ;
         $phone = $this->input->post('phone') ;
-        $password = $this->input->post('password') ;
+        $password = md5($this->input->post('password')) ;
         $id_company = $this->input->post('id_company') ;
 
         if($this->client_model->insert_client($nama, $email, $phone, $password, $id_company)){

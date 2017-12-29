@@ -79,7 +79,6 @@
         if($this->db-> insert('user', $data)){
             $insertId = $this->db->insert_id() ;
             $contact_data = array(
-                'name' => $nama,
                 'phone' => $phone,
                 'id_user' => $insertId,
                 'id_company' => $id_company,
@@ -128,7 +127,7 @@
 
     public function get_project_update($id_kontak)
     {
-        $this->db->select('staff.name as crew_name, project.name as project, activity.name as crew_task, activity.uploadFile as crew_file, activity.id_activity');
+        $this->db->select('user.name as crew_name, project.name as project, activity.name as crew_task, activity.uploadFile as crew_file, activity.id_activity');
         $this->db->from('staff');
         $this->db->join('user','user.id_user=staff.id_user');
         $this->db->join('crew','crew.id_staff=staff.id_staff');

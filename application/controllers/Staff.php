@@ -183,7 +183,7 @@ class Staff extends CI_Controller {
         $input_data = $this->staff_model->insert_tool_skill($id_tool, $skill);
 
         if($input_data){
-          redirect('/staff/all') ;
+          redirect('/staff/all_tool_skill') ;
         }else{
           $this->load->view('home', $data) ;
         }
@@ -212,7 +212,7 @@ class Staff extends CI_Controller {
       }else{
         $nama = $this->input->post('nama');
         $email = $this->input->post('email');
-        $password = $this->input->post('password');
+        $password = md5($this->input->post('password'));
         $id_user_role = $this->input->post('id_user_role');
     
         if($this->staff_model->insert_staff($nama, $email, $password, $id_user_role)){

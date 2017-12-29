@@ -35,7 +35,7 @@ class project_model extends CI_Model {
 
     public function ambil_project()
     {
-		$this->db->select('project.*,company.name as name_company,contact.name as name_contact, user.name as pm_name');
+		$this->db->select('project.*,company.name as name_company,user.name as name_contact, user.name as pm_name');
 		$this->db->from('company');
         $this->db->join('contact','company.id_company = contact.id_company');
         $this->db->join('project','contact.id_contact = project.id_contact') ;
@@ -50,7 +50,7 @@ class project_model extends CI_Model {
     }
     public function ambil_project_manajer($id_project)
     {
-		$this->db->select('project.*,company.name as name_company,contact.name as name_contact, contact.id_contact, user.name as pm_name, crew.id_staff, project.status');
+		$this->db->select('project.*,company.name as name_company,user.name as name_contact, contact.id_contact, user.name as pm_name, crew.id_staff, project.status');
 		$this->db->from('company');
         $this->db->join('contact','company.id_company = contact.id_company');
         $this->db->join('project','contact.id_contact = project.id_contact') ;
@@ -58,16 +58,16 @@ class project_model extends CI_Model {
         $this->db->join('staff', 'staff.id_staff = crew.id_staff', 'left') ;
         $this->db->join('user', 'user.id_user = staff.id_user', 'left') ;
         $this->db->where('project.id_project', $id_project);
-        $this->db->where('crew.id_status', '1') ;
-        $this->db->order_by('crew.id_crew', 'desc') ;
-        $this->db->limit(1) ;
+        $this->db->where('crew.id_crew_role', '1') ;
+        // $this->db->order_by('crew.id_crew', 'desc') ;
+        // $this->db->limit(1) ;
 
 		$query = $this->db->get();
 		$result = $query->result()[0];
 		return $result;
     }
     public function ambil_project_company($id_company){
-        $this->db->select('project.*,contact.name as name_contact, user.name as pm_name');
+        $this->db->select('project.*,user.name as name_contact, user.name as pm_name');
 		$this->db->from('company');
         $this->db->join('contact','company.id_company = contact.id_company');
         $this->db->join('project','contact.id_contact = project.id_contact') ;
