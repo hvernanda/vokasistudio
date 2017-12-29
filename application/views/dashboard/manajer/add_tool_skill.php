@@ -15,7 +15,7 @@
             <?php echo validation_errors() ;?>
         </div>
     <?php } ?>
-        <?php echo !isset($edit) ? form_open(base_url()."staff/add_tool_skill") : form_open(base_url()."staff/edit_tool_skill/".$result->id_toolskill) ?>
+        <?php echo !isset($edit) ? form_open(base_url()."staff/add_tool_skill") : form_open(base_url()."staff/edit_tool_skill/".$result->id_tool_skill) ?>
             <div class="form-group">
                 <label>Tools Name </label>
                 <select class="form-control" name="id_tool" id="id_tool"  required>

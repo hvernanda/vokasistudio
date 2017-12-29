@@ -77,10 +77,10 @@
                     <tr>
                       <td><?php echo $i; ?></td>
                       <td><?php echo $proyek->name; ?></td>
-                      <td><?php echo $proyek->dealTime; ?></td>
+                      <td><?php echo $proyek->dealtime; ?></td>
                       <td><?php echo $proyek->price; ?></td>
                       <td><?php echo $proyek->deadline; ?></td>
-                      <td><?php echo $proyek->revisionDeadline; ?></td>
+                      <td><?php echo $proyek->revision_deadline; ?></td>
                       <td><?php echo $proyek->status; ?></td>
                       <td><?php echo $proyek->DP; ?></td>
                       <td><?php echo $proyek->id_contact; ?></td>

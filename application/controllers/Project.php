@@ -72,7 +72,7 @@
     public function add(){
       if($this->user_login_model->checkManajer() == false) redirect('/') ;
 
-      $a = $this->db->query("SELECT id_contact,name from contact")->result();
+      $a = $this->db->query("SELECT contact.id_contact,user.name from contact JOIN user ON user.id_user = contact.id_user")->result();
       $data = array(
         'page' => 'dashboard/manajer/add_proyek',
         'daftar' => $a,
@@ -96,17 +96,17 @@
           $this->load->view('home', $data) ;
         }else{
           $nama = $this->input->post('nama');
-          $dealtime = $this->input-> post('deadltime');
+          $dealtime = $this->input-> post('dealtime');
           $price = $this->input->post('price');
           $deadline  = $this->input->post('deadline');
-          $revisionDeadline  =$this->input->post('revisiondate');
-          $status = 'on_process';
+          $revision_deadline  =$this->input->post('revisiondate');
+          $status = 'on process';
           $downpayment  = $this->input->post('downpayment');
           $id_contact = $this->input ->post('id_contact');
           $manpro = $this->input ->post('manpro');
           $types = implode(',', $this->input->post('type')) ;
 
-          $input_data = $this->project_model->insert_project($nama, $dealtime, $price, $deadline, $revisionDeadline, $status, $downpayment,$id_contact, $manpro, $types);
+          $input_data = $this->project_model->insert_project($nama, $dealtime, $price, $deadline, $revision_deadline, $status, $downpayment,$id_contact, $manpro, $types);
 
           if($input_data){
             redirect('/project/all') ;
@@ -143,11 +143,44 @@
       }
     }
 
+    public function add_penawaran(){
+      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+      $data = array(
+        'page' => 'dashboard/manajer/add_proyek_penawaran',
+        'projects' => $this->project_model->getFreeProjects(),
+        'staffs' => $this->staff_model->ambil_user()
+      ) ;
+
+      if($this->input->post('submit')){
+        $this->form_validation->set_rules('proyek', 'Proyek', 'required') ;
+        $this->form_validation->set_rules('staff', 'Manajer Proyek', 'required') ;
+
+        if($this->form_validation->run() == FALSE){
+          $this->load->view('home', $data) ;
+        }else{
+          $data = array(
+            'id_staff' => $this->input->post('staff'),
+            'id_project' => $this->input->post('proyek'),
+            'status_offer' => '0'
+          ) ;
+
+          if($this->project_model->insert_penawaran($data)){
+            redirect('/project/all_penawaran') ;
+          }else{
+            redirect('/project/add_penawaran') ;
+          }
+        }
+      }
+
+      $this->load->view('home', $data) ;
+    }
+
     public function edit($id_proyek){
       if($this->user_login_model->checkManajer() == false) redirect('/') ;
 
       if($this->project_model->isProject($id_proyek) == false) redirect('/project/all') ;
-      $a = $this->db->query("SELECT id_contact,name from contact")->result();
+      $a = $this->db->query("SELECT contact.id_contact,user.name from contact JOIN user ON user.id_user = contact.id_user")->result();
       $data = array(
         'page' => 'dashboard/manajer/add_proyek',
         'daftar' => $a,
@@ -165,27 +198,27 @@
         $this->form_validation->set_rules('revisiondate', 'Revision Date', 'required') ;
         $this->form_validation->set_rules('downpayment', 'Down Payment', 'required') ;
         $this->form_validation->set_rules('id_contact', 'Contact', 'required') ;
-        $this->form_validation->set_rules('manpro', 'Manajer Proyek', 'required') ;
+        // $this->form_validation->set_rules('manpro', 'Manajer Proyek', 'required') ;
         $this->form_validation->set_rules('type[]', 'Type', 'required') ;
 
         if($this->form_validation->run() == FALSE){
           $this->load->view('home', $data) ;
         }else{
-          $manpro = $this->input ->post('manpro');
+          // $manpro = $this->input ->post('manpro');
           $types = implode(',', $this->input->post('type')) ;
 
           $data = array(
             'name' => $this->input->post('nama'),
-            'dealTime' => $this->input->post('dealtime'),
+            'dealtime' => $this->input->post('dealtime'),
             'price' => $this->input->post('price'),
             'deadline' => $this->input->post('deadline'),
-            'revisionDeadline' => $this->input->post('revisiondate'),
+            'revision_deadline' => $this->input->post('revisiondate'),
             'status' => $this->input->post('status'),
             'DP' => $this->input->post('downpayment'),
             'id_contact' => $this->input->post('id_contact')
           ) ;
 
-          if($this->project_model->update_project($id_proyek, $data, $manpro, $types))
+          if($this->project_model->update_project($id_proyek, $data, /*$manpro,*/ $types))
             redirect('/project/all') ;
           else
             redirect('/project/edit/'.$id_proyek) ;

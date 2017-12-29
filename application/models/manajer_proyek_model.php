@@ -77,10 +77,10 @@ class manajer_proyek_model extends CI_Model {
     function tampilPenugasan($id_project){
 		$job 	= $this->db->query("select j.name as jobname,
 									u.name, a.name as detail_job,
-									a.id_jobassignment,
+									a.id_job_assignment,
 									a.id_job,
 									a.id_crew,
-									a.acceptanceDate,
+									a.acceptance_date,
 									a.deadline,
 									a.fee, 
 									a.rating,
@@ -110,7 +110,7 @@ class manajer_proyek_model extends CI_Model {
 								jobassignment.id_job, 
 								u.name, 
 								jobassignment.name as assignmentName,
-								jobassignment.id_jobassignment,
+								jobassignment.id_job_assignment,
 								jobassignment.fee,
 								jobassignment.rating
 								from crew
@@ -163,19 +163,19 @@ class manajer_proyek_model extends CI_Model {
 	// }
 	
 	function getDeleteJobAssign($key){
-		$this->db->where('id_jobassignment',$key); 
+		$this->db->where('id_job_assignment',$key); 
 		return $this->db->delete('jobassignment');
 
 	}
 	
 	function setScore($key,$data){
-		$this->db->where('id_jobassignment',$key);
+		$this->db->where('id_job_assignment',$key);
 		$this->db->set($data);
 		return $this->db->update('jobassignment');
 	}
 
 	function setFee($key, $data){
-		$this->db->where('id_jobassignment',$key);
+		$this->db->where('id_job_assignment',$key);
 		$this->db->set($data);
 		return $this->db->update('jobassignment');
 	}
@@ -185,7 +185,7 @@ class manajer_proyek_model extends CI_Model {
 			jobassignment.name,
 			jobassignment.fee,
 			staff.name as nama,
-			id_jobassignment,
+			id_job_assignment,
 
 			');
 		$this->db->where('jobassignment.name',$name);
@@ -199,7 +199,7 @@ class manajer_proyek_model extends CI_Model {
 			jobassignment.name,
 			jobassignment.rating,
 			staff.name as nama,
-			id_jobassignment,
+			id_job_assignment,
 
 			');
 		$this->db->where('jobassignment.name', $name);
@@ -213,7 +213,7 @@ class manajer_proyek_model extends CI_Model {
 
 	/* PENUGASAN - START */
     function tampilKru($id_project){
-		$this->db->select('jobassignment.id_jobassignment as id_jobassignment, staff.name as nama, jobassignment.name as penugasan, jobassignment.acceptanceDate as diterima, jobassignment.deadline as deadline');
+		$this->db->select('jobassignment.id_job_assignment as id_job_assignment, staff.name as nama, jobassignment.name as penugasan, jobassignment.acceptance_date as diterima, jobassignment.deadline as deadline');
 		$this->db->from('staff');
 		$this->db->where('crew.id_project', 1);
 		$this->db->join('crew', 'staff.id_staff=crew.id_staff');
@@ -224,9 +224,9 @@ class manajer_proyek_model extends CI_Model {
 	}
 
 	function tampilEditPenugasan($id){
-		$this->db->select('jobassignment.id_jobassignment as id_jobassingment, staff.name as name, jobassignment.name as penugasan, jobassignment.acceptanceDate as diterima, jobassignment.deadline as deadline');
+		$this->db->select('jobassignment.id_job_assignment as id_jobassingment, staff.name as name, jobassignment.name as penugasan, jobassignment.acceptance_date as diterima, jobassignment.deadline as deadline');
 		$this->db->from('staff');
-		$this->db->where('jobassignment.id_jobassignment', $id);
+		$this->db->where('jobassignment.id_job_assignment', $id);
 		$this->db->join('crew', 'staff.id_staff=crew.id_staff');
 		$this->db->join('jobassignment', 'crew.id_crew=jobassignment.id_crew');
 		$q = $this->db->get();
@@ -253,7 +253,7 @@ class manajer_proyek_model extends CI_Model {
 	}
 	
 	function getdelete($key){
-		$this->db->where('id_jobassignment',$key); 
+		$this->db->where('id_job_assignment',$key); 
 		return $this->db->delete('jobassignment');
 
 	}
@@ -263,32 +263,32 @@ class manajer_proyek_model extends CI_Model {
 
     function tampilDetailAkt($id){
 		$this->db->select('staff.name as nama, jobassignment.name as name_ja, activity.name as aktivitas, activity.date as tanggal, 
-			activity.startTime as mulai, activity.finishTime as selesai, activity.komputer as komputer, 
-			activity.fileLocation as lokasi, activity.fileBackupLocation as lokasi_backup, activity.uploadFile as upload, 
-			activity.commentByManager as komentar');
+			activity.start_time as mulai, activity.finish_time as selesai, activity.komputer as komputer, 
+			activity.file_location as lokasi, activity.file_backup_location as lokasi_backup, activity.upload_file as upload, 
+			activity.comment_by_manager as komentar');
 		// $this->db->distinct();
 		$this->db->from('staff');
 		$this->db->where('crew.id_project', 1);
-		// $this->db->where('activity.id_jobassignment', $id);
+		// $this->db->where('activity.id_job_assignment', $id);
 		$this->db->join('crew', 'staff.id_staff=crew.id_staff');// 'left')
 		$this->db->join('jobassignment', 'crew.id_crew=jobassignment.id_crew');// 'left')
-		$this->db->join('activity', 'jobassignment.id_jobassignment=activity.id_jobassignment');// 'left')
+		$this->db->join('activity', 'jobassignment.id_job_assignment=activity.id_job_assignment');// 'left')
 		// $this->db->group_by();
 		// $this->db->order_by();
 		$q = $this->db->get();
 		return $q->result();
 	}
 	function tampilAkt($id_project){
-		$this->db->select('activity.commentByManager as komentar, job.name as tugas, activity.id_activity,staff.name as nama, jobassignment.name as name, activity.name as aktivitas, activity.date as tanggal, 
-			activity.startTime as mulai, activity.finishTime as selesai, activity.komputer as komputer, 
-			activity.fileLocation as lokasi, activity.fileBackupLocation as lokasi_backup, activity.uploadFile as upload');
+		$this->db->select('activity.comment_by_manager as komentar, job.name as tugas, activity.id_activity,staff.name as nama, jobassignment.name as name, activity.name as aktivitas, activity.date as tanggal, 
+			activity.start_time as mulai, activity.finish_time as selesai, activity.komputer as komputer, 
+			activity.file_location as lokasi, activity.file_backup_location as lokasi_backup, activity.upload_file as upload');
 		// $this->db->distinct();
 		$this->db->from('staff');
 		$this->db->where('crew.id_project', $id_project);
 		$this->db->join('crew', 'staff.id_staff=crew.id_staff');// 'left')
 		$this->db->join('jobassignment', 'crew.id_crew=jobassignment.id_crew');// 'left')
 		$this->db->join('job', 'job.id_job=jobassignment.id_job');
-		$this->db->join('activity', 'jobassignment.id_jobassignment=activity.id_jobassignment');// 'left')
+		$this->db->join('activity', 'jobassignment.id_job_assignment=activity.id_job_assignment');// 'left')
 		
 		// $this->db->group_by();
 		// $this->db->order_by();
@@ -296,9 +296,9 @@ class manajer_proyek_model extends CI_Model {
 		return $q->result();
 	}
 	function tampilAktPersonal($id_staff,$id_project){
-		$this->db->select('activity.commentByManager as komentar, job.name as tugas, activity.id_activity,staff.name as nama, jobassignment.name as name, activity.name as aktivitas, activity.date as tanggal, 
-			activity.startTime as mulai, activity.finishTime as selesai, activity.komputer as komputer, 
-			activity.fileLocation as lokasi, activity.fileBackupLocation as lokasi_backup, activity.uploadFile as upload');
+		$this->db->select('activity.comment_by_manager as komentar, job.name as tugas, activity.id_activity,staff.name as nama, jobassignment.name as name, activity.name as aktivitas, activity.date as tanggal, 
+			activity.start_time as mulai, activity.finish_time as selesai, activity.komputer as komputer, 
+			activity.file_location as lokasi, activity.file_backup_location as lokasi_backup, activity.upload_file as upload');
 		// $this->db->distinct();
 		$this->db->from('staff');
 		$this->db->where('crew.id_project', $id_project);
@@ -306,7 +306,7 @@ class manajer_proyek_model extends CI_Model {
 		$this->db->join('crew', 'staff.id_staff=crew.id_staff');// 'left')
 		$this->db->join('jobassignment', 'crew.id_crew=jobassignment.id_crew');// 'left')
 		$this->db->join('job', 'job.id_job=jobassignment.id_job');
-		$this->db->join('activity', 'jobassignment.id_jobassignment=activity.id_jobassignment');// 'left')
+		$this->db->join('activity', 'jobassignment.id_job_assignment=activity.id_job_assignment');// 'left')
 		
 		// $this->db->group_by();
 		// $this->db->order_by();
@@ -314,7 +314,7 @@ class manajer_proyek_model extends CI_Model {
 		return $q->result();
 	}
 	function tampilLokasi($id_activity){
-		$this->db->select('komputer, fileLocation, fileBackupLocation');
+		$this->db->select('komputer, file_location, file_backup_location');
 		$this->db->from('activity');
 		$this->db->where('id_activity', $id);
 		$q = $this->db->get();
@@ -352,7 +352,7 @@ class manajer_proyek_model extends CI_Model {
     }
     
 	function download($id){
-		$this->db->select('activity.uploadFile as download');
+		$this->db->select('activity.upload_file as download');
 		$this->db->from('activity');
 		$this->db->where('id_activity', $id);
 		$q = $this->db->get();
@@ -377,7 +377,7 @@ class manajer_proyek_model extends CI_Model {
 	function tampilAktivitas(){
 		$this->db->select('activity.name as aktivitas, staff.name as nama, activity.date as tanggal');
 		$this->db->from('activity');
-		$this->db->join('jobassignment', 'activity.id_jobassignment=jobassignment.id_jobassignment');
+		$this->db->join('jobassignment', 'activity.id_job_assignment=jobassignment.id_job_assignment');
 		$this->db->join('crew', 'jobassignment.id_crew=crew.id_crew');
 		$this->db->join('staff', 'crew.id_staff=staff.id_staff');
 		$q = $this->db->get();

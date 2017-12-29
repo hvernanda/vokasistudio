@@ -48,7 +48,7 @@
                                 </div>
                             </td>
                             <td><?php 
-                                if($proyek->status == 'on_process')
+                                if($proyek->status == 'on process')
                                     echo '<span class="label label-warning">On Process</span>' ;
                                 elseif($proyek->status == 'done')
                                     echo '<span class="label label-success">Finished</span>' ;

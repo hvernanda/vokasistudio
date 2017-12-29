@@ -33,10 +33,10 @@
                             <tr>
                                 <td><?php echo $i ?> </td>
                                 <td><?php echo $proyek->name ?> </td>
-                                <td><?php echo $general->convertDate($proyek->dealTime); ?> </td>
+                                <td><?php echo $general->convertDate($proyek->dealtime); ?> </td>
                                 <td><?php echo 'Rp'.number_format($proyek->price, 2, ',', '.') ?> </td>
                                 <td><?php echo $general->convertDate($proyek->deadline) ?> </td>
-                                <td><?php echo $general->convertDate($proyek->revisionDeadline) ?> </td>
+                                <td><?php echo $general->convertDate($proyek->revision_deadline) ?> </td>
                                 <td><?php echo $proyek->status ?> </td>
                                 <td><?php echo 'Rp'.number_format($proyek->DP, 2, ',', '.') ?> </td>
                                 <td><?php echo $proyek->name_contact ?> </td>

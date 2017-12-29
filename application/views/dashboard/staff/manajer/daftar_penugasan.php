@@ -32,7 +32,7 @@
                       <td><?php echo $tugas->name; ?></td>
                       <td><?php echo $tugas->jobname; ?></td>
                       <td><?php echo $tugas->detail_job; ?></td>
-                      <td><?php echo $tugas->acceptanceDate; ?></td>
+                      <td><?php echo $tugas->acceptance_date; ?></td>
                       <td><?php echo $tugas->deadline; ?></td>
                       <td><?php echo $tugas->fee; ?></td>
                       <td><?php echo $tugas->rating; ?></td>
