@@ -198,4 +198,5 @@ class Keuangan extends CI_Controller {
       redirect('keuangan_vokasi_studios/editPemasukan/'.$id);
     } 
   } 
+
 }

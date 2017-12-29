@@ -6,7 +6,6 @@ class project_model extends CI_Model {
     public function __construct(){
       parent::__construct() ;
     }
-
     public function getAllProjects($id_user){
         $condition = "id";
         $this->db->select('*');
@@ -206,6 +205,18 @@ class project_model extends CI_Model {
 
         return false ;
     }
+
+    public function getIdProject($id)
+    {
+        $this->db->select('crew.id_project as id_project');
+        $this->db->from('staff') ;
+        $this->db->join('crew', 'staff.id_staff=crew.id_staff', 'left');
+        $this->
+        $query = $this->db->get();
+        $result = $query->result();
+        return $result;
+    }
+
 }
 
 ?>

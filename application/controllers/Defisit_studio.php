@@ -23,7 +23,7 @@ class Defisit_studio extends CI_Controller {
     $this->load->view('home', $data) ;
   }
 
-  public function defisit_studio(){
+  public function all(){
     $data = array(
       'page' => 'dashboard/keuangan/defisit_studio',
       'result' => $this->defisit_studio_model->viewDefisitVokasi(),
@@ -166,3 +166,4 @@ class Defisit_studio extends CI_Controller {
     } 
   } 
 }
+?>
