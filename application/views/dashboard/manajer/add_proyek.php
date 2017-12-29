@@ -45,7 +45,7 @@
             <div class="form-group">
                 <label> Status</label>
                 <select class="form-control" name="status" id="status"  required>
-                    <option value="on_process" <?php echo isset($edit) ? ($result->status == 'on_process' ? 'selected' : '') : '' ?>> ON PROSESS</option>
+                    <option value="on process" <?php echo isset($edit) ? ($result->status == 'on_process' ? 'selected' : '') : '' ?>> ON PROSESS</option>
                     <option value="done" <?php echo isset($edit) ? ($result->status == 'done' ? 'selected' : '') : '' ?>> DONE </option>
                     <option value="canceled" <?php echo isset($edit) ? ($result->status == 'canceled' ? 'selected' : '') : '' ?>> CANCELED</option>
                 </select>
@@ -80,15 +80,17 @@
                     ?>
                 </select>
             </div>
+            <?php if(!isset($edit)){ ?>
             <div class="form-group">
                 <label>Manajer Proyek</label>
                 <select name="manpro" id="manpro" class="form-control">
                     <option>-- Pilih Manajer Proyek --</option>
                 <?php foreach($staffs as $staff){ ?>
-                    <option value="<?php echo $staff->id_staff?>" <?php echo isset($edit) ? ($result->id_staff == $staff->id_staff ? 'selected' : '') : ''?>><?php echo $staff->name?></option>
+                    <option value="<?php echo $staff->id_staff?>"><?php echo $staff->name?></option>
                 <?php }?>
                 </select>
             </div>
+            <?php } ?>
 
             <input type="submit" class="btn btn-primary" name="submit" id="submit" value="Simpan" onClick="return confirm('Apakah anda yakin data yang anda isikan sudah benar dan sesuai?\nData yang disimpan sudah tidak dapat diubah lagi.')">
         <?php echo form_close()?>

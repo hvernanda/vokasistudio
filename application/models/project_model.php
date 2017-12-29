@@ -58,7 +58,7 @@ class project_model extends CI_Model {
         $this->db->join('staff', 'staff.id_staff = crew.id_staff', 'left') ;
         $this->db->join('user', 'user.id_user = staff.id_user', 'left') ;
         $this->db->where('project.id_project', $id_project);
-        $this->db->where('crew.id_crew_role', '1') ;
+        // $this->db->where('crew.id_crew_role', '1') ;
         // $this->db->order_by('crew.id_crew', 'desc') ;
         // $this->db->limit(1) ;
 
@@ -188,15 +188,15 @@ class project_model extends CI_Model {
         return $input ? true : false ;
     }
 
-    public function update_project($id, $data, $manajer, $types){
+    public function update_project($id, $data,/* $manajer,*/ $types){
         $this->db->where('id_project', $id) ;
         $query = $this->db->update('project', $data) ;
 
         if($query){
             $types = explode(',', $types) ;
-            $manpro_data = array(
-                'id_staff' => $manajer
-            ) ;
+            // $manpro_data = array(
+            //     'id_staff' => $manajer
+            // ) ;
 
             $this->db->where('id_project', $id) ;
             $this->db->delete('projecttype') ;
@@ -209,9 +209,8 @@ class project_model extends CI_Model {
                 $this->db->insert('projecttype', $data_type) ;
             }
 
-            $this->db->where('id_project', $id) ;
-            $this->db->where('id_status', '1') ;
-            $this->db->update('crew', $manpro_data) ;
+            // $this->db->where('id_project', $id) ;
+            // $this->db->update('crew', $manpro_data) ;
             
             return true ;
         }

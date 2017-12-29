@@ -96,7 +96,7 @@
           $this->load->view('home', $data) ;
         }else{
           $nama = $this->input->post('nama');
-          $dealtime = $this->input-> post('deadltime');
+          $dealtime = $this->input-> post('dealtime');
           $price = $this->input->post('price');
           $deadline  = $this->input->post('deadline');
           $revision_deadline  =$this->input->post('revisiondate');
@@ -198,13 +198,13 @@
         $this->form_validation->set_rules('revisiondate', 'Revision Date', 'required') ;
         $this->form_validation->set_rules('downpayment', 'Down Payment', 'required') ;
         $this->form_validation->set_rules('id_contact', 'Contact', 'required') ;
-        $this->form_validation->set_rules('manpro', 'Manajer Proyek', 'required') ;
+        // $this->form_validation->set_rules('manpro', 'Manajer Proyek', 'required') ;
         $this->form_validation->set_rules('type[]', 'Type', 'required') ;
 
         if($this->form_validation->run() == FALSE){
           $this->load->view('home', $data) ;
         }else{
-          $manpro = $this->input ->post('manpro');
+          // $manpro = $this->input ->post('manpro');
           $types = implode(',', $this->input->post('type')) ;
 
           $data = array(
@@ -218,7 +218,7 @@
             'id_contact' => $this->input->post('id_contact')
           ) ;
 
-          if($this->project_model->update_project($id_proyek, $data, $manpro, $types))
+          if($this->project_model->update_project($id_proyek, $data, /*$manpro,*/ $types))
             redirect('/project/all') ;
           else
             redirect('/project/edit/'.$id_proyek) ;
