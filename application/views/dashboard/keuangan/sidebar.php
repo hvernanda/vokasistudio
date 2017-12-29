@@ -18,12 +18,17 @@
       </a>
     </li>
     <li>
-      <a href="#">
+      <a href="<?php echo base_url('defisit_studio/all')?>">
+        <i class="fa fa-circle"></i> Defisit Keuangan Studio
+      </a>
+    </li>
+    <li>
+      <a href="<?php echo base_url('riwayat_keuangan_proyek/all')?> ">
         <i class="fa fa-circle"></i> Keuangan Proyek
       </a>
     </li>
     <li>
-      <a href="#">
+      <a href="<?php echo base_url('Honor_kru/honor_kru')?>">
         <i class="fa fa-circle"></i> Honor Kru
       </a>
     </li>

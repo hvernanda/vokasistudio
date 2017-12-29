@@ -7,7 +7,8 @@ class Keuangan extends CI_Controller {
     parent::__construct() ;
     $this->load->model('user_login_model');
     $this->load->model('keuangan_studio_model');
-    $this->load->model('staff_model'); 
+    $this->load->model('staff_model');    
+    $this->load->model('defisit_studio_model'); 
 
     if(!$this->user_login_model->checkLogged())
       redirect('/') ;
