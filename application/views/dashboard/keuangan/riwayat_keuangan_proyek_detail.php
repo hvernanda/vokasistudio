@@ -25,72 +25,81 @@
           $honor = $row->honor; 
       } 
     ?>
-    <table class="detail-proyek">
-    <?php foreach ($result as $row): ?>
-      <tr>
-        <td>Nama Project </td>
-        <td> &nbsp; : &nbsp; </td>
-        <td><?= $row->name; ?></td>
-      </tr>
-      <tr>
-        <td>Harga </td>
-        <td> &nbsp; : &nbsp; </td>
-        <td><?php $number1 = preg_replace("/[^0-9]/s", "", $row->price); echo number_format( $number1 , 0 ,'' , '.' ); ?></td>
-      </tr>
-      <tr>
-        <td>DP </td>
-        <td> &nbsp; : &nbsp; </td>
-        <td><?php $number2 = preg_replace("/[^0-9]/s", "", $row->DP); echo number_format( $number2 , 0 ,'' , '.' ); ?></td>
-      </tr>
-      <tr>
-        <td>Kurang </td>
-        <td> &nbsp; : &nbsp; </td>
-        <td><?php $number3 = preg_replace("/[^0-9]/s", "", $row->price - $row->DP); echo number_format( $number3 , 0 ,'' , '.' ); ?></td>
-      </tr>
-      <tr>
-        <td>Status </td>
-        <td> &nbsp; : &nbsp; </td>
-        <td><?php 
-        if($row->status == 'on process')
-            echo '<span class="label label-warning">On process</span>' ;
-        elseif($row->status == 'done')
-            echo '<span class="label label-success">Done</span>' ;
-        else
-            echo '<span class="label label-danger">Canceled</span>' ; 
-        ?></td>
-      </tr>
-    <?php endforeach; ?>
+    <div class="row">
+      <div class="col-md-6">
+        <table class="detail-proyek">
+        <?php foreach ($result as $row): ?>
+          <tr>
+            <td>Nama Project </td>
+            <td> &nbsp; : &nbsp; </td>
+            <td><?= $row->name; ?></td>
+          </tr>
+          <tr>
+            <td>Harga </td>
+            <td> &nbsp; : &nbsp; </td>
+            <td><?php $number1 = preg_replace("/[^0-9]/s", "", $row->price); echo number_format( $number1 , 0 ,'' , '.' ); ?></td>
+          </tr>
+          <tr>
+            <td>DP </td>
+            <td> &nbsp; : &nbsp; </td>
+            <td><?php $number2 = preg_replace("/[^0-9]/s", "", $row->DP); echo number_format( $number2 , 0 ,'' , '.' ); ?></td>
+          </tr>
+          <tr>
+            <td>Kurang </td>
+            <td> &nbsp; : &nbsp; </td>
+            <td><?php $number3 = preg_replace("/[^0-9]/s", "", $row->price - $row->DP); echo number_format( $number3 , 0 ,'' , '.' ); ?></td>
+          </tr>
+          <tr>
+            <td>Status </td>
+            <td> &nbsp; : &nbsp; </td>
+            <td><?php 
+            if($row->status == 'on process')
+                echo '<span class="label label-warning">On process</span>' ;
+            elseif($row->status == 'done')
+                echo '<span class="label label-success">Done</span>' ;
+            else
+                echo '<span class="label label-danger">Canceled</span>' ; 
+            ?></td>
+          </tr>
+        <?php endforeach; ?>
 
-      <?php foreach ($viewKeuangan as $row) { ?>
-      <tr>
-        <td>Total Pemasukan </td>
-        <td> &nbsp; : &nbsp; </td>
-        <td><?php $number4 = $pemasukan; echo number_format( $number4 , 0 ,'' , '.' ); ?></td>
-      </tr>
-      <tr>
-        <td>Total Pengeluaran </td>
-        <td> &nbsp; : &nbsp; </td>
-        <td><?php $number4 = $pengeluaran + $honor; echo number_format( $number4 , 0 ,'' , '.' ); ?></td>
-      </tr>
-      <tr>
-        <td>Sisa Uang </td>
-        <td> &nbsp; : &nbsp; </td>
-        <td><?php $number4 = $row->sisa_uang + $pemasukan; echo number_format( $number4 , 0 ,'' , '.' ); ?></td>
-      </tr>
-      <?php } ?>
-      <tr>
-        <td>Pengeluaran </td>
-        <td> &nbsp; : &nbsp; </td>
-        <td></td>
-      </tr>
-    </table>
-    <img src="<?php echo base_url()?>assets/img/film-tengkorak.jpg">
-    <div class="btn-normal">
-      <a href="##" target="_blank" onclick="printDiv()">
-        <button type="button" class="btn btn-primary">Cetak</button>
-      </a>
+          <?php foreach ($viewKeuangan as $row) { ?>
+          <tr>
+            <td>Total Pemasukan </td>
+            <td> &nbsp; : &nbsp; </td>
+            <td><?php $number4 = $pemasukan; echo number_format( $number4 , 0 ,'' , '.' ); ?></td>
+          </tr>
+          <tr>
+            <td>Total Pengeluaran </td>
+            <td> &nbsp; : &nbsp; </td>
+            <td><?php $number4 = $pengeluaran + $honor; echo number_format( $number4 , 0 ,'' , '.' ); ?></td>
+          </tr>
+          <tr>
+            <td>Sisa Uang </td>
+            <td> &nbsp; : &nbsp; </td>
+            <td><?php $number4 = $row->sisa_uang + $pemasukan; echo number_format( $number4 , 0 ,'' , '.' ); ?></td>
+          </tr>
+          <?php } ?>
+          <tr>
+            <td>Pengeluaran </td>
+            <td> &nbsp; : &nbsp; </td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6 text-right">
+        <img src="<?php echo base_url()?>assets/img/film-tengkorak.jpg">
+      </div>
     </div>
-    
+    <div class="row">
+      <div class="col-md-6">
+        <div class="btn-normal">
+          <a href="##" target="_blank" onclick="printDiv()">
+            <button type="button" class="btn btn-primary">Cetak</button>
+          </a>
+        </div>
+      </div>
+    </div>
     <!-- Main content -->
     <section class="content">
 

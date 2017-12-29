@@ -63,19 +63,27 @@
           if(!empty($this->input->post('password'))) 
             $user_data['password'] = md5($this->input->post('password')) ;
 
-          if(!empty($this->upload->data('file_name'))){
+          if(!empty($_FILES['photo']['name'])){
             $staff_data['photo'] = $_FILES['photo']['name'] ;
             $config['upload_path'] = './uploads/img/' ;
             $config['allowed_types'] = 'gif|jpg|png' ;
 
             $this->upload->initialize($config) ;
           }
-
-          if($this->user_login_model->update_user($id, $user_data, $staff_data) && $this->upload->do_upload('photo'))
-            redirect('/user/profile/'.$id) ;
-          else{
-            $this->session->set_flashdata('errormsg', 'Update data failed!') ;
-            redirect('/user/profile/'.$id) ;
+          if(!empty($_FILES['photo']['name'])){
+            if($this->user_login_model->update_user($id, $user_data, $staff_data) && $this->upload->do_upload('photo'))
+              redirect('/user/profile/'.$id) ;
+            else{
+              $this->session->set_flashdata('errormsg', 'Update data failed!') ;
+              redirect('/user/profile/'.$id) ;
+            }  
+          }else{
+            if($this->user_login_model->update_user($id, $user_data, $staff_data))
+              redirect('/user/profile/'.$id) ;
+            else{
+              $this->session->set_flashdata('errormsg', 'Update data failed!') ;
+              redirect('/user/profile/'.$id) ;
+            }
           }
         }
       }else{

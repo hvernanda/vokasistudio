@@ -97,11 +97,11 @@ class staff_model extends CI_Model {
 
       $query = $this->db->query($sql);
       
-      if ($query->num_rows() != 0) {
+      //if ($query->num_rows() != 0) {
           return $query->result();
-      } else {
-          return false;
-      }
+    //   } else {
+    //       return false;
+    //   }
     } 
 
     public function getProjectList($id_user){
@@ -156,7 +156,7 @@ class staff_model extends CI_Model {
     }
 
     public function get_projects_user($id){
-        $this->db->select('project.id_project, project.name, project.status, crew_role.name as role') ;
+        $this->db->select('project.* , crew_role.name as role, crew.id_crew_role') ;
         $this->db->from('project') ;
         $this->db->join('crew', 'crew.id_project = project.id_project') ;
         $this->db->join('crew_role', 'crew_role.id_crew_role = crew.id_crew_role') ;
@@ -167,6 +167,18 @@ class staff_model extends CI_Model {
         $result = $query->result() ;
 
         return $result ;
+    }
+
+    public function get_projects_penawaran_user($id){
+        $this->db->select('project.*, projectoffer.*') ;
+        $this->db->from('project') ;
+        $this->db->join('projectoffer', 'projectoffer.id_project = project.id_project') ;
+        $this->db->join('staff', 'staff.id_staff = projectoffer.id_staff') ;
+        $this->db->join('user', 'staff.id_user = user.id_user') ;
+        $this->db->where('user.id_user', $id) ;
+        $query = $this->db->get() ;
+
+        return $query->result() ;
     }
 
     public function insert_staff($nama,$email,$password, $id_user_role)
