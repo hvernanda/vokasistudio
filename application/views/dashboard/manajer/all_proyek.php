@@ -21,7 +21,6 @@
                             <th>Manajer Proyek</th>
                             <th>Nama Perusahaan</th>
                             <th>Kontak</th>
-                            <th>Progress</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
@@ -41,12 +40,6 @@
                             <td><?php echo $proyek->pm_name ? $proyek->pm_name : "NULL" ?> </td>
                             <td><?php echo $proyek->name_company ?> </td>
                             <td><?php echo $proyek->name_contact ?> </td>
-                            <td>
-                                <div class="clearfix"><span class="small pull-right">90%</span></div>
-                                <div class="progress xs">
-                                    <div class="progress-bar progress-bar-green" style="width:90%"></div>
-                                </div>
-                            </td>
                             <td><?php 
                                 if($proyek->status == 'on process')
                                     echo '<span class="label label-warning">On Process</span>' ;

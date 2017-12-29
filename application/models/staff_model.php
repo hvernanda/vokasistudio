@@ -155,6 +155,20 @@ class staff_model extends CI_Model {
       return $result;
     }
 
+    public function get_projects_user($id){
+        $this->db->select('project.id_project, project.name, project.status, crew_role.name as role') ;
+        $this->db->from('project') ;
+        $this->db->join('crew', 'crew.id_project = project.id_project') ;
+        $this->db->join('crew_role', 'crew_role.id_crew_role = crew.id_crew_role') ;
+        $this->db->join('staff', 'staff.id_staff = crew.id_staff') ;
+        $this->db->join('user', 'user.id_user = staff.id_user') ;
+        $this->db->where('user.id_user', $id) ;
+        $query = $this->db->get() ;
+        $result = $query->result() ;
+
+        return $result ;
+    }
+
     public function insert_staff($nama,$email,$password, $id_user_role)
     {
         $data = array(
@@ -318,6 +332,7 @@ class staff_model extends CI_Model {
 
         return $query ? $query : false ;
     }
+
     public function insert_tool_skill($id_tool, $skill)
     {
         $data = array(
@@ -327,6 +342,7 @@ class staff_model extends CI_Model {
 
         return $input ? true : false ;
     }
+
     public function get_staff_skill($id_user)
     {
       $this->db->select('skill.skill_name');
@@ -338,7 +354,6 @@ class staff_model extends CI_Model {
       $result = $query->result();
       return $result;
     }
-
 
     public function update_skill($id_skill, $name){
         $data = array(

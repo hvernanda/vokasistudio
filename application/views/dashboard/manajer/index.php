@@ -46,7 +46,6 @@
               <th>#</th>
               <th>Nama Proyek</th>
               <th>Status</th>
-              <th>Progress</th>
             </tr>
           </thead>
           <tbody>
@@ -56,19 +55,13 @@
               <td><?php echo $project->name ;?></td>
               <td>
                 <?php
-                  if($project->status == 'on_process')
+                  if($project->status == 'on process')
                       echo '<span class="label label-warning">On Process</span>' ;
                   elseif($project->status == 'done')
                       echo '<span class="label label-success">Finished</span>' ;
                   else
                       echo '<span class="label label-danger">Canceled</span>' ;
                 ?>
-              </td>
-              <td>
-                <div class="clearfix"><span class="small pull-right">90%</span></div>
-                <div class="progress xs">
-                    <div class="progress-bar progress-bar-green" style="width:90%"></div>
-                </div>
               </td>
             </tr>
           <?php } ?>
