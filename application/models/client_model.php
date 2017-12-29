@@ -140,6 +140,18 @@
         $result = $query->result();
         return $result;
     }
+
+    public function get_projects_user($id){
+        $this->db->select('project.id_project, project.name, project.status, user.name as manpro') ;
+        $this->db->from('project') ;
+        $this->db->join('contact', 'contact.id_contact = project.id_contact') ;
+        $this->db->join('user', 'user.id_user = contact.id_user') ;
+        $this->db->where('user.id_user', $id) ;
+        $query = $this->db->get() ;
+        $result = $query->result() ;
+
+        return $result ;
+    }
 }
 
 ?>
