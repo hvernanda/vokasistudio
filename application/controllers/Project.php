@@ -99,14 +99,14 @@
           $dealtime = $this->input-> post('deadltime');
           $price = $this->input->post('price');
           $deadline  = $this->input->post('deadline');
-          $revisionDeadline  =$this->input->post('revisiondate');
+          $revision_deadline  =$this->input->post('revisiondate');
           $status = 'on process';
           $downpayment  = $this->input->post('downpayment');
           $id_contact = $this->input ->post('id_contact');
           $manpro = $this->input ->post('manpro');
           $types = implode(',', $this->input->post('type')) ;
 
-          $input_data = $this->project_model->insert_project($nama, $dealtime, $price, $deadline, $revisionDeadline, $status, $downpayment,$id_contact, $manpro, $types);
+          $input_data = $this->project_model->insert_project($nama, $dealtime, $price, $deadline, $revision_deadline, $status, $downpayment,$id_contact, $manpro, $types);
 
           if($input_data){
             redirect('/project/all') ;
@@ -209,10 +209,10 @@
 
           $data = array(
             'name' => $this->input->post('nama'),
-            'dealTime' => $this->input->post('dealtime'),
+            'dealtime' => $this->input->post('dealtime'),
             'price' => $this->input->post('price'),
             'deadline' => $this->input->post('deadline'),
-            'revisionDeadline' => $this->input->post('revisiondate'),
+            'revision_deadline' => $this->input->post('revisiondate'),
             'status' => $this->input->post('status'),
             'DP' => $this->input->post('downpayment'),
             'id_contact' => $this->input->post('id_contact')

@@ -87,7 +87,7 @@ class project_model extends CI_Model {
         $this->db->join('project', 'projectoffer.id_project = project.id_project') ;
         $this->db->join('staff', 'projectoffer.id_staff = staff.id_staff') ;
         $this->db->join('user', 'staff.id_user = user.id_user') ;
-        $this->db->order_by('projectoffer.id_projectOffer', 'desc') ;
+        $this->db->order_by('projectoffer.id_project_offer', 'desc') ;
 		$query = $this->db->get();
 		$result = $query->result();
 		return $result;
@@ -134,7 +134,7 @@ class project_model extends CI_Model {
             'dealtime' => $dealtime,
             'price' => $price,
             'deadline' => $deadline,
-            'revisionDeadline' => $revisiondate,
+            'revision_deadline' => $revisiondate,
             'status' => $status,
             'DP' => $downpayment,
             'id_contact' => $id_contact);

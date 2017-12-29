@@ -115,7 +115,7 @@
 
     public function get_project($id_kontak)
     {
-        $this->db->select('project.id_project, project.name, project.dealTime, project.deadline');
+        $this->db->select('project.id_project, project.name, project.dealtime, project.deadline');
         $this->db->from('project');
         $this->db->join('contact','contact.id_contact = project.id_contact');
         $this->db->join('user','user.id_user=contact.id_user');
@@ -127,12 +127,12 @@
 
     public function get_project_update($id_kontak)
     {
-        $this->db->select('user.name as crew_name, project.name as project, activity.name as crew_task, activity.uploadFile as crew_file, activity.id_activity');
+        $this->db->select('user.name as crew_name, project.name as project, activity.name as crew_task, activity.upload_file as crew_file, activity.id_activity');
         $this->db->from('staff');
         $this->db->join('user','user.id_user=staff.id_user');
         $this->db->join('crew','crew.id_staff=staff.id_staff');
         $this->db->join('jobassignment','jobassignment.id_crew=crew.id_crew');
-        $this->db->join('activity','activity.id_jobAssignment=jobassignment.id_jobAssignment');
+        $this->db->join('activity','activity.id_job_assignment=jobassignment.id_job_assignment');
         $this->db->join('project','project.id_project=crew.id_project');
         $this->db->join('contact', 'contact.id_contact=project.id_contact');
         $this->db->where('contact.id_contact', $id_kontak);

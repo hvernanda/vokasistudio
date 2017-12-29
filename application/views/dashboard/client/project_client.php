@@ -25,7 +25,7 @@
                             <tr>
                                 <td><?php echo $i ?> </td>
                                 <td><?php echo $proyek->name?> </td>
-                                <td><?php echo $general->convertDate($proyek->dealTime)?> </td>
+                                <td><?php echo $general->convertDate($proyek->dealtime)?> </td>
                                 <td><?php echo $general->convertDate($proyek->deadline)?> </td>
                             </tr>
                         

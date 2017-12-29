@@ -26,7 +26,7 @@
                         <?php
                                 $i=0;
                                 foreach($result as $ts){
-                                    if($ts->id_toolskill){  
+                                    if($ts->id_tool_skill){  
                                         $i++;         
                                         ?>
                         
@@ -36,7 +36,7 @@
                             <td><?php echo $ts->skill_name ?> </td>
                             <td><?php echo $ts->tool_name ?> </td>
                             <td>
-                                <a href="<?php echo base_url('staff/edit_tool_skill/'.$ts->id_toolskill) ;?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit</a>
+                                <a href="<?php echo base_url('staff/edit_tool_skill/'.$ts->id_tool_skill) ;?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit</a>
                                 <a href="#" class="btn btn-danger btn-xs"
                                     onclick="
                                     $().ready(function(e){
@@ -51,7 +51,7 @@
                                     })
                                     .then((result) => {
                                         if(result.value){
-                                        $.get('<?php echo base_url('staff/delete_tool_skill/'.$ts->id_toolskill) ;?>')
+                                        $.get('<?php echo base_url('staff/delete_tool_skill/'.$ts->id_tool_skill) ;?>')
                                             .then((res) => {
                                             swal({
                                                 title : 'Deleted',

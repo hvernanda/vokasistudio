@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2017 at 07:49 AM
+-- Generation Time: Dec 29, 2017 at 08:59 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -33,15 +33,15 @@ CREATE TABLE `activity` (
   `name` varchar(255) NOT NULL,
   `information` varchar(255) NOT NULL,
   `date` datetime NOT NULL,
-  `fileLocation` varchar(255) NOT NULL,
-  `fileBackupLocation` varchar(255) NOT NULL,
+  `file_location` varchar(255) NOT NULL,
+  `file_backup_location` varchar(255) NOT NULL,
   `komputer` varchar(255) NOT NULL,
-  `uploadFile` varchar(255) NOT NULL,
-  `startTime` datetime NOT NULL,
-  `finishTime` datetime NOT NULL,
-  `commentByManager` text NOT NULL,
-  `commentByClient` text NOT NULL,
-  `id_jobAssignment` int(11) NOT NULL
+  `upload_file` varchar(255) NOT NULL,
+  `start_time` datetime NOT NULL,
+  `finish_time` datetime NOT NULL,
+  `comment_by_manager` text NOT NULL,
+  `comment_by_client` text NOT NULL,
+  `id_job_assignment` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -94,7 +94,7 @@ INSERT INTO `contact` (`id_contact`, `phone`, `id_user`, `id_company`) VALUES
 CREATE TABLE `crew` (
   `id_crew` int(11) NOT NULL,
   `fee` int(11) NOT NULL,
-  `paymentDate` datetime NOT NULL,
+  `payment_date` datetime NOT NULL,
   `id_staff` int(11) NOT NULL,
   `id_project` int(11) NOT NULL,
   `id_crew_role` int(11) NOT NULL
@@ -170,11 +170,11 @@ CREATE TABLE `job` (
 --
 
 CREATE TABLE `jobassignment` (
-  `id_jobAssignment` int(11) NOT NULL,
+  `id_job_assignment` int(11) NOT NULL,
   `id_job` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `reviewDate` datetime NOT NULL,
-  `acceptanceDate` datetime NOT NULL,
+  `review_date` datetime NOT NULL,
+  `acceptance_date` datetime NOT NULL,
   `deadline` datetime NOT NULL,
   `information` text NOT NULL,
   `id_crew` int(11) NOT NULL
@@ -189,14 +189,22 @@ CREATE TABLE `jobassignment` (
 CREATE TABLE `project` (
   `id_project` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `dealTime` datetime NOT NULL,
+  `dealtime` datetime NOT NULL,
   `price` int(11) NOT NULL,
   `deadline` datetime NOT NULL,
-  `revisionDeadline` datetime NOT NULL,
-  `status` enum('on process','done','canceled','') NOT NULL,
+  `revision_deadline` datetime NOT NULL,
+  `status` enum('on process','done','canceled','') NOT NULL DEFAULT 'on process',
   `DP` int(11) DEFAULT NULL,
   `id_contact` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `project`
+--
+
+INSERT INTO `project` (`id_project`, `name`, `dealtime`, `price`, `deadline`, `revision_deadline`, `status`, `DP`, `id_contact`) VALUES
+(1, 'Film Tengkulak', '0000-00-00 00:00:00', 12000, '2017-12-28 00:00:00', '2018-01-25 00:00:00', 'on process', 6000, 1),
+(2, 'Film Nelayan', '0000-00-00 00:00:00', 30000, '2017-12-29 00:00:00', '2018-01-19 00:00:00', 'on process', 15000, 1);
 
 -- --------------------------------------------------------
 
@@ -205,11 +213,20 @@ CREATE TABLE `project` (
 --
 
 CREATE TABLE `projectoffer` (
-  `id_projectOffer` int(11) NOT NULL,
+  `id_project_offer` int(11) NOT NULL,
   `id_project` int(11) NOT NULL,
   `id_staff` int(11) NOT NULL,
   `status_offer` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `projectoffer`
+--
+
+INSERT INTO `projectoffer` (`id_project_offer`, `id_project`, `id_staff`, `status_offer`) VALUES
+(1, 1, 2, -1),
+(2, 2, 2, 0),
+(3, 1, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -218,10 +235,19 @@ CREATE TABLE `projectoffer` (
 --
 
 CREATE TABLE `projecttype` (
-  `id_projectType` int(11) NOT NULL,
+  `id_project_type` int(11) NOT NULL,
   `id_project` int(11) NOT NULL,
   `id_type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `projecttype`
+--
+
+INSERT INTO `projecttype` (`id_project_type`, `id_project`, `id_type`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -260,7 +286,7 @@ INSERT INTO `skill` (`id_skill`, `skill_name`) VALUES
 --
 
 CREATE TABLE `skillmapping` (
-  `id_skillMapping` int(11) NOT NULL,
+  `id_skill_mapping` int(11) NOT NULL,
   `id_staff` int(11) NOT NULL,
   `id_skill` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -314,7 +340,7 @@ INSERT INTO `tool` (`id_tool`, `tool_name`) VALUES
 --
 
 CREATE TABLE `toolskill` (
-  `id_toolskill` int(11) NOT NULL,
+  `id_tool_skill` int(11) NOT NULL,
   `id_skill` int(11) NOT NULL,
   `id_tool` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -323,7 +349,7 @@ CREATE TABLE `toolskill` (
 -- Dumping data for table `toolskill`
 --
 
-INSERT INTO `toolskill` (`id_toolskill`, `id_skill`, `id_tool`) VALUES
+INSERT INTO `toolskill` (`id_tool_skill`, `id_skill`, `id_tool`) VALUES
 (1, 1, 1),
 (3, 1, 2);
 
@@ -338,6 +364,15 @@ CREATE TABLE `type` (
   `name` varchar(255) NOT NULL,
   `visibility` enum('0','1','','') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `type`
+--
+
+INSERT INTO `type` (`id_type`, `name`, `visibility`) VALUES
+(1, 'Film', '0'),
+(2, 'Iklan', '0'),
+(3, 'Company Profile', '0');
 
 -- --------------------------------------------------------
 
@@ -392,7 +427,7 @@ INSERT INTO `user_role` (`id_user_role`, `user_role`) VALUES
 --
 ALTER TABLE `activity`
   ADD PRIMARY KEY (`id_activity`),
-  ADD KEY `activity_ibfk_1` (`id_jobAssignment`);
+  ADD KEY `activity_ibfk_1` (`id_job_assignment`);
 
 --
 -- Indexes for table `company`
@@ -449,7 +484,7 @@ ALTER TABLE `job`
 -- Indexes for table `jobassignment`
 --
 ALTER TABLE `jobassignment`
-  ADD PRIMARY KEY (`id_jobAssignment`),
+  ADD PRIMARY KEY (`id_job_assignment`),
   ADD KEY `jobassignment_ibfk_1` (`id_crew`),
   ADD KEY `jobassignment_ibfk_2` (`id_job`);
 
@@ -464,7 +499,7 @@ ALTER TABLE `project`
 -- Indexes for table `projectoffer`
 --
 ALTER TABLE `projectoffer`
-  ADD PRIMARY KEY (`id_projectOffer`),
+  ADD PRIMARY KEY (`id_project_offer`),
   ADD KEY `id_project` (`id_project`),
   ADD KEY `id_staff` (`id_staff`);
 
@@ -472,7 +507,7 @@ ALTER TABLE `projectoffer`
 -- Indexes for table `projecttype`
 --
 ALTER TABLE `projecttype`
-  ADD PRIMARY KEY (`id_projectType`),
+  ADD PRIMARY KEY (`id_project_type`),
   ADD KEY `id_project` (`id_project`),
   ADD KEY `id_type` (`id_type`);
 
@@ -492,7 +527,7 @@ ALTER TABLE `skill`
 -- Indexes for table `skillmapping`
 --
 ALTER TABLE `skillmapping`
-  ADD PRIMARY KEY (`id_skillMapping`),
+  ADD PRIMARY KEY (`id_skill_mapping`),
   ADD KEY `skillmapping_ibfk_2` (`id_skill`),
   ADD KEY `id_staff` (`id_staff`);
 
@@ -513,7 +548,7 @@ ALTER TABLE `tool`
 -- Indexes for table `toolskill`
 --
 ALTER TABLE `toolskill`
-  ADD PRIMARY KEY (`id_toolskill`),
+  ADD PRIMARY KEY (`id_tool_skill`),
   ADD KEY `toolskill_ibfk_1` (`id_tool`),
   ADD KEY `toolskill_ibfk_2` (`id_skill`);
 
@@ -586,25 +621,25 @@ ALTER TABLE `job`
 -- AUTO_INCREMENT for table `jobassignment`
 --
 ALTER TABLE `jobassignment`
-  MODIFY `id_jobAssignment` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_job_assignment` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
-  MODIFY `id_project` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_project` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `projectoffer`
 --
 ALTER TABLE `projectoffer`
-  MODIFY `id_projectOffer` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_project_offer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `projecttype`
 --
 ALTER TABLE `projecttype`
-  MODIFY `id_projectType` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_project_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `savings`
@@ -622,7 +657,7 @@ ALTER TABLE `skill`
 -- AUTO_INCREMENT for table `skillmapping`
 --
 ALTER TABLE `skillmapping`
-  MODIFY `id_skillMapping` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_skill_mapping` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `staff`
@@ -640,13 +675,13 @@ ALTER TABLE `tool`
 -- AUTO_INCREMENT for table `toolskill`
 --
 ALTER TABLE `toolskill`
-  MODIFY `id_toolskill` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_tool_skill` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `type`
 --
 ALTER TABLE `type`
-  MODIFY `id_type` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -668,7 +703,7 @@ ALTER TABLE `user_role`
 -- Constraints for table `activity`
 --
 ALTER TABLE `activity`
-  ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`id_jobAssignment`) REFERENCES `jobassignment` (`id_jobAssignment`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`id_job_assignment`) REFERENCES `jobassignment` (`id_job_assignment`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `contact`

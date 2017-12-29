@@ -22,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label>Dealtime</label>
-                <input type="date" class="form-control" name="dealtime" value="<?php echo isset($edit) ? $result->dealTime : set_value('dealtime');?>" placeholder="dd-mm-yyy" required>
+                <input type="date" class="form-control" name="dealtime" value="<?php echo isset($edit) ? $result->dealtime : set_value('dealtime');?>" placeholder="dd-mm-yyy" required>
             </div>
             <div class="form-group">
                 <label> Price</label>
@@ -39,7 +39,7 @@
             </div>
             <div class="form-group">
                 <label>Revision Date</label>
-                <input type="date" class="form-control" name="revisiondate" value="<?php echo isset($edit) ? $result->revisionDeadline : set_value('revisiondate');?>" placeholder="dd-mm-yyy" required>
+                <input type="date" class="form-control" name="revisiondate" value="<?php echo isset($edit) ? $result->revision_deadline : set_value('revisiondate');?>" placeholder="dd-mm-yyy" required>
             </div>
             <?php if(isset($edit)){?>
             <div class="form-group">

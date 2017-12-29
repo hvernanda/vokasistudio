@@ -162,7 +162,7 @@ class Manajer_proyek extends CI_Controller {
           $data = array(
             'id_job' => $this->input->post('id_job'),
             'id_crew' => $row,
-            'acceptanceDate' => $date,
+            'acceptance_date' => $date,
             'deadline' => $this->input->post('deadline'),
             'name' => $this->input->post('namaJob'),
             'fee' => $this->input->post('upah')
@@ -208,7 +208,7 @@ class Manajer_proyek extends CI_Controller {
         'id_job' => $this->input->post('id_job'),
         'name' => $this->input->post('name'),
         'id_crew' => $row,
-        'acceptanceDate' => $date,
+        'acceptance_date' => $date,
         'deadline' => $this->input->post('deadline'),
         'name' => $this->input->post('namaJob'),
         'fee' => $this->input->post('upah')
@@ -351,7 +351,7 @@ class Manajer_proyek extends CI_Controller {
     $data = array(
       'name' => $name,
       'id_crew' => $id_crew,
-      'acceptanceDate' => $acceptance,
+      'acceptance_date' => $acceptance,
       'deadline' => $deadline
       );
     $a = $this->manajer_proyek_model->update('jobassignment', $data, $id);
@@ -373,7 +373,7 @@ class Manajer_proyek extends CI_Controller {
     $data = array (
       'name' => $name,
       'id_crew' => $id_crew,
-      'acceptanceDate' => $acceptance,
+      'acceptance_date' => $acceptance,
       'deadline' => $deadline
       );
     // print_r($data);
@@ -499,7 +499,7 @@ class Manajer_proyek extends CI_Controller {
     }
     else{
       $update = array(
-        'uploadFile' 	=> $this->upload->file_name,
+        'upload_file' 	=> $this->upload->file_name,
         );
       
       $this->manajer_proyek_model->getupdate($id, $update);
@@ -530,15 +530,15 @@ class Manajer_proyek extends CI_Controller {
     $upload_file = $this->input->post('upload_file');
 
     $input = array (
-      'id_jobassignment' => $penugasan,
+      'id_job_assignment' => $penugasan,
       'name' => $aktivitas,
       // 'date' => $date,
-      // 'startTime' => $start,
-      // 'finishTime' => $finish,
+      // 'start_time' => $start,
+      // 'finish_time' => $finish,
       'information' => $informasi,
-      'fileLocation' => $lokasi_file,
-      'fileBackupLocation' => $lokasi_backup,
-      'uploadFile' => $upload_file
+      'file_location' => $lokasi_file,
+      'file_backup_location' => $lokasi_backup,
+      'upload_file' => $upload_file
       );
   
   if(empty($penugasan) OR empty($aktivitas)){
@@ -577,7 +577,7 @@ class Manajer_proyek extends CI_Controller {
     $now 	= date('Y-m-d H:i:s');
     $now2	= date('H:i:s');
     $data 	= array(
-        'finishTime' => $now,
+        'finish_time' => $now,
       );
 
     $query = $this->manajer_proyek_model->setEndTime($this->input->post('_id'),$data);
@@ -592,8 +592,8 @@ class Manajer_proyek extends CI_Controller {
     $lokasi_backup = $this->input->post('backup');
     $data = array (
       'komputer' => $komputer,
-      'fileLocation' => $lokasi_file,
-      'fileBackupLocation' => $lokasi_backup
+      'file_location' => $lokasi_file,
+      'file_backup_location' => $lokasi_backup
       );
     if(empty($komputer) OR empty($lokasi_file) OR empty($lokasi_backup)){
       $this->session->set_flashdata('msgfalseproject','<div class="alert alert-danger">
@@ -778,7 +778,7 @@ class Manajer_proyek extends CI_Controller {
 		$data = array (
 			'name' => $name,
 			'id_crew' => $id_crew,
-			'acceptanceDate' => $acceptance,
+			'acceptance_date' => $acceptance,
 			'deadline' => $deadline
 			);
 		// print_r($data);
