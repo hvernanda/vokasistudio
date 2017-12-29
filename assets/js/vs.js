@@ -9,6 +9,8 @@ $(document).ready(function(){
 
   $('#ptype').hide() ;
   $('#sskill').hide() ;
+  $('#form-hutang').hide() ;
+  $('#hide-form-debt').hide() ;
 })
 
 function showEdit(id_type, type){
@@ -43,4 +45,15 @@ function showDeleteProyekAlert(event, id){
         return false ;
       }
     })
+}
+
+function showForm(){
+  $('#form-hutang').fadeIn() ;
+  $('#hide-form-debt').fadeIn().prop("checked", false) ;
+  $('#show-form-debt').fadeOut() ;
+}
+function hideForm(){
+  $('#form-hutang').fadeOut() ;
+  $('#show-form-debt').fadeIn().prop("checked", false) ;
+  $('#hide-form-debt').fadeOut() ;
 }
