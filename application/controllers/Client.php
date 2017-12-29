@@ -14,13 +14,6 @@ class Client extends CI_Controller {
     $this->load->model('user_login_model') ;
     $this->load->model('client_model') ;
     $this->load->model('general_model') ;
-
-/*    if($this->user_login_model->checkLogged() == false) redirect('/') ;
-    if(!$this->user_login_model->checkLogged())
-    redirect('/') ;
-    else{
-    $this->id_kontak = $this->client_model->get_contact_idol($this->session->userdata('logged_in')['id_contact'])[0]->id_kontak;
-    }*/
   }
 
   public function index(){
