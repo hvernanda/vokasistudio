@@ -165,8 +165,8 @@ class Staff extends CI_Controller {
       'page' => 'dashboard/manajer/add_tool_skill',
       'daftar' => $a,
       'list' => $b,
-        'types' => $this->staff_model->get_all_tool(),
-        'skill' => $this->staff_model->get_all_skill()
+      'types' => $this->staff_model->get_all_tool(),
+      'skill' => $this->staff_model->get_all_skill()
     ) ;
 
     if($this->input->post('submit')){

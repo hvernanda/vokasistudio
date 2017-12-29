@@ -80,6 +80,31 @@ class project_model extends CI_Model {
 		return $result;
     }
 
+    public function ambil_project_penawaran()
+    {
+        $this->db->select('project.id_project, project.name as project, user.name as manpro_name, projectoffer.status_offer as status') ;
+        $this->db->from('projectoffer') ;
+        $this->db->join('project', 'projectoffer.id_project = project.id_project') ;
+        $this->db->join('staff', 'projectoffer.id_staff = staff.id_staff') ;
+        $this->db->join('user', 'staff.id_user = user.id_user') ;
+        $this->db->order_by('projectoffer.id_projectOffer', 'desc') ;
+		$query = $this->db->get();
+		$result = $query->result();
+		return $result;
+    }
+
+    public function getFreeProjects(){
+        $this->db->distinct() ;
+        $this->db->select('project.*') ;
+        $this->db->from('project') ;
+        $this->db->join('projectoffer', 'project.id_project = projectoffer.id_project', 'left') ;
+        $this->db->where('projectoffer.status_offer', '-1') ;
+
+        $query = $this->db->get() ;
+        $result = $query->result() ;
+        return $result ;
+    }
+
     public function get_all_type(){
         $this->db->select('*') ;
         $this->db->from('type') ;
@@ -139,24 +164,18 @@ class project_model extends CI_Model {
         }    
     }
 
-    public function ambil_project_penawaran()
-    {
-        $this->db->select('project.id_project, project.name as project, user.name as manpro_name, projectoffer.status_offer as status') ;
-        $this->db->from('projectoffer') ;
-        $this->db->join('project', 'projectoffer.id_project = project.id_project') ;
-        $this->db->join('staff', 'projectoffer.id_staff = staff.id_staff') ;
-        $this->db->join('user', 'staff.id_user = user.id_user') ;
-		$query = $this->db->get();
-		$result = $query->result();
-		return $result;
-    }
-
     public function insert_project_type($name){
         $data = array(
             'name'=> $name
         ) ;
         $input = $this->db->insert('type', $data) ;
         return $input ? true : false ;
+    }
+
+    public function insert_penawaran($data){
+        $query = $this->db->insert('projectoffer', $data) ;
+
+        return $query ? true : false ;
     }
 
     public function update_project_type($id_type, $name){
