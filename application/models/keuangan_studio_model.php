@@ -17,7 +17,11 @@
 	      $this->db->limit(1);
 	      $get_index = $this->db->get('savings');
 	      return $get_index->result();
- 	}
+   }
+  public function insertSaving($data){
+    $query = $this->db->insert('savings', $data) ;
+    return $query ;
+  }
  	public function inputDataVokasi($insert){
 	  	$this->db->set($insert);
 	  	return $this->db->insert('finance');

@@ -36,7 +36,7 @@ class Keuangan extends CI_Controller {
   public function tambah_data_studio(){
     $data = array(
       'page' => 'dashboard/keuangan/tambah_data_studio',
-      'namaStaf'=> $this->keuangan_studio_model->pilih_staff(),
+      'namaStaf'=> $this->staff_model->ambil_user(),
     );
     $this->load->view('home', $data);
   }
@@ -53,24 +53,50 @@ class Keuangan extends CI_Controller {
     $amount = str_replace('.', '', $amnt);
     
     if ($keterangan == 1) {
+      if($savings == 1){
+        $saving_input = array(
+          'name' => 'tabungan',
+          'amount' => '-'.$amount
+        ) ;
+      }else{
+        $saving_input = array(
+          'name' => 'cash',
+          'amount' => '-'.$amount
+        ) ;
+      }
+      $this->keuangan_studio_model->insertSaving($saving_input) ;
+      $id_savings = $this->db->insert_id() ;
       $input = array(
         'name' => $keperluan,
         'date' => $date,
         'amount' => '-'.$amount,
         'total' => 1,
         'id_activity' => 0,
-        'id_savings' => $savings, 
+        'id_savings' => $id_savings, 
         'id_staff' => $this->id_staf,
       );
       $operration = "pengeluaran vokasi";
     } elseif ($keterangan == 2) {
+      if($savings == 1){
+        $saving_input = array(
+          'name' => 'tabungan',
+          'amount' => '+'.$amount
+        ) ;
+      }else{
+        $saving_input = array(
+          'name' => 'cash',
+          'amount' => '+'.$amount
+        ) ;
+      }
+      $this->keuangan_studio_model->insertSaving($saving_input) ;
+      $id_savings = $this->db->insert_id() ;
       $input = array(
         'name' => $keperluan,
         'amount' => '+'.$amount,
         'total' => 1,
         'date' => $date,
         'id_activity' => 0,
-        'id_savings' => $savings, 
+        'id_savings' => $id_savings, 
         'id_staff' => $this->id_staf,
       );
       $operration = "pemasukan vokasi";
