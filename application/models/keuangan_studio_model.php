@@ -104,10 +104,11 @@
   }
   public function viewEditDefisit($id)
   {
-      $this->db->select('staff.name as name, finance.amount as amount, finance.date as date, debt.status as status, debt.id_debt as id_debt'); 
+      $this->db->select('user.name as name, finance.amount as amount, finance.date as date, debt.status as status, debt.id_debt as id_debt'); 
       $this->db->from('debt');
       $this->db->join('finance', 'debt.id_finance=finance.id_finance');
       $this->db->join('staff', 'debt.id_staff=staff.id_staff');
+      $this->db->join('user', 'user.id_user = staff.id_user') ;
       $this->db->where('finance.id_finance', $id);
       $this->db->order_by('finance.date', 'desc'); 
       $get_index = $this->db->get();

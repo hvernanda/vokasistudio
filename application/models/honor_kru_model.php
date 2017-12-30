@@ -3,9 +3,10 @@
 class honor_kru_model extends CI_Model {
 	public function viewKru()
 	{
-		$this->db->select('crew.id_crew as id, staff.name as nama, project.name as proyek, jobassignment.name as tugas, crew.fee as jumlah, crew.paymentDate');
+		$this->db->select('crew.id_crew as id, user.name as nama, project.name as proyek, jobassignment.name as tugas, crew.fee as jumlah, crew.paymentDate');
 		$this->db->from('crew');
 		$this->db->join('staff', 'crew.id_staff = staff.id_staff', 'right');
+		$this->db->join('user', 'user.id_user = staff.id_user') ;
 		$this->db->join('jobassignment', 'crew.id_crew = jobassignment.id_crew', 'left');
 		$this->db->join('project', 'project.id_project = crew.id_project', 'right');
 		$this->db->group_by('crew.id_crew');
@@ -15,11 +16,12 @@ class honor_kru_model extends CI_Model {
 	}
 	public function viewKruProyek($id)
 	{
-		$this->db->select('crew.id_crew as id, staff.name as nama, project.name as proyek, jobassignment.name as tugas, crew.fee as jumlah, crew.paymentDate');
+		$this->db->select('crew.id_crew as id, user.name as nama, project.name as proyek, jobassignment.name as tugas, crew.fee as jumlah, crew.paymentDate');
 		$this->db->from('crew');
 		$this->db->where('status.name', 'crew');
 		$this->db->where('project.id_project', $id);
 		$this->db->join('staff', 'crew.id_staff = staff.id_staff', 'right');
+		$this->db->join('user', 'user.id_user = staff.id_user') ;
 		$this->db->join('status', 'crew.id_status = status.id_status', 'right');
 		$this->db->join('jobassignment', 'crew.id_crew = jobassignment.id_crew', 'left');
 		$this->db->join('project', 'project.id_project = crew.id_project', 'right');
