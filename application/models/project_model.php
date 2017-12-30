@@ -234,6 +234,33 @@ class project_model extends CI_Model {
         $result = $query->result();
         return $result;
     }
+        public function get_all_job(){
+        $this->db->select('*') ;
+        $this->db->from('job') ;
+        $query = $this->db->get() ;
+
+        $result = $query->result() ;
+        return $result ;
+    }
+        public function insert_job_type($name, $fee){
+        $data = array(
+            'name'=> $name,
+            'fee' => $fee
+        ) ;
+        $input = $this->db->insert('job', $data) ;
+        return $input ? true : false ;
+    }
+     public function update_job_type($id_type, $name, $fee){
+        $data = array(
+            'name' => $name,
+            'fee' => $fee
+        ) ;
+        $this->db->where('id_job', $id_job) ;
+        $input = $this->db->update('job', $data) ;
+
+        return $input ? true : false ;
+    }
+
 
 }
 

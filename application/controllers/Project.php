@@ -263,5 +263,67 @@
       redirect('/project/all') ;
 
     }
+    public function all_job(){
+      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+      $data = array(
+        'page' => 'dashboard/manajer/all_job',
+        'result' => $this->project_model->get_all_job()
+      ) ;
+
+      $this->load->view('home', $data) ;
+    }
+    public function add_job(){
+      if($this->user_login_model->checkManajer() == false) redirect('/project/all_job') ;
+
+      if($this->input->post('submit')){
+        $this->form_validation->set_rules('name', 'Name', 'required|trim') ;
+        $this->form_validation->set_rules('fee', 'Fee', 'required|trim') ;
+
+        if($this->form_validation->run() == FALSE){
+          $this->session->set_flashdata('warning_type', 'Project Type is required') ;
+          redirect('/project/all_job') ;
+        }else{
+          $name = $this->input->post('name') ;
+           $fee = $this->input->post('fee') ;
+
+          if($this->project_model->insert_job_type($name, $fee)){
+            redirect('/project/all_job') ;
+          }else{
+            $this->session->set_flashdata('warning_type', 'Error, insert data failed!') ;
+            redirect('/project/all_job') ;
+          }
+        }
+      }else{
+        redirect('/project/all_job') ;
+      }
+    }
+        public function edit_job(){
+      if($this->user_login_model->checkManajer() == false) redirect('/') ;
+
+      if($this->input->post('submit')){
+        $this->form_validation->set_rules('name', 'Job Type', 'required|trim') ;
+        $this->form_validation->set_rules('fee', 'Job Type', 'required|trim') ;
+
+
+        if($this->form_validation->run() == FALSE){
+          $this->session->set_flashdata('warning_edit_type', 'Project Type is required') ;
+          redirect('/project/all_job') ;
+        }else{
+          $name = $this->input->post('name') ;
+           $fee = $this->input->post('fee') ;
+          $id_job = $this->input->post('id_job') ;
+
+          if($this->project_model->update_job_type($id_job, $name, $fee)){
+            redirect('/project/all_job') ;
+          }else{
+            $this->session->set_flashdata('warning_edit_type', 'Error, update data failed!') ;
+          redirect('/project/all_job') ;
+          }
+        }
+      }else{
+        redirect('/project/all_job') ;
+      }
+    }
   }
 ?>

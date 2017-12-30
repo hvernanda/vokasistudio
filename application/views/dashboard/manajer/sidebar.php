@@ -32,6 +32,11 @@
         <i class="fa fa-circle"></i> Semua Tipe Proyek
       </a>
     </li>
+        <li>
+      <a href="<?php echo base_url('project/all_job') ;?>">
+        <i class="fa fa-circle"></i> Semua Tipe Job
+      </a>
+    </li>
   </ul>
 </li>
 <li class="treeview">
