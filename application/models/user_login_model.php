@@ -46,6 +46,17 @@ class user_login_model extends CI_Model {
 
     }
 
+    public function update_user_contact($id_user, $user_data, $contact_data){
+        $this->db->where('id_user', $id_user) ;
+
+        if($this->db->update('user', $user_data)){
+            $this->db->where('id_user', $id_user) ;
+            return $this->db->update('contact', $contact_data) ? true : false ;
+        }
+
+        return false ;
+    }
+
     public function isUser($id){
         $sql = "SELECT * from user WHERE id_user = ".$id ;
         $query = $this->db->query($sql) ;

@@ -96,5 +96,37 @@
         redirect('/user/profile/'.$id) ;
       }
     }
+    public function edit_contact($id){
+      $isUser = $this->user_login_model->isUser($id) ;
+      if($isUser == false) redirect('/user/profile/'.$this->session->userdata('logged_in')['id_user']) ;
+
+      if($this->input->post(submit)){
+        $this->form_validation->set_rules('name', 'Name', 'required|trim') ;
+        $this->form_validation->set_rules('email', 'Email Address', 'required|trim|valid_email') ;
+        $this->form_validation->set_rules('phone', 'Phone Number', 'required|trim') ;
+
+        if($this->form_validation->run() == FALSE){
+          $this->session->set_flashdata('errormsg', 'Input data dengan benar') ;
+        }else{
+          $user_data = array(
+            'name' => $this->input->post('name'),
+            'email' => $this->input->post('email')
+          ) ;
+          $contact_data = array(
+            'phone' => $this->input->post('phone')
+          ) ;
+
+          if(!empty($this->input->post('password'))) $user_data['password'] = md5($this->input->post('password')) ;
+
+          if($this->user_login_model->update_user_contact($id, $user_data, $contact_data))
+            redirect('/user/profile/'.$id) ;
+          else
+            $this->session->set_flashdata('errormsg', 'Update data failed!') ;
+            redirect('/user/profile/'.$id) ;
+        }
+      }else{
+        redirect('/user/profile/'.$id) ;
+      }
+    }
   }
 ?>

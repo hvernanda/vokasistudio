@@ -9,7 +9,7 @@
         <ul class="list-group list-group-unbordered">
           <li class="list-group-item">
             <b>Projects Involved</b>
-            <a class="pull-right">0</a>
+            <a class="pull-right"><?php echo sizeof($projects)?></a>
           </li>
         </ul>
       </div>
@@ -79,5 +79,38 @@
         </table>
       </div>
     </div>
+    <?php 
+      if($result[0]->id_user == $this->session->userdata('logged_in')['id_user']){
+    ?>
+    <div class="box box-warning">
+      <div class="box-header with-border">
+        <h4 class="box-title">User Settings</h4>
+      </div>
+      <div class="box-body">
+        <?php echo form_open(base_url('/user/edit_contact/'.$result[0]->id_user)) ;?>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" name="name" class="form-control" value="<?php echo $result[0]->nama ;?>" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" class="form-control" value="<?php echo $result[0]->email ;?>" required>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="text" name="phone" class="form-control" value="<?php echo $result[0]->phone ;?>" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" class="form-control">
+          <span class="help-block">Isi bila ingin mengubah password</span>
+        </div>
+        <div class="form-group">
+          <input type="submit" name="submit" class="btn btn-primary" value="Edit data">
+        </div>
+        <?php echo form_close() ;?>
+      </div>
+    </div>
+    <?php } ?>
   </div>
 </div>
