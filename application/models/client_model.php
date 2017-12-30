@@ -46,17 +46,29 @@
         return $result;
     }
 
-    public function ambil_user_id($id) // ambil data user client berdasarkan id
-    {
-        $this->db->select('user.id_user, user.email AS email, user.name AS nama, contact.phone, company.name AS company, contact.id_contact');
-        $this->db->from('company');
-        $this->db->join('contact','contact.id_company = company.id_company');
-        $this->db->join('user','contact.id_user= user.id_user');
-        $this->db->join('project','project.id_contact= contact.id_contact');
+    // public function ambil_user_id($id) // ambil data user client berdasarkan id
+    // {
+    //     $this->db->select('user.id_user, user.email AS email, user.name AS nama, contact.phone, company.name AS company, contact.id_contact');
+    //     $this->db->from('company');
+    //     $this->db->join('contact','contact.id_company = company.id_company');
+    //     $this->db->join('user','contact.id_user = user.id_user');
+    //     $this->db->join('project','project.id_contact = contact.id_contact');
+    //     $this->db->where('user.id_user', $id) ;
+    //     $query = $this->db->get();
+    //     $result = $query->result();
+    //     return $result;
+    // }
+
+    public function ambil_user_id($id){
+        $this->db->select('user.name as nama, user.email, contact.*, company.name as company') ;
+        $this->db->from('contact') ;
+        $this->db->join('company', 'contact.id_company = company.id_company') ;
+        $this->db->join('user', 'user.id_user = contact.id_user') ;
         $this->db->where('user.id_user', $id) ;
-        $query = $this->db->get();
-        $result = $query->result();
-        return $result;
+        $query = $this->db->get() ;
+        $result = $query->result() ;
+
+        return $result ;
     }
 
     public function ambil_user_company($id_company){
