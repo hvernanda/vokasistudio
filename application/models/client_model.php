@@ -127,11 +127,14 @@
 
     public function get_project($id_kontak)
     {
-        $this->db->select('project.id_project, project.name, project.dealtime, project.deadline');
+        $this->db->select('project.*, user.name as manpro');
         $this->db->from('project');
-        $this->db->join('contact','contact.id_contact = project.id_contact');
-        $this->db->join('user','user.id_user=contact.id_user');
-        $this->db->where('contact.id_contact', $id_kontak);
+        // $this->db->join('contact','contact.id_contact = project.id_contact');
+        $this->db->join('crew', 'crew.id_project = project.id_project', 'left') ;
+        $this->db->join('staff', 'staff.id_staff = crew.id_staff', 'left') ;
+        $this->db->join('user','user.id_user=staff.id_user');
+        $this->db->where('project.id_contact', $id_kontak);
+        $this->db->order_by('project.id_project', 'desc') ;
         $query = $this->db->get();
         $result = $query->result();
         return $result;

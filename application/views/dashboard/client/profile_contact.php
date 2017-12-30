@@ -40,10 +40,43 @@
     <h4>Projects Involved</h4>
     <p>All projects the contact involved in</p>
     <div class="box box-primary">
-      <div class="row">
-        <div class="col-md-12">
-          <h1>All projects involved here</h1>
-        </div>
+      <div class="box-header">
+        <h4 class="box-title">All Projects</h4>
+      </div>
+      <div class="box-body">
+        <table class="table table-data">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Project Name</th>
+              <th>Project Manager</th>
+              <th>Dealtime</th>
+              <th>Deadline</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php $i=0; foreach($projects as $project){ $i++; ?>
+            <tr>
+              <td><?php echo $i ;?></td>
+              <td><?php echo $project->name ;?></td>
+              <td><?php echo $project->manpro ;?></td>
+              <td><?php echo $general->convertDate($project->dealtime) ;?></td>
+              <td><?php echo $general->convertDate($project->deadline) ;?></td>
+              <td>
+              <?php
+                if($project->status == 'on process')
+                  echo '<span class="label label-warning">On Process</span>' ;
+                elseif($project->status == 'done')
+                  echo '<span class="label label-success">Done</span>' ;
+                else
+                  echo '<span class="label label-danger">Canceled</span>' ;
+              ?>
+              </td>
+            </tr>
+          <?php } ?>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

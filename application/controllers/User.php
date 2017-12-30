@@ -7,6 +7,7 @@
       $this->load->model('user_login_model') ;
       $this->load->model('staff_model') ;
       $this->load->model('client_model') ;
+      $this->load->model('general_model') ;
 
       if($this->user_login_model->checkLogged() == false) redirect('/') ;
     }
@@ -24,12 +25,16 @@
       if($this->user_login_model->checkLogged() == false) redirect('/') ;
       elseif($isUser == false) 
         redirect('/user/profile/'.$this->session->userdata('logged_in')['id_user']) ;
+      
+      if(intval($isUser[0]->id_user_role) == 4)
+        $id_kontak = $this->client_model->ambil_user_id($id) ;
 
       $data = array(
         'page' => intval($isUser[0]->id_user_role) == 4 ? 'dashboard/client/profile_contact' : 'dashboard/staff/profile',
         'result' => intval($isUser[0]->id_user_role) == 4 ? $this->client_model->ambil_user_id($id) : $this->staff_model->ambil_user_id($id),
-        'projects' => intval($isUser[0]->id_user_role) == 4 ? $this->client_model->get_projects_user($id) : $this->staff_model->get_projects_user($id),
-        'data_skill' =>$this->staff_model->get_staff_skill($id)
+        'projects' => intval($isUser[0]->id_user_role) == 4 ? $this->client_model->get_project($id_kontak[0]->id_contact) : $this->staff_model->get_projects_user($id),
+        'data_skill' =>$this->staff_model->get_staff_skill($id),
+        'general' => $this->general_model
       ) ;
 
       $this->load->view('home', $data) ;
