@@ -3,7 +3,7 @@
 class honor_kru_model extends CI_Model {
 	public function viewKru()
 	{
-		$this->db->select('crew.id_crew as id, user.name as nama, project.name as proyek, jobassignment.name as tugas, crew.fee as jumlah, crew.paymentDate');
+		$this->db->select('crew.id_crew as id, user.name as nama, project.name as proyek, jobassignment.name as tugas, crew.fee as jumlah, crew.payment_date');
 		$this->db->from('crew');
 		$this->db->join('staff', 'crew.id_staff = staff.id_staff', 'right');
 		$this->db->join('user', 'user.id_user = staff.id_user') ;
@@ -16,7 +16,7 @@ class honor_kru_model extends CI_Model {
 	}
 	public function viewKruProyek($id)
 	{
-		$this->db->select('crew.id_crew as id, user.name as nama, project.name as proyek, jobassignment.name as tugas, crew.fee as jumlah, crew.paymentDate');
+		$this->db->select('crew.id_crew as id, user.name as nama, project.name as proyek, jobassignment.name as tugas, crew.fee as jumlah, crew.payment_date');
 		$this->db->from('crew');
 		$this->db->where('status.name', 'crew');
 		$this->db->where('project.id_project', $id);
@@ -37,6 +37,6 @@ class honor_kru_model extends CI_Model {
 	    $this->db->update('crew');
   	}
 }
-//SELECT staff.name as name, project.name as proyek, jobassignment.name as tugas, crew.fee as fee, crew.paymentDate FROM staff, project, jobassignment, crew where crew.id_project = 1 AND staff.id_staff = crew.id_staff AND jobassignment.id_crew = crew.id_crew
+//SELECT staff.name as name, project.name as proyek, jobassignment.name as tugas, crew.fee as fee, crew.payment_date FROM staff, project, jobassignment, crew where crew.id_project = 1 AND staff.id_staff = crew.id_staff AND jobassignment.id_crew = crew.id_crew
 
-// SELECT `staff`.`name` as nama, `project`.`name` as proyek, `jobassignment`.`name` as tugas, `crew`.`fee` as jumlah, `crew`.`paymentDate` FROM `project`, crew LEFT JOIN `staff` ON `crew`.`id_staff` = `staff`.`id_staff` LEFT JOIN `jobassignment` ON `crew`.`id_crew` = `jobassignment`.`id_crew` WHERE `crew`.`id_project` = 1
+// SELECT `staff`.`name` as nama, `project`.`name` as proyek, `jobassignment`.`name` as tugas, `crew`.`fee` as jumlah, `crew`.`payment_date` FROM `project`, crew LEFT JOIN `staff` ON `crew`.`id_staff` = `staff`.`id_staff` LEFT JOIN `jobassignment` ON `crew`.`id_crew` = `jobassignment`.`id_crew` WHERE `crew`.`id_project` = 1

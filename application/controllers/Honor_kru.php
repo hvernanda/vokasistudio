@@ -55,7 +55,7 @@ class Honor_kru extends CI_Controller {
     }
 
     $update = array(
-      'paymentDate' => $date);
+      'payment_date' => $date);
 
     $this->honor_kru_model->updatePembayaranKru($update, $id);
     $this->session->set_flashdata('msgtrue','<div class="alert alert-success">

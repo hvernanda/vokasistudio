@@ -41,10 +41,10 @@
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" id="kalender<?= $no; ?>" class="form-control" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask="" disabled="true" name="date" value="<?php if ($row->paymentDate == '0000-00-00') {
+                    <input type="text" id="kalender<?= $no; ?>" class="form-control" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask="" disabled="true" name="date" value="<?php if ($row->payment_date == '0000-00-00') {
                       
                     } else {
-                      echo $row->paymentDate;
+                      echo $row->payment_date;
                     } ?>">
                   </div>
                 </td> 
