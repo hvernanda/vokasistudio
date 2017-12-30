@@ -7,6 +7,7 @@ class Staff extends CI_Controller {
     parent::__construct();
     $this->load->model('user_login_model') ;
     $this->load->model('staff_model');
+    $this->load->model('general_model');
 
 
     if($this->user_login_model->checkLogged() == false)
@@ -42,10 +43,13 @@ class Staff extends CI_Controller {
     $data = array(
       'page' => 'dashboard/staff/index',
       'isi' => $this->staff_model->getProjectList($id_user),
+      'result' => $this->staff_model->get_projects_user($id_user),
+      'offers' => $this->staff_model->get_projects_penawaran_user($id_user),
       'project_count' => $this->staff_model->getProjectCount($id_user),
       'manajer_count' => $manajer_count,
       'keuangan_count' => $keuangan_count,
-      'crew_biasa_count' => $crew_biasa_count
+      'crew_biasa_count' => $crew_biasa_count,
+      'general' => $this->general_model
     );
     $this->load->view('home',$data);
   }

@@ -1,8 +1,11 @@
 <li>
-  <a href="<?php echo base_url('') ;?>">
+  <a href="<?php echo base_url('/staff') ;?>">
     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
   </a>
 </li>
+<li><a href="#"><i class="fa fa-camera"></i><span>Manajer Proyek</span></a></li>
+<li><a href="#"><i class="fa fa-money"></i><span>Keuangan Proyek</span></a></li>
+<li><a href="#"><i class="fa fa-user"></i><span>Crew Proyek</span></a></li>
 <!-- <li class="treeview">
   <a href="#">
     <i class="fa fa-book"></i>
